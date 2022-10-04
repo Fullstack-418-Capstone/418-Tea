@@ -1,0 +1,23 @@
+{
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "Just a test for push/mergine -fred",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fullstack-418-Capstone/418-Tea.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fullstack-418-Capstone/418-Tea/issues"
+  },
+  "homepage": "https://github.com/Fullstack-418-Capstone/418-Tea#readme",
+  "dependencies": {
+    "pg": "^8.8.0"
+  }
+}

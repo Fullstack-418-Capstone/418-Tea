@@ -32,7 +32,8 @@ router.post("/", async (req, res, next) => {
 //get the address
 //GET api/address
 
-router.get("/address", async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
+  const { userId } = req.params;
   const address = await getAddress(userId);
   res.send(address);
 });

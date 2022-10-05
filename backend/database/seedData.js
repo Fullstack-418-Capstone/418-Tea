@@ -1,4 +1,6 @@
 const client = require("./client");
+const {createUser} = require ("./users")
+const {createAddress} = require ("./addresses")
 
 const createTables = async () => {
   try {
@@ -37,7 +39,7 @@ const createTableUsers = async () => {
         username VARCHAR(30) NOT NULL,
         password VARCHAR (255) NOT NULL,
         email VARCHAR(255) NOT NULL,
-        isadmin boolean DEFAULT false,
+        "isAdmin" boolean DEFAULT false,
         "addressId" INTEGER REFERENCES addresses(id),
         UNIQUE (username, email)
       );
@@ -119,12 +121,69 @@ const createTableOrdersProducts = async() => {
   }
 }
 
+/* 
+
+              MAKING TEST DATA
+*/
+const createInitialUsers = async() => {
+  //creates users and addresses for each user
+  console.log('starting create initial users');
+  const addressOne = {
+    address1: '123 Main Street',
+    address2: 'apt 456',
+    city: 'Boston',
+    state: 'MA',
+    zipcode: '02108'
+   }
+   //const { id: idOne } = await createAddress(addressOne)
+   const userOne = {
+    username: 'IronMan',
+    password: 'thanksJarvis',
+    firstname: 'Tony',
+    lastname: 'Stark',
+    email: 'theSmartAvenger@gmail.com',
+    address: addressOne,
+    isAdmin: true
+   }
+  const createUserOneResult = await createUser(userOne)
+  console.log('result of create user one', createUserOneResult)
+  const addressTwo = {
+    address1: '250 52nd street ',
+    city: 'Gotham',
+    state: 'NJ',
+    zipcode: '07015'
+   }
+   //const { id: idTwo } = await createAddress(addressTwo)
+   const userTwo = {
+    username: 'assistantDA',
+    password: 'futureAG',
+    firstname: 'Rachel',
+    lastname: 'Dawes',
+    email: 'crispygirl@gmail.com',
+    address: addressTwo,
+    isAdmin: true
+   }
+   const createUserTwoResult = await createUser(userTwo)
+  console.log('result of create user Two', createUserTwoResult)
+  console.log('finsihed created two initial users and addresses')
+}
+
+
+
+
+
+
+
+
 const rebuildDB = async () => {
   try {
     await dropTables();
     await createTables();
+    await createInitialUsers();
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;
   }
 };
+
+rebuildDB();

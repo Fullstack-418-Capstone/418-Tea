@@ -7,7 +7,7 @@ const createAddress = async(address) => {
         const {rows : [address] } = await client.query(`
             INSERT INTO addresses (address1, address2, city, state, zipcode)
             VALUES ($1, $2, $3, $4, $5)
-            RETURNING *
+            RETURNING *;
         `, [address1, address2 ? address2 : null, city, state, zipcode ])
 
         return address
@@ -23,7 +23,7 @@ const getAddress = async(userId) => {
             SELECT addresses.*
             FROM users
             JOIN addresses ON users.address = addresses.id
-            WHERE users.id = $1
+            WHERE users.id = $1;
         `, [userId])
 
         return address
@@ -46,7 +46,7 @@ const editAddress = async({id, ...fields}) => {
             UPDATE addresses
             SET ${setString}
             WHERE id = ${id}
-            RETURNING *
+            RETURNING *;
         `, Object.values(fields))
 
         return updatedAddress
@@ -56,9 +56,24 @@ const editAddress = async({id, ...fields}) => {
 }
 
 //Delete Address
+const deleteAddress = async(id) => {
+    try {
+        const {rows: [deletedAddress]} = await client.query(`
+            DELETE FROM addresses
+            WHERE id=$1
+            RETURNING *;
+        `, [id])
+
+        return deletedAddress
+    } catch (error) {
+        throw error
+    }
+}
 
 
 module.exports = {
     createAddress,
-    getAddress
+    getAddress,
+    editAddress,
+    deleteAddress
 }

@@ -1,9 +1,10 @@
 const client = require("./client")
+const { createAddress } = require("./addresses")
 
 //Create User
 const createUser = async ({ username, password, firstname, lastname, email, address, isAdmin}) => {
     try {
-        const userAddressId = await createAddress(address);
+        const {id: userAddressId} = await createAddress(address);
     
         const { rows } = await client.query(`
         INSERT INTO users(

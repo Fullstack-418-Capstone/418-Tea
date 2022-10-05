@@ -7,7 +7,7 @@ const createAddress = async(address) => {
         const {rows : [address] } = await client.query(`
             INSERT INTO addresses (address1, address2, city, state, zipcode)
             VALUES ($1, $2, $3, $4, $5)
-            RETURNING id
+            RETURNING *
         `, [address1, address2 ? address2 : null, city, state, zipcode ])
 
         return address
@@ -33,6 +33,27 @@ const getAddress = async(userId) => {
 }
 
 //Edit Address
+const editAddress = async({id, ...fields}) => {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${ key }"=$${ index + 1 }`
+    ).join(', ');
+    
+    if(setString.length === 0) {
+        return;
+    }
+    try {
+        const {rows: [updatedAddress]} = await client.query(`
+            UPDATE addresses
+            SET ${setString}
+            WHERE id = ${id}
+            RETURNING *
+        `, Object.values(fields))
+
+        return updatedAddress
+    } catch (error) {
+        throw error
+    }
+}
 
 //Delete Address
 

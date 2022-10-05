@@ -173,7 +173,7 @@ const createInitialProducts = async()  => {
     const productsToCreate = [
       {
         name: 'Asian Green Tea',
-        imgurl: 'not available',
+        imgurl: '456url',
         description: "Take a sip of liquid silver",
         stock: 35,
         unit: "canister",
@@ -181,7 +181,7 @@ const createInitialProducts = async()  => {
         price: 24
     },{
       name: 'Ehugos Glass Teapot',
-      imgurl: 'not available',
+      imgurl: '123url',
       description: "Sit back, watch, and KNOW when you're tea is ready",
       stock: 4,
       unit: "each",

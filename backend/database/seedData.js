@@ -101,7 +101,7 @@ const createTableCarts = async() => {
     throw error;
   }
 }
-//making user id reference users table //ADDING status
+
 const createTableOrders = async() => {
   try {
     await client.query(`
@@ -116,7 +116,7 @@ const createTableOrders = async() => {
     throw error;
   }
 }
-//review if these should be unique
+
 const createTableOrderedProducts = async() => {
   try {
     await client.query(`

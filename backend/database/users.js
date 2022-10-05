@@ -26,6 +26,8 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             userAddressId,
             isAdmin
         ])
+
+        return rows;
     } catch (err) {
         console.error(err);
         throw err;

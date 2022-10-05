@@ -1,6 +1,6 @@
 const client = require("./client");
-const {createUser} = require ("./users")
-const {createAddress} = require ("./addresses")
+const {createUser} = require("./users")
+const {createProduct} = require("./products")
 
 const createTables = async () => {
   try {
@@ -167,6 +167,45 @@ const createInitialUsers = async() => {
   console.log('result of create user Two', createUserTwoResult)
   console.log('finsihed created two initial users and addresses')
 }
+const createInitialProducts = async()  => {
+  console.log('creating initial products...');
+  try {
+    const productsToCreate = [
+      {
+        name: 'Asian Green Tea',
+        imgurl: '456url',
+        description: "Take a sip of liquid silver",
+        stock: 35,
+        unit: "canister",
+        type: "loose",
+        price: 24
+    },{
+      name: 'Ehugos Glass Teapot',
+      imgurl: '123url',
+      description: "Sit back, watch, and KNOW when you're tea is ready",
+      stock: 4,
+      unit: "each",
+      type: "pot",
+      price: 32
+    }, {
+      name: 'Lipton Earl Grey',
+      description: "Take a sip of liquid silver",
+      stock: 3,
+      unit: "box",
+      type: "bagged",
+      price: 19
+    }]
+  
+    const products = await Promise.all(productsToCreate.map(createProduct));
+    console.log("Products created:")
+    console.log(products)
+    console.log("Finished creating initial products")  
+  } catch (error){
+    console.error('issue creating initial products');
+    throw error;
+  }  
+}
+
 
 
 
@@ -180,6 +219,7 @@ const rebuildDB = async () => {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialProducts();
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

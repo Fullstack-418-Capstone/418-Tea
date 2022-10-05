@@ -14,7 +14,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             password, 
             email, 
             "addressId",
-            isadmin
+            "isAdmin"
         ) VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING *
         ;`, [
@@ -60,7 +60,7 @@ const getUserByUserId = async(userId) => {
 //Admin Update Users for making another person an Admin.
 
 
-module.export = {
+module.exports = {
     createUser,
     getUserByUserId
 }

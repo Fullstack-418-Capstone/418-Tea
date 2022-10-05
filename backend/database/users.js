@@ -6,7 +6,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
     try {
         const {id: userAddressId} = await createAddress(address);
     
-        const { rows } = await client.query(`
+        const { rows: [newUser] } = await client.query(`
         INSERT INTO users(
             firstname, 
             lastname, 
@@ -27,31 +27,68 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             isAdmin
         ])
 
-        return rows[0];
+        return newUser;
     } catch (err) {
         console.error(err);
         throw err;
     }
-} 
+};
 
 //Get User
 const getUserByUserId = async(userId) => {
-    const { rows } = client.query(`
+    try{
+        const { rows: [user] } = client.query(`
         SELECT *
         FROM users
         WHERE id = $1
         ;`, [userId]
-    )
+        )
 
-    return rows[0];
-}
+        return user;
 
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+};
 
 
 //Get All Users
-
+const getAllUsers = () => {
+    try{
+        const { rows: allUsers } = client.query(`
+        SELECT *
+        FROM users;`
+        )
+        
+        return allUsers;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+}
 
 //Edit User by ID
+const editUser = ({userId, ...fields}) => {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${key}" = $${ index + 1}`
+    ).join(', ');
+
+    if (setString.length === 0) return;
+
+    try{
+        const { rows: [updatedUser] } = client.query(`
+            UPDATE users
+            SET ${setString}
+            WHERE id = $1;
+        `, [userId]);
+
+        return updatedUser;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+};
 
 
 //Delete User by ID
@@ -62,5 +99,7 @@ const getUserByUserId = async(userId) => {
 
 module.exports = {
     createUser,
-    getUserByUserId
+    getUserByUserId,
+    getAllUsers,
+    editUser,
 }

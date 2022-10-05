@@ -6,9 +6,7 @@
 
 //Get Orders by UserId
 
-//Get "Cart" by UserId
-
-//Get Total Price
+//Get "Cart" by UserId (The active order)
 
 //Delete Order?
 

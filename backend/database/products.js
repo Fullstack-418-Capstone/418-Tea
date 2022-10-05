@@ -51,7 +51,7 @@ const getProductsByType = async(type) => {
             SELECT *
             FROM products
             WHERE type=$1;
-        `)
+        `, [type])
 
         return products
     } catch (error) {
@@ -89,7 +89,7 @@ const deleteProduct = async(id) => {
             DELETE FROM products
             WHERE id=$1
             RETURNING *;
-        `)
+        `, [id])
 
         return deletedProduct
     } catch (error) {

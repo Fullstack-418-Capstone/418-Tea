@@ -26,6 +26,8 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             userAddressId,
             isAdmin
         ])
+
+        return rows[0];
     } catch (err) {
         console.error(err);
         throw err;
@@ -33,22 +35,32 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
 } 
 
 //Get User
-const getUserByUserId
+const getUserByUserId = async(userId) => {
+    const { rows } = client.query(`
+        SELECT *
+        FROM users
+        WHERE id = $1
+        ;`, [userId]
+    )
 
-const getUserByUsername
+    return rows[0];
+}
+
+
 
 //Get All Users
-const getAllUsers
 
-//Edit User
-const editUser(id, edit stuff)
 
-//Delete User
-const deleteUser(id)
+//Edit User by ID
+
+
+//Delete User by ID
+
 
 //Admin Update Users for making another person an Admin.
-const updateAdmin
+
 
 module.export = {
-    createUser
+    createUser,
+    getUserByUserId
 }

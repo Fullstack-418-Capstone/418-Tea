@@ -5,9 +5,8 @@ const createTables = async () => {
     await createTableAddresses();
     await createTableUsers();
     await createTableProducts();
-    await createTableCarts();
     await createTableOrders();
-    await createTableOrderedProducts();
+    await createTableOrdersProducts();
   } catch (error) {
     throw error;
   }
@@ -16,9 +15,8 @@ const createTables = async () => {
 const dropTables = async () => {
   try {
     await client.query(`
-    DROP TABLE IF EXISTS ordered_products;
+    DROP TABLE IF EXISTS orders_products;
     DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS addresses;
     DROP TABLE IF EXISTS products;
@@ -40,7 +38,7 @@ const createTableUsers = async () => {
         password VARCHAR (255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         isadmin boolean DEFAULT false,
-        address INTEGER REFERENCES addresses(id),
+        "addressId" INTEGER REFERENCES addresses(id),
         UNIQUE (username, email)
       );
     `);
@@ -87,28 +85,15 @@ const createTableProducts = async() => {
     throw error;
   }
 }
-const createTableCarts = async() => {
-  try {
-    await client.query(`
-      CREATE TABLE carts(
-        userid INTEGER REFERENCES users(id),
-        productid INTEGER REFERENCES products(id),
-        quantity INTEGER
-      );
-    `);
-  }catch (error) {
-    console.error("error during create carts table!");
-    throw error;
-  }
-}
 
 const createTableOrders = async() => {
   try {
     await client.query(`
       CREATE TABLE orders(
         id SERIAL PRIMARY KEY,
-        userid INTEGER REFERENCES users(id),
-        status VARCHAR(32)
+        "userId" INTEGER REFERENCES users(id),
+        status VARCHAR(32),
+        "isOpen" BOOLEAN DEFAULT true
       );
     `);
   }catch (error) {
@@ -117,19 +102,19 @@ const createTableOrders = async() => {
   }
 }
 
-const createTableOrderedProducts = async() => {
+const createTableOrdersProducts = async() => {
   try {
     await client.query(`
-      CREATE TABLE ordered_products(
+      CREATE TABLE orders_products(
         id SERIAL PRIMARY KEY,
-        orderid INTEGER REFERENCES orders(id),
-        productid INTEGER REFERENCES products(id),
+        "orderId" INTEGER REFERENCES orders(id),
+        "productId" INTEGER REFERENCES products(id),
         quantity INTEGER,
         price INTEGER
       );
     `);
   }catch (error) {
-    console.error("error during create ordered_products table!");
+    console.error("error during create orders_products table!");
     throw error;
   }
 }

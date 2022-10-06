@@ -38,12 +38,18 @@ const editOrderByOrderId = async (orderId, ...fields) => {
 
 //Get All Orders
 const getAllOrders = async () => {
-    const { rows: allOrders } = await client.query(`
-    SELECT *
-    FROM orders;
-    `);
+    try{
+        const { rows: allOrders } = await client.query(`
+        SELECT *
+        FROM orders;
+        `);
 
-    return allOrders
+        return allOrders
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+
 }
 
 //Get Open Orders

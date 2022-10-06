@@ -31,7 +31,7 @@ const getOpenCartByUser = async (userId) => {
         `, [userId]);
 
         if(openCart.length === 0 ) {
-            const cartId = createOrder(userId);
+            const cartId = await createOrder(userId);
             return cartId;
         } else {
             return openCart[0];

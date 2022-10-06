@@ -5,7 +5,7 @@ const createOrder = async (userId) => {
     try {
         const { rows: [newOrder] } = await client.query(`
         INSERT INTO orders("userId")
-        VALUE $1
+        VALUES ($1)
         RETURNING *;
         `, [userId]);
 
@@ -28,7 +28,7 @@ const getAllOrders = async () => {
     return allOrders
 }
 
-//Get Open Orders by UserId
+//Get Open Orders
 
 //Get "Cart" by UserId (The active order)
 const getOpenCartByUser = async (userId) => {

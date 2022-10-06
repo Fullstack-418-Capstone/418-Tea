@@ -8,11 +8,12 @@ import {
 
 const App = () => {
   const [loggedIn, serLoggedIn] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   return (<Router>
     <div>
         <header>
-            <Header loggedIn={loggedIn} />
+            <Header loggedIn={loggedIn} isAdmin={isAdmin} />
         </header>
         <main>
             <Routes>

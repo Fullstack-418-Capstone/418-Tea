@@ -52,6 +52,16 @@ const getUserByUserId = async(userId) => {
     }
 };
 
+//Get User by Username
+const getUserByUsername = async (username) => {
+    const { rows: [user] } = await client.query(`
+    SELECT *
+    FROM users
+    WHERE username = $1;
+    `, [username]);
+
+    return user;
+}
 
 //Get All Users
 const getAllUsers = async() => {
@@ -116,6 +126,7 @@ const deleteUser = async(userId) => {
 module.exports = {
     createUser,
     getUserByUserId,
+    getUserByUsername,
     getAllUsers,
     editUser,
     deleteUser

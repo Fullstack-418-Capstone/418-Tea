@@ -1,10 +1,22 @@
-// import React from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const BASE_URL = "http://localhost:3000/api";
+  
 
-  return <h1>What's the tea</h1>;
+  return (<Router>
+    <div>
+        <header>
+            <h1>Placeholder header</h1>
+        </header>
+        <main>
+            <Routes>
+                <Route path="/" element={<h1>Placeholder body</h1>} />
+            </Routes>
+        </main>
+    </div>
+  </Router>);
 };
 
 const container = document.getElementById("app");

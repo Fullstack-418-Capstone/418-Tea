@@ -16,19 +16,70 @@ const createOrder = async (userId) => {
     }
 };
 
-//Edit Order by ID
+//Edit Order by Order ID
+const editOrderByOrderId = async (orderId, ...fields) => {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${key}" = $${ index + 1}`
+    ).join(', ');
+    try {
+        const { rows: [editedOrder] } = await client.query(`
+        UPDATE orders
+        SET ${setString}
+        WHERE "orderId" = ${orderId}
+        RETURNING *;
+        `, Object.values(fields));
+        
+        return editedOrder;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+}
 
 //Get All Orders
 const getAllOrders = async () => {
-    const { rows: allOrders } = await client.query(`
-    SELECT *
-    FROM orders;
-    `);
+    try{
+        const { rows: allOrders } = await client.query(`
+        SELECT *
+        FROM orders;
+        `);
 
-    return allOrders
+        return allOrders
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+
 }
 
 //Get Open Orders
+const getOpenOrders = async () => {
+    try{
+        const { rows: [openOrders] } = await client.query(`
+        SELECT *
+        FROM orders
+        WHERE "isOpen" = true;
+        `);
+    
+        return openOrders
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
+//Get Orders by UserId (Open and Closed)
+const getOrdersbyUserId = async (userId) => {
+    try{
+        const { rows: orders } = await client.query(`
+        SELECT *
+        FROM orders
+        WHERE "userId" = $1;
+        `, [userId]);
+
+        return orders;
+    }
+}
 
 //Get "Cart" by UserId (The active order)
 const getOpenCartByUser = async (userId) => {
@@ -51,12 +102,30 @@ const getOpenCartByUser = async (userId) => {
     }
 };
 
-//Delete Order?
+//Delete Order
+const deleteOrder = async (orderId) => {
+    try{
+        const { rows: [deletedOrder] } = await client.query(`
+        DELETE FROM orders
+        WHERE "orderId" = $1
+        RETURNING *;
+        `, [orderId]);
+
+        return deletedOrder;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+};
 
 //Get Order by Status? 
 
 module.exports = {
     createOrder,
+    editOrderByOrderId,
     getAllOrders,
-    getOpenCartByUser
-}
+    getOpenOrders,
+    getOrdersbyUserId,
+    getOpenCartByUser,
+    deleteOrder
+};

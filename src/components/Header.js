@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 const Header = (props) => {
-    const {loggedIn} = props
+    const {loggedIn, isAdmin} = props
 
     return (
         <>
@@ -13,8 +13,9 @@ const Header = (props) => {
                 <Link to='/tea-ware' >Tea Ware</Link> <br/>
                 <Link to='/tea' >Tea</Link> <br/>
                 <Link to='/cart/:userId' >Cart</Link> <br/>
-                {loggedIn ? null : <Link to='/register' >Register</Link> } <br/>
+                {loggedIn ? null : <><Link to='/register' >Register</Link> <br/> </> }
                 {loggedIn ? <Link to='/logout' >Log Out</Link> : <Link to='/login' >Log In</Link> } <br/>
+                {isAdmin ? <Link to='/admin-view' >Admin Items</Link> : null }
             </nav>
         </>
     )

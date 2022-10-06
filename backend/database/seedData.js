@@ -1,6 +1,7 @@
 const client = require("./client");
 const {createUser} = require("./users")
-const {createProduct} = require("./products")
+const {createProduct, getProductById} = require("./products");
+const { createNewOrdersProduct, getOpenCartProductsByUserName } = require("./orders_products");
 
 const createTables = async () => {
   try {
@@ -195,7 +196,6 @@ const createInitialProducts = async()  => {
       type: "bagged",
       price: 19
     }]
-  
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:")
     console.log(products)
@@ -205,11 +205,42 @@ const createInitialProducts = async()  => {
     throw error;
   }  
 }
-
-
-
-
-
+const createInitialCarts = async() => {
+  console.log('creating initial carts...');
+  try {
+    const {price: priceOne} = await getProductById(2)
+    const addToCartsToCreate = [
+      {
+        userId: 1,
+        productId: 2,
+        quantity: 2,
+        price: priceOne
+      }, {
+        userId: 1,
+        productId: 3,
+        quantity: 1,
+        price: 19
+      }, {
+        userId: 2,
+        productId:3,
+        quantity:1,
+        price:19
+      }
+    ]
+   // const  addedCarts = await Promise.all(cartsToCreate.map(createNewOrdersProduct))
+    const addOne = await createNewOrdersProduct(addToCartsToCreate[0])
+   //console.log('addOne', addOne)
+    const addTwo = await createNewOrdersProduct(addToCartsToCreate[1])
+    const addThree = await createNewOrdersProduct(addToCartsToCreate[2])
+    const addedCarts = [addOne, addTwo, addThree]
+    console.log('carts made:')
+    console.log(addedCarts)
+    console.log("Finished creating initial carts")
+  }catch (error){
+    console.error('issue creating initial carts');
+    throw error;
+  } 
+}
 
 
 
@@ -220,10 +251,13 @@ const rebuildDB = async () => {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
+    await createInitialCarts();
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;
   }
 };
 
-rebuildDB();
+rebuildDB()
+  .catch(console.error)
+  .finally(() => client.end());

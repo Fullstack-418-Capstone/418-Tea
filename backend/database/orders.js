@@ -3,7 +3,7 @@ const client = require("./client")
 //Create Order
 const createOrder = async (userId) => {
     try {
-        const { rows: newOrder } = await client.query(`
+        const { rows: [newOrder] } = await client.query(`
         INSERT INTO orders("userId")
         VALUE $1
         RETURNING *;

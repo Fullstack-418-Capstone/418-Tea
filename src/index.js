@@ -1,14 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import {
+    Header
+} from './components'
+
 const App = () => {
-  
+  const [loggedIn, serLoggedIn] = useState(false)
 
   return (<Router>
     <div>
         <header>
-            <h1>Placeholder header</h1>
+            <Header loggedIn={loggedIn} />
         </header>
         <main>
             <Routes>

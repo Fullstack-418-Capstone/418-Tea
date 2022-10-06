@@ -44,14 +44,14 @@ const getAllProducts = async() => {
     }
 }
 
-//Get Products by Type
+//Get Products by Type // change to getActiveProductsByType
 const getProductsByType = async(type) => {
     try {
         const {rows: products} = await client.query(`
             SELECT *
             FROM products
-            WHERE type=$1;
-        `, [type])
+            WHERE type=${type};
+        `)
 
         return products
     } catch (error) {
@@ -60,7 +60,7 @@ const getProductsByType = async(type) => {
 }
 
 //Edit Product
-const editProduct = async(id, ...fields) => {
+const editProductById = async({id, ...fields}) => {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
     ).join(', ');
@@ -72,7 +72,7 @@ const editProduct = async(id, ...fields) => {
         const {rows: [updatedProduct]} = await client.query(`
             UPDATE products
             SET ${setString}
-            WHERE ${id}
+            WHERE id=${id}
             RETURNING *;
         `, Object.values(fields))
 
@@ -82,7 +82,7 @@ const editProduct = async(id, ...fields) => {
     }
 }
 
-//Delete Product
+//Delete Product //      S H O U L D    B E    I N A C T I V E
 const deleteProduct = async(id) => {
     try {
         const {rows: [deletedProduct]} = await client.query(`
@@ -95,6 +95,7 @@ const deleteProduct = async(id) => {
     } catch (error) {
         throw error
     }
+    //this function is untested
 }
 
 
@@ -103,6 +104,6 @@ module.exports = {
     getProductById,
     getAllProducts,
     getProductsByType,
-    editProduct,
+    editProductById,
     deleteProduct
 }

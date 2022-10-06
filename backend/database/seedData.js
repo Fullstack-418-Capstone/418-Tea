@@ -1,7 +1,9 @@
 const client = require("./client");
-const {createUser} = require("./users")
-const {createProduct, getProductById} = require("./products");
+const {createUser, getUserByUsername, getAllUsers, editUserById, deleteUserById} = require("./users")
+const {createProduct, getProductById, editProductById, getProductsByType} = require("./products");
 const { createNewOrdersProduct, getOpenCartProductsByUserName } = require("./orders_products");
+const { getOpenCartByUser } = require("./orders");
+const { getAddressByUserId, editAddress } = require("./addresses");
 
 const createTables = async () => {
   try {
@@ -42,6 +44,7 @@ const createTableUsers = async () => {
         email VARCHAR(255) NOT NULL,
         "isAdmin" boolean DEFAULT false,
         "addressId" INTEGER REFERENCES addresses(id),
+        "isActive" boolean DEFAULT true,
         UNIQUE (username, email)
       );
     `);
@@ -80,7 +83,8 @@ const createTableProducts = async() => {
         stock INTEGER,
         price INTEGER,
         unit VARCHAR(30),
-        type VARCHAR(50)
+        type VARCHAR(50),
+        "isActive" boolean DEFAULT true
       );
     `);
   }catch (error) {
@@ -162,7 +166,7 @@ const createInitialUsers = async() => {
     lastname: 'Dawes',
     email: 'crispygirl@gmail.com',
     address: addressTwo,
-    isAdmin: true
+    isAdmin: false
    }
    const createUserTwoResult = await createUser(userTwo)
   console.log('result of create user Two', createUserTwoResult)
@@ -195,6 +199,14 @@ const createInitialProducts = async()  => {
       unit: "box",
       type: "bagged",
       price: 19
+    },{
+      name: 'Ehugos Silicone Teapot',
+      imgurl: '123url',
+      description: "Sit back, watch, and never get burned",
+      stock: 4,
+      unit: "each",
+      type: "pot",
+      price: 56
     }]
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:")
@@ -209,6 +221,7 @@ const createInitialCarts = async() => {
   console.log('creating initial carts...');
   try {
     const {price: priceOne} = await getProductById(2)
+    const {price: priceTwo} = await getProductById(3)
     const addToCartsToCreate = [
       {
         userId: 1,
@@ -219,12 +232,12 @@ const createInitialCarts = async() => {
         userId: 1,
         productId: 3,
         quantity: 1,
-        price: 19
+        price: priceTwo
       }, {
         userId: 2,
         productId:3,
         quantity:1,
-        price:19
+        price: priceTwo
       }
     ]
    // const  addedCarts = await Promise.all(cartsToCreate.map(createNewOrdersProduct))
@@ -252,6 +265,11 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
+    console.log(await getProductById(1))
+    const editedProduct = await editProductById({id:1, stock: 400})
+    console.log(await getProductById(1))
+
+
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

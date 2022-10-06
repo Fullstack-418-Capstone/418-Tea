@@ -17,15 +17,14 @@ const createAddress = async(address) => {
 }
 
 //Get Address
-const getAddress = async(userId) => {
+const getAddressByUserId = async(userId) => {
     try {
         const {rows : [address]} = await client.query(`
             SELECT addresses.*
             FROM users
-            JOIN addresses ON users.address = addresses.id
+            JOIN addresses ON users."addressId" = addresses.id
             WHERE users.id = $1;
         `, [userId])
-
         return address
     } catch (error) {
         throw error
@@ -33,6 +32,7 @@ const getAddress = async(userId) => {
 }
 
 //Edit Address
+//change name to editAddressByUserId and update function accordingly
 const editAddress = async({id, ...fields}) => {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
@@ -48,7 +48,6 @@ const editAddress = async({id, ...fields}) => {
             WHERE id = ${id}
             RETURNING *;
         `, Object.values(fields))
-
         return updatedAddress
     } catch (error) {
         throw error
@@ -56,24 +55,25 @@ const editAddress = async({id, ...fields}) => {
 }
 
 //Delete Address
-const deleteAddress = async(id) => {
-    try {
-        const {rows: [deletedAddress]} = await client.query(`
-            DELETE FROM addresses
-            WHERE id=$1
-            RETURNING *;
-        `, [id])
+// const deleteAddress = async(id) => {
+//     //USER WILL HAVE TO BE DELETED FIRST
+//     try {
+//         const {rows: [deletedAddress]} = await client.query(`
+//             DELETE FROM addresses
+//             WHERE id=$1
+//             RETURNING *;
+//         `, [id])
 
-        return deletedAddress
-    } catch (error) {
-        throw error
-    }
-}
+//         return deletedAddress
+//     } catch (error) {
+//         throw error
+//     }
+// }
 
 
 module.exports = {
     createAddress,
-    getAddress,
+    getAddressByUserId,
     editAddress,
-    deleteAddress
+ //   deleteAddress
 }

@@ -35,7 +35,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
 };
 
 //Get User
-const getUserByUserId = async(userId) => {
+const getUserByUserId = async(userId) => { //change this to include address
     try{
         const { rows: [user] } = await client.query(`
         SELECT *
@@ -74,7 +74,7 @@ const getAllUsers = async() => {
         const { rows: allUsers } = await client.query(`
         SELECT *
         FROM users;
-        `)
+        `);
         
         return allUsers;
     } catch(err) {
@@ -84,11 +84,11 @@ const getAllUsers = async() => {
 }
 
 //Edit User by ID
-const editUser = async ({userId, ...fields}) => {
+const editUserById = async ({userId, ...fields}) => {
     const setString = Object.keys(fields).map(
         (key, index) => `"${key}" = $${ index + 1}`
     ).join(', ');
-
+        console.log(setString)
     if (setString.length === 0) return;
 
     try{
@@ -107,24 +107,22 @@ const editUser = async ({userId, ...fields}) => {
     }
 };
 
-
 //Delete User (by ID)
-const deleteUser = async(userId) => {
-    try{
-        const { rows: [deletedUser] } = await client.query(`
-            DELETE FROM users
-            WHERE id = $1
-            RETURNING *;
-            `, [userId]
-        );
+// const deleteUserById = async(userId) => {
+//     try{
+//         const { rows: [deletedUser] } = await client.query(`
+//             DELETE FROM users
+//             WHERE id = $1
+//             RETURNING *;
+//             `, [userId]
+//         );
 
-        return deletedUser;
-    } catch(err) {
-        console.error(err);
-        throw err;
-    }
-};
-
+//         return deletedUser;
+//     } catch(err) {
+//         console.error(err);
+//         throw err;
+//     }
+// };
 
 //Admin Update Users for making another person an Admin.
 
@@ -134,6 +132,6 @@ module.exports = {
     getUserByUserId,
     getUserByUsername,
     getAllUsers,
-    editUser,
-    deleteUser
+    editUserById,
+    //deleteUserById
 }

@@ -37,7 +37,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
 //Get User
 const getUserByUserId = async(userId) => {
     try{
-        const { rows: [user] } = client.query(`
+        const { rows: [user] } = await client.query(`
         SELECT *
         FROM users
         WHERE id = $1
@@ -54,12 +54,12 @@ const getUserByUserId = async(userId) => {
 
 
 //Get All Users
-const getAllUsers = () => {
+const getAllUsers = async() => {
     try{
-        const { rows: allUsers } = client.query(`
+        const { rows: allUsers } = await client.query(`
         SELECT *
-        FROM users;`
-        )
+        FROM users;
+        `)
         
         return allUsers;
     } catch(err) {
@@ -69,7 +69,7 @@ const getAllUsers = () => {
 }
 
 //Edit User by ID
-const editUser = ({userId, ...fields}) => {
+const editUser = async ({userId, ...fields}) => {
     const setString = Object.keys(fields).map(
         (key, index) => `"${key}" = $${ index + 1}`
     ).join(', ');
@@ -77,10 +77,11 @@ const editUser = ({userId, ...fields}) => {
     if (setString.length === 0) return;
 
     try{
-        const { rows: [updatedUser] } = client.query(`
+        const { rows: [updatedUser] } = await client.query(`
             UPDATE users
             SET ${setString}
-            WHERE id = $1;
+            WHERE id = $1
+            RETURNING *;
         `, [userId]);
 
         return updatedUser;
@@ -91,7 +92,22 @@ const editUser = ({userId, ...fields}) => {
 };
 
 
-//Delete User by ID
+//Delete User (by ID)
+const deleteUser = async(userId) => {
+    try{
+        const { rows: [deletedUser] } = await client.query(`
+            DELETE FROM users
+            WHERE id = $1
+            RETURNING *;
+            `, [userId]
+        );
+
+        return deletedUser;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+};
 
 
 //Admin Update Users for making another person an Admin.
@@ -102,4 +118,5 @@ module.exports = {
     getUserByUserId,
     getAllUsers,
     editUser,
+    deleteUser
 }

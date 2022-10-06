@@ -54,13 +54,18 @@ const getUserByUserId = async(userId) => {
 
 //Get User by Username
 const getUserByUsername = async (username) => {
-    const { rows: [user] } = await client.query(`
-    SELECT *
-    FROM users
-    WHERE username = $1;
-    `, [username]);
-
-    return user;
+    try{
+        const { rows: [user] } = await client.query(`
+        SELECT *
+        FROM users
+        WHERE username = $1;
+        `, [username]);
+    
+        return user;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
 }
 
 //Get All Users
@@ -90,9 +95,10 @@ const editUser = async ({userId, ...fields}) => {
         const { rows: [updatedUser] } = await client.query(`
             UPDATE users
             SET ${setString}
-            WHERE id = $1
+            WHERE id = ${userId}
             RETURNING *;
-        `, [userId]);
+            `, Object.values(fields)
+            );
 
         return updatedUser;
     } catch(err) {

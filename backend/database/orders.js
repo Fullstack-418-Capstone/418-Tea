@@ -5,7 +5,8 @@ const createOrder = async (userId) => {
     try {
         const { rows: newOrder } = await client.query(`
         INSERT INTO orders("userId")
-        VALUE $1;
+        VALUE $1
+        RETURNING *;
         `, [userId]);
 
         return newOrder;
@@ -15,9 +16,17 @@ const createOrder = async (userId) => {
     }
 };
 
-//Edit Order
+//Edit Order by ID
 
 //Get All Orders
+const getAllOrders = async () => {
+    const { rows: allOrders } = await client.query(`
+    SELECT *
+    FROM orders;
+    `);
+
+    return allOrders
+}
 
 //Get Open Orders by UserId
 
@@ -25,7 +34,7 @@ const createOrder = async (userId) => {
 const getOpenCartByUser = async (userId) => {
     try {
         const { rows: openCart } = await client.query(`
-        SELECT IFNULL(id)
+        SELECT id
         FROM orders
         WHERE "userId" = $1 AND "isOpen" = true;
         `, [userId]);
@@ -48,5 +57,6 @@ const getOpenCartByUser = async (userId) => {
 
 module.exports = {
     createOrder,
+    getAllOrders,
     getOpenCartByUser
 }

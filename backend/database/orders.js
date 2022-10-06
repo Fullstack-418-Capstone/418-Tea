@@ -78,6 +78,8 @@ const getOrdersbyUserId = async (userId) => {
         `, [userId]);
 
         return orders;
+    } catch(error) {
+        throw error
     }
 }
 

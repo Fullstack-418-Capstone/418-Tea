@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const App = () => {
   
 
-  return <Router>
+  return (<Router>
     <div>
         <header>
             <h1>Placeholder header</h1>
@@ -16,7 +16,7 @@ const App = () => {
             </Routes>
         </main>
     </div>
-  </Router>;
+  </Router>);
 };
 
 const container = document.getElementById("app");

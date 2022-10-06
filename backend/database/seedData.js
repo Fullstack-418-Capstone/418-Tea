@@ -265,10 +265,6 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    console.log(await getProductById(1))
-    const editedProduct = await editProductById({id:1, stock: 400})
-    console.log(await getProductById(1))
-
 
   } catch (error) {
     console.error("error rebuilding the db!");

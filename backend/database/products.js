@@ -3,13 +3,14 @@ const { getOpenOrders } = require('./orders')
 const { getOpenCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
 
 //Create Product
-const createProduct = async({name, imgurl, description, stock, price, unit, type}) => {
+const createProduct = async({name, imgurl, description, stock, price, unit, type, isActive}) => {
+    if(isActive === undefined){isActive = true}
     try {
         const {rows: [product]} = await client.query(`
-            INSERT INTO products (name, imgurl, description, stock, price, unit, type)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            INSERT INTO products (name, imgurl, description, stock, price, unit, type, "isActive")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *;
-        `, [name, imgurl ? imgurl : null, description, stock, price, unit, type])
+        `, [name, imgurl ? imgurl : null, description, stock, price, unit, type, isActive])
 
         return product
     } catch (error) {
@@ -68,8 +69,8 @@ const getActiveProductsByType = async(type) => {
         const {rows: products} = await client.query(`
             SELECT *
             FROM products
-            WHERE type=${type} AND "isActive" = true;
-        `)
+            WHERE type=$1 AND "isActive" = true;
+        `, [type])
 
         return products
     } catch (error) {
@@ -94,7 +95,7 @@ const editProductById = async({id, ...fields}) => {
         for (let i = 0; i < openOrdersArr.length; i++) {
             const openOrderId = openOrdersArr[i].id
 
-            const productsArr = getOpenCartProductsByOrderId(openOrderId);
+            const productsArr = await getOpenCartProductsByOrderId(openOrderId);
 
             for(let j = 0; j < productsArr.length; j++) {
                 if(productsArr[j].productId === id){
@@ -103,7 +104,6 @@ const editProductById = async({id, ...fields}) => {
             }
         }
     };
-
     try {
         const {rows: [updatedProduct]} = await client.query(`
             UPDATE products
@@ -111,7 +111,6 @@ const editProductById = async({id, ...fields}) => {
             WHERE id=${id}
             RETURNING *;
         `, Object.values(fields))
-
         return updatedProduct
     } catch (error) {
         throw error
@@ -126,6 +125,19 @@ const setProductToInactiveById = async(productId) => {
         SET "isActive" = $1
         WHERE id = $2;
         `, [false, productId]);
+
+        return inactiveProduct;
+    } catch(err) {
+        console.error(err)
+    }
+}
+const setProductToActiveById = async(productId) => {
+    try{
+        const { rows: [inactiveProduct] } = await client.query(`
+        UPDATE products
+        SET "isActive" = $1
+        WHERE id = $2;
+        `, [true, productId]);
 
         return inactiveProduct;
     } catch(err) {
@@ -158,5 +170,6 @@ module.exports = {
     getActiveProductsByType,
     editProductById,
     setProductToInactiveById,
+    setProductToActiveById,
     deleteProduct
 }

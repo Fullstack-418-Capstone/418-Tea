@@ -1,9 +1,9 @@
 const client = require("./client");
-const {createUser, getUserByUsername, getAllUsers, editUserById, deleteUserById} = require("./users")
+const {createUser, getUserByUsername, getAllUsers, editUserById,  getUserByUserId} = require("./users")
 const {createProduct, getProductById, editProductById, getProductsByType} = require("./products");
 const { createNewOrdersProduct, getOpenCartProductsByUserName } = require("./orders_products");
-const { getOpenCartByUser } = require("./orders");
-const { getAddressByUserId, editAddress } = require("./addresses");
+const { getOpenCartByUser, placeOrder, getOpenOrders } = require("./orders");
+const { getAddressByUserId, editAddressByUserId } = require("./addresses");
 
 const createTables = async () => {
   try {
@@ -250,6 +250,8 @@ const createInitialCarts = async() => {
     console.log('carts made:')
     console.log(addedCarts)
     console.log("Finished creating initial carts")
+
+
   }catch (error){
     console.error('issue creating initial carts');
     throw error;
@@ -264,7 +266,8 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    console.log(await getAllUsers())
+    await editAddressByUserId({id: 1, city:'houston'})
+    console.log(await getAddressByUserId(1))
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

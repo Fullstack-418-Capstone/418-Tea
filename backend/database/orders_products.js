@@ -71,7 +71,7 @@ const getOpenCartProductsByUserName = async(username) => {
 }
 
 //get Orders_product by order Id
-const getOpenCartProductsByOrderId = async (orderId) => {
+const getCartProductsByOrderId = async (orderId) => {
     try{
         const {rows: products }= await client.query(`
         SELECT *
@@ -89,13 +89,17 @@ const getOpenCartProductsByOrderId = async (orderId) => {
 
 //Admin Update Price on Open Orders, see products.js for the full call.
 const updateOrdersProductPrice = async (orderId, productId, newPrice) => {
-    await client.query(`
-    UPDATE orders_products
-    SET price = $1
-    WHERE "orderId" = $2 AND "productId" = $3;
-    `, [newPrice, orderId, productId]);
-
-    console.log('the price has been changed to ', newPrice);
+    try {
+        const {rows: [update]} = await client.query(`
+        UPDATE orders_products
+        SET price = $1
+        WHERE "orderId" = $2 AND "productId" = $3;
+        `, [newPrice, orderId, productId]);
+        return update
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 };
 
 
@@ -104,6 +108,6 @@ module.exports = {
     editNewOrdersProductQuantity,
     deleteOrdersProduct,
     getOpenCartProductsByUserName,
-    getOpenCartProductsByOrderId,
+    getCartProductsByOrderId,
     updateOrdersProductPrice
 }

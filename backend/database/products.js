@@ -1,6 +1,6 @@
 const client = require('./client')
 const { getOpenOrders } = require('./orders')
-const { getOpenCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
+const { getCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
 
 //Create Product
 const createProduct = async({name, imgurl, description, stock, price, unit, type, isActive}) => {
@@ -95,7 +95,7 @@ const editProductById = async({id, ...fields}) => {
         for (let i = 0; i < openOrdersArr.length; i++) {
             const openOrderId = openOrdersArr[i].id
 
-            const productsArr = await getOpenCartProductsByOrderId(openOrderId);
+            const productsArr = await getCartProductsByOrderId(openOrderId);
 
             for(let j = 0; j < productsArr.length; j++) {
                 if(productsArr[j].productId === id){

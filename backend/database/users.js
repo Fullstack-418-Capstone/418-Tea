@@ -5,7 +5,6 @@ const { createAddress } = require("./addresses")
 const createUser = async ({ username, password, firstname, lastname, email, address, isAdmin}) => {
     try {
         const {id: userAddressId} = await createAddress(address);
-        console.log('checkpoint1')
         const { rows: [newUser] } = await client.query(`
         INSERT INTO users(
             firstname, 
@@ -27,7 +26,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             userAddressId,
             isAdmin
         ])
-        console.log('checkpoint2')
+        
         return newUser;
     } catch (err) {
         console.error(err);
@@ -37,8 +36,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
 
 //Get User
 //change this to include address
-const getUserByUserId = async(userId) => { 
-    console.log('inside of getuserbyuserid')
+const getUserByUserId = async(userId) => {
     try{
         const { rows: [user] } = await client.query(`
         SELECT *
@@ -48,9 +46,8 @@ const getUserByUserId = async(userId) => {
         WHERE users.id=$1
         ;`, [userId]
         )
-        console.log('sending', user)
+        
         return user;
-
     } catch(err) {
         console.error(err);
         throw err;
@@ -97,7 +94,7 @@ const editUserById = async ({userId, ...fields}) => {
     const setString = Object.keys(fields).map(
         (key, index) => `"${key}" = $${ index + 1}`
     ).join(', ');
-        console.log(setString)
+    
     if (setString.length === 0) return;
 
     try{

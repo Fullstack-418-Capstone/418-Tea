@@ -43,7 +43,9 @@ const getUserByUserId = async(userId) => {
         const { rows: [user] } = await client.query(`
         SELECT *
         FROM users
-        WHERE id=$1
+        JOIN addresses
+        ON users."addressId" = addresses."id"
+        WHERE users.id=$1
         ;`, [userId]
         )
         console.log('sending', user)
@@ -54,8 +56,6 @@ const getUserByUserId = async(userId) => {
         throw err;
     }
 };
-console.log('-=-=-=-=-=-=-=-=--')
-console.log(typeof(getUserByUserId))
 
 //Get User by Username
 const getUserByUsername = async (username) => {
@@ -63,6 +63,8 @@ const getUserByUsername = async (username) => {
         const { rows: [user] } = await client.query(`
         SELECT *
         FROM users
+        JOIN addresses
+        ON users."addressId" = addresses."id"
         WHERE username=$1;
         `, [username]);
     
@@ -78,7 +80,9 @@ const getAllUsers = async() => {
     try{
         const { rows: allUsers } = await client.query(`
         SELECT *
-        FROM users;
+        FROM users
+        JOIN addresses
+        ON users."addressId" = addresses."id";
         `);
         
         return allUsers;
@@ -112,6 +116,36 @@ const editUserById = async ({userId, ...fields}) => {
     }
 };
 
+//Admin Update Users for making another person an Admin.
+const updateToAdminById = async(userId) =>{
+    try{
+        const { rows: updatedUser } = await client.query(`
+        UPDATE users
+        SET "isAdmin" = true
+        WHERE id = $1;
+        `, [userId]);
+
+        return updatedUser;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+};
+
+const setUserToInactiveById = async(userId) => {
+    try{
+        const { rows: inactiveUser } = await client.query(`
+        UPDATE users
+        SET "isActive" = false
+        WHERE id = $1;
+        `, [userId]);
+
+        return inactiveUser;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
 //Delete User (by ID)
 // const deleteUserById = async(userId) => {
 //     try{
@@ -129,7 +163,6 @@ const editUserById = async ({userId, ...fields}) => {
 //     }
 // };
 
-//Admin Update Users for making another person an Admin.
 
 
 module.exports = {
@@ -137,6 +170,8 @@ module.exports = {
     getUserByUserId,
     getUserByUsername,
     getAllUsers,
-    editUserById
+    editUserById,
+    updateToAdminById,
+    setUserToInactiveById,
     //deleteUserById
 }

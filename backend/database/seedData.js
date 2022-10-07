@@ -3,7 +3,7 @@ const {createUser, getUserByUsername, getAllUsers, editUserById,  getUserByUserI
 const {createProduct, getProductById, editProductById, getProductsByType} = require("./products");
 const { createNewOrdersProduct, getOpenCartProductsByUserName } = require("./orders_products");
 const { getOpenCartByUser, placeOrder, getOpenOrders } = require("./orders");
-const { getAddressByUserId, editAddressByUserId } = require("./addresses");
+const { getAddressByUserId, editAddressByUserId, editAddressByAddressId } = require("./addresses");
 
 const createTables = async () => {
   try {
@@ -266,7 +266,9 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    await editAddressByUserId({id: 1, city:'houston'})
+    const {addressId: thisId} = await getUserByUsername("IronMan")
+
+    await editAddressByAddressId({id: thisId, city:'houston'})
     console.log(await getAddressByUserId(1))
   } catch (error) {
     console.error("error rebuilding the db!");

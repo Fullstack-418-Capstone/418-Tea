@@ -1,10 +1,4 @@
 const client = require('./client');
-// const Hello = require('./users')
-const { getUserByUserId } = require('./users');
-const { getAllOrders } = require('./orders');
-const { getProductById } = require('./products')
-
-console.log('HIIHIHIHHIHIHIHHHI', getProductById);
 
 //Create Address
 const createAddress = async(address) => {
@@ -39,10 +33,8 @@ const getAddressByUserId = async(userId) => {
 
 //Edit Address
 //change name to editAddressByUserId and update function accordingly
-const editAddressByAddressId = async({userId, ...fields}) => {
-    console.log('hi',typeof(getUserByUserId))
-    
-    const id = 1
+const editAddressByAddressId = async({id, ...fields}) => {
+   
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
     ).join(', ');
@@ -83,6 +75,6 @@ const editAddressByAddressId = async({userId, ...fields}) => {
 module.exports = {
     createAddress,
     getAddressByUserId,
-    editAddressByUserId
+    editAddressByAddressId
  //   deleteAddress
 }

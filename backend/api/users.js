@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getUserById,
+  getUserByUserId,
   getUserByUsername,
   createUser,
 } = require("../database/users");
-const { getAddressByUserId } = require("../database/addresses");
 const jwt = require("jsonwebtoken");
 
 //POST /api/users/login
@@ -69,10 +68,16 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-//GET /api/users/address/:userid
-router.get("/address/user", async (req, res, next) => {
-  const user = await getUserByUsername(username);
-  res.send(user);
+//GET /api/users/address/username
+router.get("/address/:username", async (req, res, next) => {
+  const { username } = req.params;
+
+  try {
+    const user = await getUserByUsername(username);
+    res.send(user);
+  } catch (error) {
+    throw error;
+  }
 });
 
 // PROMOTE A USER TO AN ADMIN -- COME BACK AND ADD THIS WHOLE ROUTE -- FINISH ONCE NEEDED

@@ -6,34 +6,51 @@ const {
   getOrdersbyUserId,
   getOpenCartByUser,
 } = require("../database/orders");
-//const jwt = require('jsonwebtoken')
 
 //GET all orders
 router.get("/", async (req, res, next) => {
-  const orders = await getAllOrders();
+  try {
+    const orders = await getAllOrders();
 
-  res.send(orders);
+    res.send(orders);
+  } catch (error) {
+    throw error;
+  }
 });
 
 //Get all open orders
 router.get("/openorders", async (req, res, next) => {
-  const openOrders = await getOpenOrders();
+  try {
+    const openOrders = await getOpenOrders();
 
-  res.send(openOrders);
+    res.send(openOrders);
+  } catch (error) {
+    throw error;
+  }
 });
 
-//GET cart by user id
-router.get("/cart/userid", async (req, res, next) => {
-  const userCart = await getOpenCartByUser(userId);
+//GET CART by user id
+router.get("/cart/:userid", async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const userCart = await getOpenCartByUser(userId);
 
-  res.send(userCart);
+    res.send(userCart);
+  } catch (error) {
+    throw error;
+  }
 });
 
-//GET orders by user id
-router.get("/order/userid", async (req, res, next) => {
-  const orderByUser = await getOrdersbyUserId(userId);
+//GET ORDERS by user id
+router.get("/order/:userid", async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const orderByUser = await getOrdersbyUserId(userId);
 
-  res.send(orderByUser);
+    res.send(orderByUser);
+  } catch (error) {
+    throw error;
+  }
 });
 
 //PATCH edit orders -- decided we did not need this

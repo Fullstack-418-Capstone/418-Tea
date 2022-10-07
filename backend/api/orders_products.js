@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 const {
   createNewOrdersProduct,
-  getOpenCartByUserName,
+  getOpenCartProductsByUserName,
   getOpenCartProductsByOrderId,
   editNewOrdersProductQuantity,
   deleteOrdersProduct,
 } = require("../database/orders_products");
 
-const { getUserByUsername } = require("../database/users");
 //GET /api/order_products/:username
-router.get("/order_products/username", async (req, res, next) => {
+router.get("/order_products/:username", async (req, res, next) => {
+  const { username } = req.params;
   try {
-    const orderByUsername = await getOpenCartByUserName(username);
+    const orderByUsername = await getOpenCartProductsByUserName(username);
 
     res.send(orderByUsername);
   } catch (error) {
@@ -21,7 +21,8 @@ router.get("/order_products/username", async (req, res, next) => {
 });
 
 //GET /api/order_products/:orderId
-router.get("/order_products/orderId", async (req, res, next) => {
+router.get("/order_products/:orderId", async (req, res, next) => {
+  const { orderId } = req.params;
   try {
     const productByProductId = await getOpenCartProductsByOrderId(orderId);
 
@@ -35,27 +36,15 @@ router.get("/order_products/orderId", async (req, res, next) => {
 router.post("/addtocart", async (req, res, next) => {
   const { userId, productId, quantity, price } = req.body;
 
-  const member = await getUserByUsername(username);
-
   try {
-    if (member) {
-      addToCartMember = createNewOrdersProduct(
-        userId,
-        productId,
-        quantity,
-        price
-      );
+    addToCartMember = createNewOrdersProduct(
+      userId,
+      productId,
+      quantity,
+      price
+    );
 
-      res.send(addToCartMember);
-    } else {
-      addToCartNonMember = await createNewOrdersProduct(
-        productId,
-        quantity,
-        price
-      );
-
-      res.send(addToCartNonMember);
-    }
+    res.send(addToCartMember);
   } catch (error) {
     throw error;
   }
@@ -63,26 +52,18 @@ router.post("/addtocart", async (req, res, next) => {
 
 //patch request to edit the quantity
 router.patch("/editquantity", async (req, res, next) => {
-  const { userId, productId, quantity } = req.params;
+  const { userId, productId, quantity } = req.body;
 
-  const member = getUserByUsername(username);
+  const editCart = editNewOrdersProductQuantity(userId, productId, quantity);
 
-  if (member) {
-    editNewOrdersProductQuantity(userId, productId, quantity);
-  } else {
-    editNewOrdersProductQuantity(productId, quantity);
-  }
+  res.send(editCart);
 });
 
 // delete request
 router.delete("/delete", async (req, res, next) => {
-  const { userId, productId } = req.params;
+  const { userId, productId } = req.body;
 
-  const member = getUserByUsername(username);
+  const deleteFromCart = deleteOrdersProduct(userId, productId);
 
-  if (member) {
-    deleteOrdersProduct(userId, productId);
-  } else {
-    deleteOrdersProduct(productId);
-  }
+  res.send(deleteFromCart);
 });

@@ -30,7 +30,8 @@ router.get("/openorders", async (req, res, next) => {
 });
 
 //GET CART by user id
-router.get("/cart/userid", async (req, res, next) => {
+router.get("/cart/:userid", async (req, res, next) => {
+  const { userId } = req.params;
   try {
     const userCart = await getOpenCartByUser(userId);
 
@@ -41,7 +42,8 @@ router.get("/cart/userid", async (req, res, next) => {
 });
 
 //GET ORDERS by user id
-router.get("/order/userid", async (req, res, next) => {
+router.get("/order/:userid", async (req, res, next) => {
+  const { userId } = req.params;
   try {
     const orderByUser = await getOrdersbyUserId(userId);
 

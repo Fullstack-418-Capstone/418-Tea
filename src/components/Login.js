@@ -9,7 +9,6 @@ const Login = (props) => {
         <form
             onSubmit={async(event) => {
                 event.preventDefault()
-                event.preventDefault();
                 const success = await loginUser(usernameString, passwordString, setToken, setLogin, setUser)
                 if(success) {
                     setUsernameString('')

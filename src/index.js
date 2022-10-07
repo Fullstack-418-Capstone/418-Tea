@@ -3,12 +3,15 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import {
-    Header
+    Header,
+    HomePage
 } from './components'
 
 const App = () => {
   const [loggedIn, serLoggedIn] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [token, setToken] = useState('')
+  const [cart, setCart] = useState([])
 
   return (<Router>
     <div>
@@ -17,7 +20,7 @@ const App = () => {
         </header>
         <main>
             <Routes>
-                <Route path="/" element={<h1>Placeholder body</h1>} />
+                <Route path="/" element={<HomePage />} />
             </Routes>
         </main>
     </div>

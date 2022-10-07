@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
 
 const Header = (props) => {
-    const {loggedIn, isAdmin} = props
+    const {loggedIn, isAdmin, setLoggedIn, setToken, setUser, setIsAdmin} = props
 
     return (
         <>
@@ -14,7 +15,7 @@ const Header = (props) => {
                 <Link to='/tea' >Tea</Link> <br/>
                 <Link to='/cart/:userId' >Cart</Link> <br/>
                 {loggedIn ? null : <><Link to='/register' >Register</Link> <br/> </> }
-                {loggedIn ? <Link to='/logout' >Log Out</Link> : <Link to='/login' >Log In</Link> } <br/>
+                {loggedIn ? <Link to='/logout' >Log Out</Link> : <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} setLoggedIn={setLoggedIn} /> } <br/>
                 {isAdmin ? <Link to='/admin-view' >Admin Items</Link> : null }
             </nav>
         </>

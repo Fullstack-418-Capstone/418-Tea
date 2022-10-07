@@ -26,7 +26,7 @@ router.post("/login", async (req, res, next) => {
         { id: user.id, username: user.username },
         process.env.JWT_SECRET
       );
-      res.send({ message: "Youre logged in!", token: `${token}` });
+      res.send({ message: "Youre logged in!", token: `${token}`, user });
     } else {
       next({
         name: "IncorrectCredentialError",

@@ -23,10 +23,12 @@ const App = () => {
     }
   }, [])
 
+  useEffect(() => {}, [loggedIn])
+
   return (<Router>
     <div>
         <header>
-            <Header loggedIn={loggedIn} isAdmin={isAdmin} />
+            <Header loggedIn={loggedIn} isAdmin={isAdmin} setLoggedIn={setLoggedIn} setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
         </header>
         <main>
             <Routes>

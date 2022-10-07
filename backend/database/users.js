@@ -36,15 +36,17 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
 };
 
 //Get User
-const getUserByUserId = async(userId) => { //change this to include address
+//change this to include address
+const getUserByUserId = async(userId) => { 
+    console.log('inside of getuserbyuserid')
     try{
         const { rows: [user] } = await client.query(`
         SELECT *
         FROM users
-        WHERE id = $1
+        WHERE id=$1
         ;`, [userId]
         )
-
+        console.log('sending', user)
         return user;
 
     } catch(err) {
@@ -52,6 +54,8 @@ const getUserByUserId = async(userId) => { //change this to include address
         throw err;
     }
 };
+console.log('-=-=-=-=-=-=-=-=--')
+console.log(typeof(getUserByUserId))
 
 //Get User by Username
 const getUserByUsername = async (username) => {
@@ -59,7 +63,7 @@ const getUserByUsername = async (username) => {
         const { rows: [user] } = await client.query(`
         SELECT *
         FROM users
-        WHERE username = $1;
+        WHERE username=$1;
         `, [username]);
     
         return user;
@@ -133,6 +137,6 @@ module.exports = {
     getUserByUserId,
     getUserByUsername,
     getAllUsers,
-    editUserById,
+    editUserById
     //deleteUserById
 }

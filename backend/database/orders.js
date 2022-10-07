@@ -55,7 +55,7 @@ const getAllOrders = async () => {
 //Get Open Orders
 const getOpenOrders = async () => {
     try{
-        const { rows: [openOrders] } = await client.query(`
+        const { rows: openOrders } = await client.query(`
         SELECT *
         FROM orders
         WHERE "isOpen" = true;
@@ -109,7 +109,7 @@ const deleteOrder = async (orderId) => {
     try{
         const { rows: [deletedOrder] } = await client.query(`
         DELETE FROM orders
-        WHERE "orderId" = $1
+        WHERE id = $1
         RETURNING *;
         `, [orderId]);
 
@@ -120,6 +120,25 @@ const deleteOrder = async (orderId) => {
     }
 };
 
+const placeOrder = async(orderId) => {
+   // const setString = `"isOpen=$1, "status"=$2`
+    
+    try{
+        const { rows: [order] } = await client.query(`
+        UPDATE orders
+        SET "isOpen"=false, "status"='ordered'
+        WHERE id=${orderId}
+        RETURNING *;
+        `);
+        console.log('placed order', order)
+        return order
+
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+}
+
 //Get Order by Status? 
 
 module.exports = {
@@ -129,5 +148,6 @@ module.exports = {
     getOpenOrders,
     getOrdersbyUserId,
     getOpenCartByUser,
-    deleteOrder
+    deleteOrder,
+    placeOrder
 };

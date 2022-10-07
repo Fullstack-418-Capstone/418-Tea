@@ -1,6 +1,9 @@
 const client = require('./client')
 const { getOpenOrders } = require('./orders')
 const { getOpenCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
+const { getAddressByUserId } = require('./addresses');
+
+console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ', getAddressByUserId);
 
 //Create Product
 const createProduct = async({name, imgurl, description, stock, price, unit, type}) => {
@@ -102,6 +105,21 @@ const editProductById = async({id, ...fields}) => {
     }
 }
 
+//setProductToInactiveById
+const setProductToInactiveById = async(productId) => {
+    try{
+        const { rows: [inactiveProduct] } = await client.query(`
+        UPDATE products
+        SET "isActive" = $1
+        WHERE id = $2;
+        `, [false, productId]);
+
+        return inactiveProduct;
+    } catch(err) {
+        console.error(err)
+    }
+}
+
 //Delete Product //      S H O U L D    B E    I N A C T I V E
 const deleteProduct = async(id) => {
     try {
@@ -125,5 +143,6 @@ module.exports = {
     getAllProducts,
     getProductsByType,
     editProductById,
+    setProductToInactiveById,
     deleteProduct
 }

@@ -1,9 +1,6 @@
 const client = require('./client')
 const { getOpenOrders } = require('./orders')
 const { getOpenCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
-const { getAddressByUserId } = require('./addresses');
-
-console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ', getAddressByUserId);
 
 //Create Product
 const createProduct = async({name, imgurl, description, stock, price, unit, type}) => {

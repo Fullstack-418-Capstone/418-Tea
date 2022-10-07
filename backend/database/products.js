@@ -46,13 +46,29 @@ const getAllProducts = async() => {
     }
 }
 
+//get All Active Products
+const getAllActiveProducts = async() => {
+    try{
+        const {rows: activeProducts} = await client.query(`
+        SELECT *
+        FROM products
+        WHERE "isActive" = true;
+        `);
+
+        return activeProducts;
+    } catch(err) {
+        console.error(err);
+        throw err;
+    }
+}
+
 //Get Products by Type // change to getActiveProductsByType
-const getProductsByType = async(type) => {
+const getActiveProductsByType = async(type) => {
     try {
         const {rows: products} = await client.query(`
             SELECT *
             FROM products
-            WHERE type=${type};
+            WHERE type=${type} AND "isActive" = true;
         `)
 
         return products
@@ -138,7 +154,8 @@ module.exports = {
     createProduct,
     getProductById,
     getAllProducts,
-    getProductsByType,
+    getAllActiveProducts,
+    getActiveProductsByType,
     editProductById,
     setProductToInactiveById,
     deleteProduct

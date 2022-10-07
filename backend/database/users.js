@@ -5,7 +5,7 @@ const { createAddress } = require("./addresses")
 const createUser = async ({ username, password, firstname, lastname, email, address, isAdmin}) => {
     try {
         const {id: userAddressId} = await createAddress(address);
-    
+        console.log('checkpoint1')
         const { rows: [newUser] } = await client.query(`
         INSERT INTO users(
             firstname, 
@@ -15,7 +15,9 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             email, 
             "addressId",
             "isAdmin"
-        ) VALUES($1, $2, $3, $4, $5, $6, $7)
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ON CONFLICT (username) DO NOTHING
         RETURNING *
         ;`, [
             firstname,
@@ -26,7 +28,7 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             userAddressId,
             isAdmin
         ])
-
+        console.log('checkpoint2')
         return newUser;
     } catch (err) {
         console.error(err);

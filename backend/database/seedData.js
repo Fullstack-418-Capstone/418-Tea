@@ -45,7 +45,7 @@ const createTableUsers = async () => {
         "isAdmin" boolean DEFAULT false,
         "addressId" INTEGER REFERENCES addresses(id),
         "isActive" boolean DEFAULT true,
-        UNIQUE (username, email)
+        UNIQUE ("username", "email")
       );
     `);
   } catch (error) {
@@ -159,8 +159,10 @@ const createInitialUsers = async() => {
     zipcode: '07015'
    }
    //const { id: idTwo } = await createAddress(addressTwo)
+   //assistantDA
+   //crispygirl@gmail.com
    const userTwo = {
-    username: 'assistantDA',
+    username: 'IronMan',
     password: 'futureAG',
     firstname: 'Rachel',
     lastname: 'Dawes',
@@ -256,8 +258,6 @@ const createInitialCarts = async() => {
 }
 
 
-
-
 const rebuildDB = async () => {
   try {
     await dropTables();
@@ -265,11 +265,7 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    console.log(await getProductById(1))
-    const editedProduct = await editProductById({id:1, stock: 400})
-    console.log(await getProductById(1))
-
-
+    console.log(await getAllUsers())
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

@@ -17,7 +17,6 @@ const createUser = async ({ username, password, firstname, lastname, email, addr
             "isAdmin"
         )
         VALUES ($1, $2, $3, $4, $5, $6, $7)
-        ON CONFLICT (username) DO NOTHING
         RETURNING *
         ;`, [
             firstname,

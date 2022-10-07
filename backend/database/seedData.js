@@ -39,13 +39,12 @@ const createTableUsers = async () => {
         id SERIAL PRIMARY KEY,
         firstname VARCHAR(50) NOT NULL,
         lastname VARCHAR(50) NOT NULL,
-        username VARCHAR(30) NOT NULL,
+        username VARCHAR(30) UNIQUE NOT NULL,
         password VARCHAR (255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
         "isAdmin" boolean DEFAULT false,
         "addressId" INTEGER REFERENCES addresses(id),
-        "isActive" boolean DEFAULT true,
-        UNIQUE ("username", "email")
+        "isActive" boolean DEFAULT true
       );
     `);
   } catch (error) {
@@ -162,7 +161,7 @@ const createInitialUsers = async() => {
    //assistantDA
    //crispygirl@gmail.com
    const userTwo = {
-    username: 'IronMan',
+    username: 'assistantDA',
     password: 'futureAG',
     firstname: 'Rachel',
     lastname: 'Dawes',

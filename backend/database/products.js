@@ -1,4 +1,6 @@
 const client = require('./client')
+const { getOpenOrders } = require('./orders')
+const { getOpenCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
 
 //Create Product
 const createProduct = async({name, imgurl, description, stock, price, unit, type}) => {
@@ -59,7 +61,7 @@ const getProductsByType = async(type) => {
     }
 }
 
-//Edit Product
+//Edit Product and update the cost in open orders of the orders_products if cost is edited.
 const editProductById = async({id, ...fields}) => {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
@@ -68,6 +70,24 @@ const editProductById = async({id, ...fields}) => {
     if(setString.length === 0) {
         return;
     }
+
+    if(fields.price) {
+        const newPrice = fields.price;
+        const openOrdersArr = await getOpenOrders();
+
+        for (let i = 0; i < openOrdersArr.length; i++) {
+            const openOrderId = openOrdersArr[i].id
+
+            const productsArr = getOpenCartProductsByOrderId(openOrderId);
+
+            for(let j = 0; j < productsArr.length; j++) {
+                if(productsArr[j].productId === id){
+                    await updateOrdersProductPrice(openOrderId, id, newPrice);
+                }
+            }
+        }
+    };
+
     try {
         const {rows: [updatedProduct]} = await client.query(`
             UPDATE products

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -8,10 +8,20 @@ import {
 } from './components'
 
 const App = () => {
-  const [loggedIn, serLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [token, setToken] = useState('')
-  const [cart, setCart] = useState([])
+  const [user, setUser] = useState('')
+
+  useEffect(() => {
+    if(localStorage.getItem('418WhatsTeaToken') && !token) {
+        const {username, isAdmin: userAdmin} = localStorage.getItem('418WhatsTeaUser')
+        setLoggedIn(true)
+        setToken(localStorage.getItem('418WhatsTeaToken'))
+        setUser(username)
+        setIsAdmin(userAdmin)
+    }
+  }, [])
 
   return (<Router>
     <div>

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 //insert functions from the database here (addresses)
-const { createAddress, getAddress } = require("../database/addresses");
+const { createAddress, getAddressByUserId } = require("../database/addresses");
 
 //create an address
 //POST api/address
@@ -34,6 +34,6 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:userId", async (req, res, next) => {
   const { userId } = req.params;
-  const address = await getAddress(userId);
+  const address = await getAddressByUserId(userId);
   res.send(address);
 });

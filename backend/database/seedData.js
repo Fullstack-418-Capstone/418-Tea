@@ -1,7 +1,7 @@
 const client = require("./client");
 const {createUser, getUserByUsername, getAllUsers, editUserById,  getUserByUserId} = require("./users")
-const {createProduct, getProductById, editProductById, getProductsByType} = require("./products");
-const { createNewOrdersProduct, getOpenCartProductsByUserName } = require("./orders_products");
+const {createProduct, getProductById, editProductById, getProductsByType, getAllActiveProducts, getAllProducts, getActiveProductsByType, setProductToInactiveById, setProductToActiveById} = require("./products");
+const { createNewOrdersProduct, getOpenCartProductsByUserName , getOpenCartProductsByOrderId} = require("./orders_products");
 const { getOpenCartByUser, placeOrder, getOpenOrders } = require("./orders");
 const { getAddressByUserId, editAddressByUserId, editAddressByAddressId } = require("./addresses");
 
@@ -266,10 +266,11 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    const {addressId: thisId} = await getUserByUsername("IronMan")
 
-    await editAddressByAddressId({id: thisId, city:'houston'})
-    console.log(await getAddressByUserId(1))
+    
+
+
+
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

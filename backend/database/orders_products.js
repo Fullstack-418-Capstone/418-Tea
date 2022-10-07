@@ -57,9 +57,7 @@ const deleteOrdersProduct = async({userId, productId}) => {
 const getOpenCartProductsByUserName = async(username) => {
     try { 
         const { id: userId} = await getUserByUsername(username);
-        console.log('here is the userid', userId)
         const {id : orderId } = await getOpenCartByUser(userId);
-        console.log('here is the orderId', orderId)
         const { rows: cart } = await client.query(`
         SELECT *
         FROM orders_products
@@ -75,7 +73,7 @@ const getOpenCartProductsByUserName = async(username) => {
 //get Orders_product by order Id
 const getOpenCartProductsByOrderId = async (orderId) => {
     try{
-        const products = await client.query(`
+        const {rows: products }= await client.query(`
         SELECT *
         FROM orders_products
         WHERE "orderId" = $1;
@@ -93,7 +91,7 @@ const getOpenCartProductsByOrderId = async (orderId) => {
 const updateOrdersProductPrice = async (orderId, productId, newPrice) => {
     await client.query(`
     UPDATE orders_products
-    SET price = $1,
+    SET price = $1
     WHERE "orderId" = $2 AND "productId" = $3;
     `, [newPrice, orderId, productId]);
 

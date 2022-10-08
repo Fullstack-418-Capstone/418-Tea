@@ -25,7 +25,7 @@ const Header = (props) => {
     
                 <Link to='/tea-ware' >Tea Ware</Link> <br/>
                 <Link to='/tea-leaf' >Tea</Link> <br/>
-                <Link to='/cart/:userId' >Cart</Link> <br/>
+                <Link to='/cart' >Cart</Link> <br/>
                 {token ? null : <><Link to='/register' >Register</Link> <br/> </> }
                 {token ? 
                 <button onClick={(event) =>{handleLout(event)}}>Log Out</button>

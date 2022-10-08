@@ -7,13 +7,15 @@ import {
     HomePage,
     Register,
     TeaLeaf,
-    TeaWare
+    TeaWare,
+    Cart,
+    AdminPage
 } from './components'
-import Cart from "./components/Cart";
+import AdminViewHandler from "./components/Admin/AdminViewHandler";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false)//this is reduntant, no? If a user is logged in, there will be a token, just check if token is not null -Fred
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false) //I think this can be simplified as well, explained in AdminPage.js
   const [token, setToken] = useState('')
   const [user, setUser] = useState('')
 
@@ -88,6 +90,7 @@ return (
         <header>
             <Header token={token} isAdmin={isAdmin} setLoggedIn={setLoggedIn} setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
         </header>
+        <AdminViewHandler></AdminViewHandler>
         <main>
             <Routes>
               <Route path='/register' element = {
@@ -101,6 +104,9 @@ return (
               }></Route>
               <Route path='/cart' element = {
                 <Cart token={token} dummyProducts={dummyProducts}></Cart>
+              }></Route>
+              <Route path='/admin' element = {
+                <AdminPage dummyProducts={dummyProducts}></AdminPage>
               }></Route>
                 <Route path="/" element={<HomePage />} />
             </Routes>

@@ -1,5 +1,5 @@
 // for all API call functions
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "http://localhost:3001/api";
 
 export const loginUser = async(username, password, setToken, setLoggedIn, setUser) => {
     let success;
@@ -33,4 +33,38 @@ export const loginUser = async(username, password, setToken, setLoggedIn, setUse
     } catch (error) {
         console.error(error)
     }
+}
+
+const getAllProducts = async() => {
+    try{
+        const response = await fetch(`${BASE_URL}/products`,{
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+        });
+        const data = await response.json();
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+const getAllActiveProducts = async() => {
+    try{
+        const response = await fetch(`${BASE_URL}/products`,{
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+        });
+        const data = await response.json();
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export {
+    getAllProducts,
+    getAllActiveProducts
 }

@@ -56,3 +56,4 @@ router.get("/order/:userid", async (req, res, next) => {
 //PATCH edit orders -- decided we did not need this
 
 //DELETE delete order -- decided we did not need this either
+module.exports = router;

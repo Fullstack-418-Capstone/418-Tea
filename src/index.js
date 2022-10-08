@@ -4,14 +4,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import {
     Header,
-    HomePage
+    HomePage,
+    Register,
+    TeaLeaf,
+    TeaWare
 } from './components'
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)//why does this exist? If a user is logged in, there will be a token, just check if token exists? -Fred
   const [isAdmin, setIsAdmin] = useState(false)
   const [token, setToken] = useState('')
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState('')//why does this exist? -Fred
 
   useEffect(() => {
     if(localStorage.getItem('418WhatsTeaToken') && !token) {
@@ -23,20 +26,42 @@ const App = () => {
     }
   }, [])
 
-  useEffect(() => {}, [loggedIn])
+  //useEffect(() => {}, [loggedIn])
 
-  return (<Router>
-    <div>
-        <header>
-            <Header loggedIn={loggedIn} isAdmin={isAdmin} setLoggedIn={setLoggedIn} setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
-        </header>
-        <main>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-            </Routes>
-        </main>
-    </div>
-  </Router>);
+  /* example login
+  const localLogin = () => {
+    const localToken = localStorage.getItem('418WhatsTeaToken');
+    if(localToken && localToken !== 'null'){
+      setToken(localToken);
+    }
+  }
+  useEffect(() => {
+    localLogin();
+  }, [])
+  */
+
+  return (
+    <Router>
+      <div>
+          <header>
+              <Header token={token} isAdmin={isAdmin} setLoggedIn={setLoggedIn} setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
+          </header>
+          <main>
+              <Routes>
+                <Route path='/register' element = {
+                  <Register setToken={setToken}></Register>
+                }></Route>
+                <Route path='/tea-leaf' element = {
+                  <TeaLeaf></TeaLeaf>
+                }></Route>
+                <Route path='/tea-ware' element = {
+                  <TeaWare></TeaWare>
+                }></Route>
+                  <Route path="/" element={<HomePage />} />
+              </Routes>
+          </main>
+      </div>
+    </Router>);
 };
 
 const container = document.getElementById("app");

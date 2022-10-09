@@ -90,7 +90,7 @@ return (
         <header>
             <Header token={token} isAdmin={isAdmin} setLoggedIn={setLoggedIn} setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
         </header>
-        <AdminViewHandler></AdminViewHandler>
+        
         <main>
             <Routes>
               <Route path='/register' element = {

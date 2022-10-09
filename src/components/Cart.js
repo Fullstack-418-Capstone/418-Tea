@@ -53,6 +53,7 @@ const Cart = ({token, dummyProducts}) => {
             }): <>No items in cart</>
             }
             <>End of calls to CartItem.js View</>
+            <hr/>
 
             <button onClick={(event) => {handlePlaceOrder(event)}}>Place Order</button>
 

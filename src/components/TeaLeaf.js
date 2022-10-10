@@ -15,6 +15,7 @@ const TeaLeaf = () => {
                 filtered.push(allActiveProducts[i])
             }
         }
+        console.log('adding to', filtered)
         setTea(filtered)
     }
 

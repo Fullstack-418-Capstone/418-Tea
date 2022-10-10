@@ -10,6 +10,7 @@ const TeaLeaf = () => {
 
     const filterProducts = () => {
         const filtered = [];
+        console.log("all active products", allActiveProducts)
         for(let i = 0; i < allActiveProducts.length; i++ ){
             if(filter.includes(allActiveProducts[i].type)){
                 filtered.push(allActiveProducts[i])
@@ -21,12 +22,14 @@ const TeaLeaf = () => {
 
     const getAll = async() => {
         const allproduct = await getAllActiveProducts();
+        console.log('fetched products', allproduct)
         setAllActiveProducts(allproduct)
 
     }
 
     useEffect(() => {
         getAll();
+        setFilter(["loose", "bagged"])
     },[])
     useEffect(() => {
         filterProducts();

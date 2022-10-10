@@ -52,12 +52,14 @@ const getAllProducts = async() => {
 }
 const getAllActiveProducts = async() => {
     try{
+        console.log('running allactiveproducts');
         const response = await fetch(`${BASE_URL}/products`,{
             method:'GET',
             headers: {
                 'Content-Type': 'application/json'
                 },
         });
+        console.log("response", response)
         const data = await response.json();
         return data
     } catch (error) {

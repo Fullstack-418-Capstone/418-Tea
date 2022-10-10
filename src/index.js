@@ -15,7 +15,7 @@ import AdminViewHandler from "./components/Admin/AdminViewHandler";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false)//this is reduntant, no? If a user is logged in, there will be a token, just check if token is not null -Fred
-  const [isAdmin, setIsAdmin] = useState(false) //I think this can be simplified as well, explained in AdminPage.js
+  const [isAdmin, setIsAdmin] = useState(false)
   const [token, setToken] = useState('')
   const [user, setUser] = useState('')
 

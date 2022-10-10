@@ -1,7 +1,8 @@
 // for all API call functions
 const BASE_URL = "http://localhost:3001/api";
 
-export const loginUser = async(username, password, setToken, setUser, setIsAdmin) => {
+const loginUser = async(username, password, setToken, setUser, setIsAdmin) => {
+
     let success;
 
     try {

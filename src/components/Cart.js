@@ -16,6 +16,9 @@ const Cart = ({token, dummyProducts}) => {
     const getCartFromLocal = () => {
         //fetch from local
         console.log('getting items from local')
+        const guestCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
+        setCartItems(guestCart)
+        
         //setCartItems(result)
     }
     
@@ -25,14 +28,14 @@ const Cart = ({token, dummyProducts}) => {
 
     //dummy cart data .... remove once api getCartForUser and getCartFromLocal are working
     //fill cart with all products
-    useEffect(() => {
-        const cartArr = []
-        for(let i = 0; i< dummyProducts.length; i++){
-            console.log('adding to cart', dummyProducts[i])
-            cartArr.push(dummyProducts[i])
-        }
-        setCartItems(cartArr)
-    },[])
+    // useEffect(() => {
+    //     const cartArr = []
+    //     for(let i = 0; i< dummyProducts.length; i++){
+    //         console.log('adding to cart', dummyProducts[i])
+    //         cartArr.push(dummyProducts[i])
+    //     }
+    //     setCartItems(cartArr)
+    // },[])
     //end of dummy cart data
 
     const handlePlaceOrder = (event) => {
@@ -45,13 +48,16 @@ const Cart = ({token, dummyProducts}) => {
         <div>
             <>Hi there from the Cart View</><br/>
             <>Everything under me is a call to the CartItem.js View</>
-            {cartItems[0] ? 
+            <hr/>
+            {cartItems ? 
             cartItems.map((product, index) => {
                 return (
                     <CartItem product={product} key={index}></CartItem>
                 )
-            }): <>No items in cart</>
+            })
+            : <>No items in cart</>
             }
+            <hr/>
             <>End of calls to CartItem.js View</>
             <hr/>
 

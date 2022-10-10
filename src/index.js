@@ -23,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     if(localStorage.getItem('418WhatsTeaToken') && !token) {
-        const {username, isAdmin: userAdmin} = localStorage.getItem('418WhatsTeaUser')
+        const {username, isAdmin: userAdmin} = JSON.parse(localStorage.getItem('418WhatsTeaUser'))
         // setLoggedIn(true)
         setToken(localStorage.getItem('418WhatsTeaToken'))
         setUser(username)

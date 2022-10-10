@@ -4,7 +4,7 @@ import Login from "./Login";
 
 
 const Header = (props) => {
-    const {token, isAdmin, setLoggedIn, setToken, setUser, setIsAdmin} = props
+    const {token, isAdmin, /*setLoggedIn,*/ setToken, setUser, setIsAdmin} = props
 
 
 
@@ -15,8 +15,9 @@ const Header = (props) => {
     }
     const handleLogOut = (event) => {
         event.preventDefault();
-        setToken(null);
-        localStorage.setItem('418WhatsTeaToken', null)
+        setToken("");
+        setIsAdmin(false);
+        localStorage.removeItem('418WhatsTeaToken')
     }
     return (
         <div style={headerStyle}>
@@ -28,8 +29,8 @@ const Header = (props) => {
                 <Link to='/cart' >Cart</Link> <br/>
                 {token ? null : <><Link to='/register' >Register</Link> <br/> </> }
                 {token ? 
-                <button onClick={(event) =>{handleLout(event)}}>Log Out</button>
-                : <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} setLoggedIn={setLoggedIn} /> } <br/>
+                <button onClick={(event) =>{handleLogOut(event)}}>Log Out</button>
+                : <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} /*setLoggedIn={setLoggedIn}*/ /> } <br/>
                 {isAdmin ? <Link to='/admin-view' >Admin Items</Link> : null }
      
         </div>

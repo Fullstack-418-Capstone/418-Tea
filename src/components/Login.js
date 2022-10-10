@@ -1,7 +1,8 @@
 import React, {useState} from "react";
+import { loginUser } from "../api/index";
 
 const Login = (props) => {
-    const {setUser, setToken, setLoggedIn, setIsAdmin} = props
+    const {setUser, setToken, setIsAdmin} = props
     const [usernameString, setUsernameString] = useState('')
     const [passwordString, setPasswordString] = useState('')
 
@@ -9,7 +10,7 @@ const Login = (props) => {
         <form
             onSubmit={async(event) => {
                 event.preventDefault()
-                const success = await loginUser(usernameString, passwordString, setToken, setLogin, setUser)
+                const success = await loginUser(usernameString, passwordString, setToken, setUser, setIsAdmin)
                 if(success) {
                     setUsernameString('')
                     setPasswordString('')

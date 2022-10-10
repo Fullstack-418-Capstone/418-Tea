@@ -1,7 +1,7 @@
 // for all API call functions
 const BASE_URL = "http://localhost:3001/api";
 
-export const loginUser = async(username, password, setToken, setLoggedIn, setUser) => {
+export const loginUser = async(username, password, setToken, setUser, setIsAdmin) => {
     let success;
 
     try {
@@ -20,7 +20,7 @@ export const loginUser = async(username, password, setToken, setLoggedIn, setUse
         if(data.token) {
             setToken(data.token)
             setUser(username)
-            setLoggedIn(true)
+            setIsAdmin(data.isAdmin)
             localStorage.setItem('418WhatsTeaToken', data.token)
             localStorage.setItem('418WhatsTeaUser', data.user)
             success = true

@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import { getAllActiveProducts } from '../api';
+//import { getAllActiveProducts } from '../api';
 import ProductWindow from './ProductWindow';
 
 const TeaLeaf = ({dummyProducts}) => {
@@ -30,13 +30,42 @@ const filterProducts = () => {
 }
 
 //this function will call ALL products once api is properly working
-    const getTea = async() => {
-        const allproduct = await getAllActiveProducts();
-        console.log("all products", allproduct)
-    }
+    // const getTea = async() => {
+    //     const allproduct = await getAllActiveProducts();
+    //     console.log("all products", allproduct)
+    // }
+    // useEffect(() => {
+    //     getTea();
+    // },[])
+
+    const BASE_URL = "http://localhost:3001/api";
+
     useEffect(() => {
-        getTea();
+        const allProductsTest = async() => {
+            const allProducts = await getAllActiveProducts();
+            console.log('all products pulled', allProducts)
+
+            setTea(allProducts)
+        }
+        allProductsTest();
     },[])
+
+    const getAllActiveProducts = async() => {
+        try{
+            const response = await fetch(`${BASE_URL}/products`,{
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+            });
+            const data = await response.json();
+            return data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+        
+
 
 
 

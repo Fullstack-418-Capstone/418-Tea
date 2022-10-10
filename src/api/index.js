@@ -23,7 +23,7 @@ const loginUser = async(username, password, setToken, setUser, setIsAdmin) => {
             setUser(username)
             setIsAdmin(data.isAdmin)
             localStorage.setItem('418WhatsTeaToken', data.token)
-            localStorage.setItem('418WhatsTeaUser', data.user)
+            localStorage.setItem('418WhatsTeaUser', JSON.stringify(data.user))
             success = true
         } else {
             success=false

@@ -6,7 +6,7 @@ const ProductWindow = ({product}) => {
     product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
 
     const asset = `../assets/${product.imgurl}`
-    console.log(asset)
+    // console.log(asset)
 
     const productWindowStyle = {
         display:'flex',

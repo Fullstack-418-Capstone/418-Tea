@@ -17,9 +17,9 @@ const Cart = ({token, dummyProducts}) => {
         //fetch from local
         console.log('getting items from local')
         const guestCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
-        setCartItems(guestCart)
-        
-        //setCartItems(result)
+        if(guestCart) {
+            setCartItems(guestCart)
+        }
     }
     
     useEffect(() => {
@@ -49,10 +49,10 @@ const Cart = ({token, dummyProducts}) => {
             <>Hi there from the Cart View</><br/>
             <>Everything under me is a call to the CartItem.js View</>
             <hr/>
-            {cartItems ? 
+            {cartItems.length > 0 ? 
             cartItems.map((product, index) => {
                 return (
-                    <CartItem product={product} key={index}></CartItem>
+                    <CartItem product={product} key={index} index={index} setCartItems={setCartItems} ></CartItem>
                 )
             })
             : <>No items in cart</>

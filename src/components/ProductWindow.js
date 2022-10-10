@@ -17,6 +17,15 @@ const ProductWindow = ({product}) => {
         width:'250px'
     }
 
+    const addToCart = (product) => {
+        const cartList = [product]
+        const currentCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
+        if(currentCart) {
+            cartList.push(...currentCart)
+        }
+        localStorage.setItem('418WhatsTeaGuestCart', JSON.stringify(cartList))
+    }
+
     return (
         <div style={productWindowStyle}>
             <>{product.name}</>
@@ -24,7 +33,7 @@ const ProductWindow = ({product}) => {
             <>{product.description}</>
             <div style={{justifyContent:'space-between'}}>
                 <>{product.price} /{product.unit}</>
-                <button>Add to Cart</button>
+                <button onClick={() => {addToCart(product)}}>Add to Cart</button>
             </div>
             {product.stock < 6 ? <>Only {product.stock} left in stock</>: null}
         </div>

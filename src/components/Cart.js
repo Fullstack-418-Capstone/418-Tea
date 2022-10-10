@@ -41,6 +41,13 @@ const Cart = ({token, dummyProducts}) => {
     const handlePlaceOrder = (event) => {
         event.preventDefault()
         console.log('Placing Order')
+        if(token) {
+            console.log('WIP')
+        } else {
+            localStorage.removeItem('418WhatsTeaGuestCart')
+            setCartItems([])
+            alert('Thank you for your purchase.')
+        }
         //api call
     }
 

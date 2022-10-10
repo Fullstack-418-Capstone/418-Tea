@@ -23,7 +23,7 @@ const CartItem = ({product, index, setCartItems}) => {
             <img src={require(`../assets/${product.imgurl}`)} style={{height:'50px', width:'50px'}} />
             <>{product.name}</><br/>
             <>{product.description}</><br/>
-            <>${product.price} per {product.unit}</><br/>
+            <>${product.price} / {product.unit}</><br/>
             <>Total: ${product.price * quantity}</>
             <form >
                 <label>Quantity: {quantity}</label>
@@ -31,6 +31,8 @@ const CartItem = ({product, index, setCartItems}) => {
                 <input type='number' value={quantity} onChange={() => {
                     if(event.target.value <= 0) {
                         setQuantity(1)
+                    } else if(event.target.value > product.stock) {
+                        setQuantity(product.stock)
                     } else { 
                         setQuantity(event.target.value) 
                     }} 

@@ -4,7 +4,7 @@ const CartItem = ({product, index, setCartItems}) => {
 
     product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
     //this is just a boring placeholder file
-    const [quantity, setQunatity] = useState(1)
+    const [quantity, setQuantity] = useState(1)
 
 
     //products is dummy data different from what the api will call (quanity in cart is missing)
@@ -30,9 +30,9 @@ const CartItem = ({product, index, setCartItems}) => {
                 <br/>
                 <input type='number' value={quantity} onChange={() => {
                     if(event.target.value <= 0) {
-                        setQunatity(1)
+                        setQuantity(1)
                     } else { 
-                        setQunatity(event.target.value) 
+                        setQuantity(event.target.value) 
                     }} 
                 } 
                 />

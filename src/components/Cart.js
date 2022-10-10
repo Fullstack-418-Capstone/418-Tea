@@ -26,8 +26,6 @@ const Cart = ({token, dummyProducts}) => {
         token ? getCartForUser() : getCartFromLocal()
     },[])
 
-    // useEffect(() => {}, cartItems)
-
     //dummy cart data .... remove once api getCartForUser and getCartFromLocal are working
     //fill cart with all products
     // useEffect(() => {

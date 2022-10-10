@@ -63,8 +63,54 @@ const getAllActiveProducts = async() => {
         console.error(error)
     }
 }
+const getAllUsers = async() => {
+    try{
+        const response = await fetch(`${BASE_URL}/users`,{
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+        });
+        const result = await response.json();
+        return result
+    }catch (error) {
+        console.error(error)
+    }
+}
+const registerUser = async (firstname, lastname, username, password, email, addressObj,) => {
+    try{
+        const response = await fetch(`${BASE_URL}/users/register`,{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+            body: JSON.stringify({
+                firstname: firstname,
+                lastname: lastname,
+                username: username,
+                password: password,
+                email: email,
+                address: addressObj
+            })                
+        });
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
+
+
+
+
+
 
 export {
     getAllProducts,
-    getAllActiveProducts
+    getAllActiveProducts,
+    registerUser,
+    getAllUsers,
+    loginUser
 }

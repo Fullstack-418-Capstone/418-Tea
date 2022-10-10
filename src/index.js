@@ -106,7 +106,7 @@ return (
                 <Cart token={token} dummyProducts={dummyProducts}></Cart>
               }></Route>
               <Route path='/admin' element = {
-                <AdminPage dummyProducts={dummyProducts}></AdminPage>
+                <AdminPage isAdmin={isAdmin} dummyProducts={dummyProducts}></AdminPage>
               }></Route>
                 <Route path="/" element={<HomePage />} />
             </Routes>

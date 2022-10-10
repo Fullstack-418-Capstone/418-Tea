@@ -1,9 +1,8 @@
 const client = require("./client");
-const {createUser, getUserByUsername, getAllUsers, editUserById,  getUserByUserId} = require("./users")
-const {createProduct, getProductById, editProductById, getProductsByType, getAllActiveProducts, getAllProducts, getActiveProductsByType, setProductToInactiveById, setProductToActiveById} = require("./products");
-const { createNewOrdersProduct, getOpenCartProductsByUserName , getOpenCartProductsByOrderId} = require("./orders_products");
-const { getOpenCartByUser, placeOrder, getOpenOrders } = require("./orders");
-const { getAddressByUserId, editAddressByUserId, editAddressByAddressId } = require("./addresses");
+const {createUser} = require("./users")
+const {createProduct, getProductById} = require("./products");
+const { createNewOrdersProduct} = require("./orders_products");
+
 
 const createTables = async () => {
   try {
@@ -139,7 +138,7 @@ const createInitialUsers = async() => {
     state: 'MA',
     zipcode: '02108'
    }
-   //const { id: idOne } = await createAddress(addressOne)
+   
    const userOne = {
     username: 'IronMan',
     password: 'thanksJarvis',
@@ -241,9 +240,8 @@ const createInitialCarts = async() => {
         price: priceTwo
       }
     ]
-   // const  addedCarts = await Promise.all(cartsToCreate.map(createNewOrdersProduct))
+    
     const addOne = await createNewOrdersProduct(addToCartsToCreate[0])
-   //console.log('addOne', addOne)
     const addTwo = await createNewOrdersProduct(addToCartsToCreate[1])
     const addThree = await createNewOrdersProduct(addToCartsToCreate[2])
     const addedCarts = [addOne, addTwo, addThree]
@@ -266,11 +264,6 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-
-    
-
-
-
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

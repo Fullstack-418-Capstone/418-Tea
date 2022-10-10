@@ -81,3 +81,4 @@ router.get("/address/:username", async (req, res, next) => {
 });
 
 // PROMOTE A USER TO AN ADMIN -- COME BACK AND ADD THIS WHOLE ROUTE -- FINISH ONCE NEEDED
+module.exports = router;

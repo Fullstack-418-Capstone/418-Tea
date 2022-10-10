@@ -67,3 +67,5 @@ router.delete("/delete", async (req, res, next) => {
 
   res.send(deleteFromCart);
 });
+
+module.exports = router;

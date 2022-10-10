@@ -130,7 +130,7 @@ const placeOrder = async(orderId) => {
         WHERE id=${orderId}
         RETURNING *;
         `);
-        console.log('placed order', order)
+        
         return order
 
     } catch(err) {

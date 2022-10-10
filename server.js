@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-const PORT = 3000;
+const PORT = 3001;
 
 const apiRouter = require("./backend/api");
 server.use("/api", apiRouter);
@@ -11,3 +11,15 @@ server.use("/api", apiRouter);
 server.listen(PORT, () => {
   console.log("The server is up on port:", PORT);
 });
+
+
+// //new edits by fred (testing)
+// const http = require("http");
+// const app = require('./app');
+
+// const PORT = 3001;
+// const server = http.createServer(app)
+
+// server.listen(PORT, () => {
+//   console.log("The server is up on port:", PORT);
+// });

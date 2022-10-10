@@ -37,3 +37,5 @@ router.get("/:userId", async (req, res, next) => {
   const address = await getAddressByUserId(userId);
   res.send(address);
 });
+
+module.exports = router;

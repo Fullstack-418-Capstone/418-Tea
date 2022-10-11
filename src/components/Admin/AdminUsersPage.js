@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminSingleUserView from './AdminSingleUserView';
+import { getAllUsers } from '../../api/index'
 
 
 const AdminUsersPage = () => {
@@ -7,27 +8,21 @@ const AdminUsersPage = () => {
 
     //tier 4 add a user search bar
 
-    //upon loading call getAllUsers from API and setAllUsers to the result
-
-    //dummy users
-    const setDummyUsers = () => {
-        const dummyUsers = [
-            {id:1, name:'Frank'},
-            {id:2, name:'Tony'}
-        ]
-        setAllUsers(dummyUsers)
+    const setGatheredUsers = async() =>{
+        const gatheredUsers = await getAllUsers();
+        setAllUsers(gatheredUsers);
     }
+
     useEffect(() => {
-        setDummyUsers()
-    },[])
-    //end of dummyusers
+        setGatheredUsers()
+    }, []);
 
     return(
         <div>
-            <>This is where ALL USERS would load, regardless of isActive status</><br/>
-            {allUsers[0] ? allUsers.map((user, index) => {
+            <>List of All Users</><hr/>
+            {allUsers[0] ? allUsers.map((user) => {
                 return (
-                    <AdminSingleUserView user={user}></AdminSingleUserView>
+                    <AdminSingleUserView key={user.id} user={user}></AdminSingleUserView>
                 )
             })
             

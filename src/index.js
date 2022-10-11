@@ -9,7 +9,8 @@ import {
     TeaLeaf,
     TeaWare,
     Cart,
-    AdminPage
+    AdminPage,
+    Profile
 } from './components'
 
 const App = () => {
@@ -50,7 +51,7 @@ return (
                 <Cart token={token} ></Cart>
               }></Route>
               <Route path='/profile' element = {
-                <Cart token={token} ></Cart>
+                <Profile token={token} ></Profile>
               }></Route>
               <Route path='/admin' element = {
                 <AdminPage isAdmin={isAdmin}></AdminPage>

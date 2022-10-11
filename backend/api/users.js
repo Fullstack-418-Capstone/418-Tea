@@ -99,5 +99,17 @@ router.get("/address/:username", async (req, res, next) => {
   }
 });
 
+//GET /api/users/username
+router.get("/:username", async (req, res, next) => {
+  const { username } = req.params;
+
+  try {
+    const user = await getUserByUsername(username);
+    res.send(user)
+  } catch (error) {
+    throw error
+  }
+} )
+
 // PROMOTE A USER TO AN ADMIN -- COME BACK AND ADD THIS WHOLE ROUTE -- FINISH ONCE NEEDED
 module.exports = router;

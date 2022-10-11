@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CartItem from './CartItem';
 
 
-const Cart = ({token, dummyProducts}) => {
+const Cart = ({token, user}) => {
     const [cartItems, setCartItems] = useState([])
 
 

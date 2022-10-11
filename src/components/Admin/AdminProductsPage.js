@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import AdminSingleProductView from './AdminSingleProductView';
+import { getAllProducts } from '../../api/index';
 
 
 const AdminProductsPage = () => {
@@ -7,16 +8,26 @@ const AdminProductsPage = () => {
 
     //call all products regardless of isActive. setAllProducts to the result
 
+    const setGatheredProducts = async() => {
+        const gatheredProducts = await getAllProducts();
+        setAllProducts(gatheredProducts);
+    }
+
+    useEffect(() => {
+        setGatheredProducts();
+    }, []);
+
 
     //tier 4 add a product search bar
 
     return(
         <div>
-            <>This is where ALL products would load, regardless of isActive status</>
+            <>List of All Products</>
+            <hr/>
             {allProducts[0] ? 
-            allProducts.map((product, index) => {
+            allProducts.map((product) => {
                 return(
-                    <AdminSingleProductView product={product} key={index}></AdminSingleProductView>
+                    <AdminSingleProductView product={product} key={product.id}></AdminSingleProductView>
                 )
             })
             :null}

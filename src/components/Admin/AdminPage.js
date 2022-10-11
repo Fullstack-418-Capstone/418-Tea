@@ -8,9 +8,9 @@ const AdminPage = ({isAdmin}) => {
 
     return (
         <div>
-            <>This is the Admin Page</><br/>
+            <br/>
             {isAdmin ? <AdminViewHandler isAdmin={isAdmin}></AdminViewHandler>
-            : <>You need to be an Admin to see this page</>}
+            : <>You need to be an Admin to see this page.</>}
 
         </div>
     )

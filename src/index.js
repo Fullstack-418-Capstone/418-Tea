@@ -48,7 +48,7 @@ return (
                 <TeaWare></TeaWare>
               }></Route>
               <Route path='/cart' element = {
-                <Cart token={token} ></Cart>
+                <Cart token={token} user={user} ></Cart>
               }></Route>
               <Route path='/profile' element = {
                 <Profile token={token} ></Profile>

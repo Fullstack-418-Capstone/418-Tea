@@ -8,9 +8,9 @@ const Profile = ({ token }) => {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [zipcode, setZipCode] = useState("");
+  const [userState, setUserState] = useState("");
+  const [city, setCity] = useState("jax");
+  const [zipcode, setZipCode] = useState("123456");
 
   const HandleChanges = async (event) => {
     event.preventDefault();
@@ -19,15 +19,16 @@ const Profile = ({ token }) => {
       lastName,
       password,
       address,
-      state,
+      userState,
       city,
-      zipcode
+      zipcode,
+      token
     );
     setFirstName("");
     setLastName("");
     setPassword("");
     setAddress("");
-    setState("");
+    setUserState("");
     setCity("");
     setZipCode("");
   };
@@ -77,9 +78,9 @@ const Profile = ({ token }) => {
           <input
             placeholder="Edit State"
             type="text"
-            value={state}
+            value={userState}
             onChange={(event) => {
-              setState(event.target.value);
+              setUserState(event.target.value);
             }}
           ></input>
           <input

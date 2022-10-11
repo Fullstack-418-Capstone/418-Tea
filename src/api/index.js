@@ -151,7 +151,25 @@ const getCartByUsername = async (username) => {
 
 //addtocart
 
-//removefromcart
+const removeFromCart = async(userId, productId) => {
+    try {
+        const response = await fetch(`${BASE_URL}/orders_products/delete`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: {
+                userId,
+                productId
+            }
+        })
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        throw error
+    }
+}
 
 //placeorder
 
@@ -162,5 +180,6 @@ export {
   getAllUsers,
   loginUser,
   getUserByUsername,
-  getCartByUsername
+  getCartByUsername,
+  removeFromCart
 };

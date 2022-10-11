@@ -180,13 +180,15 @@ const editUserInformation = async (
   address,
   state,
   city,
-  zipcode
+  zipcode,
+  token
 ) => {
   try {
     const response = await fetch(`${BASE_URL}/users/:userInformation`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         firstname,

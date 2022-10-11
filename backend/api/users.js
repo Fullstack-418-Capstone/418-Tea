@@ -4,7 +4,7 @@ const {
   getAllUsers,
   getUserByUsername,
   createUser,
-  updateUserInformation,
+  updateUserInformationById,
 } = require("../database/users");
 const jwt = require("jsonwebtoken");
 
@@ -116,8 +116,9 @@ router.patch("/:userInformation", async (req, res, next) => {
   const { userInformation } = req.params;
   const { firstname, lastname, password, address, state, city, zipcode } =
     req.body;
+    
   const { id } = req.user;
-
+  console.log('id from token is', id)
   const updateFields = {};
 
   if (firstname) {
@@ -149,9 +150,9 @@ router.patch("/:userInformation", async (req, res, next) => {
   }
 
   try {
-    const updateInfo = await updateUserInformation(id, updateFields);
+    const updateInfo = await updateUserInformationById({id, firstname, lastname, password});
 
-    res.send({ update: updateInfo });
+    res.send(updateInfo);
   } catch (error) {
     throw error;
   }

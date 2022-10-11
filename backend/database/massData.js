@@ -60,6 +60,7 @@ const productsToCreate = [
         price: 56,
         isActive: false
     }]
+    //test comment
 
   module.exports = {
     productsToCreate

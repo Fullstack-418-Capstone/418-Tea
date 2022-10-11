@@ -168,7 +168,7 @@ const setUserToInactiveById = async (userId) => {
   }
 };
 
-async function updateUserInformation({ userInformation, ...fields }) {
+async function updateUserInformation({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -177,15 +177,15 @@ async function updateUserInformation({ userInformation, ...fields }) {
     if (setString.length > 0) {
       await client.query(
         `
-            UPDATE activities 
+            UPDATE users 
             SET ${setString}
-            WHERE id=${userInformation}
+            WHERE id=${id}
             RETURNING *;
           `,
         Object.values(fields)
       );
     }
-    return await getActivityById(userInformation);
+    return await getUserByUserId(id);
   } catch (error) {
     console.log("Error updating user information");
     throw error;

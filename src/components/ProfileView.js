@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { getUserByUsername } from "../api";
+import { editUserInformation } from "../api";
 
 const Profile = ({ token }) => {
   const [firstName, setFirstName] = useState("");
@@ -13,8 +14,17 @@ const Profile = ({ token }) => {
 
   const HandleChanges = async (event) => {
     event.preventDefault();
-    await getUserByUsername();
+    await editUserInformation(
+      firstName,
+      lastName,
+      password,
+      address,
+      state,
+      city,
+      zipcode
+    );
     setFirstName("");
+    setLastName("");
     setPassword("");
     setAddress("");
     setState("");

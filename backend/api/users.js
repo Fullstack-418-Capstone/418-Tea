@@ -4,6 +4,7 @@ const {
   getAllUsers,
   getUserByUsername,
   createUser,
+  updateUserInformation,
 } = require("../database/users");
 const jwt = require("jsonwebtoken");
 
@@ -105,21 +106,68 @@ router.get("/:username", async (req, res, next) => {
 
   try {
     const user = await getUserByUsername(username);
-    res.send(user)
+    res.send(user);
   } catch (error) {
-    throw error
+    throw error;
   }
-} )
+});
+
+router.patch("/:userInformation", async (req, res, next) => {
+  const { userInformation } = req.params;
+  const { firstname, lastname, password, address, state, city, zipcode } =
+    req.body;
+
+  const updateFields = {};
+
+  if (firstname) {
+    updateFields.firstname = firstname;
+  }
+
+  if (lastname) {
+    updateFields.lastname = lastname;
+  }
+
+  if (password) {
+    updateFields.password = password;
+  }
+
+  if (address) {
+    updateFields.address = address;
+  }
+
+  if (state) {
+    updateFields.state = state;
+  }
+
+  if (city) {
+    updateFields.city = city;
+  }
+
+  if (zipcode) {
+    updateFields.zipcode = zipcode;
+  }
+
+  try {
+    const updateInfo = await updateUserInformation(
+      userInformation,
+      updateFields
+    );
+
+    res.send({ updateInfo });
+  } catch (error) {
+    throw error;
+  }
+});
 
 //GET /api/users
 router.get("/", async (req, res, next) => {
-  try{
+  try {
     const users = await getAllUsers();
     res.send(users);
-  } catch(err) {
+  } catch (err) {
     throw err;
   }
-})
+});
 
 // PROMOTE A USER TO AN ADMIN -- COME BACK AND ADD THIS WHOLE ROUTE -- FINISH ONCE NEEDED
 module.exports = router;

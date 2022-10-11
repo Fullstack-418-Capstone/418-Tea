@@ -3,9 +3,9 @@ import React from 'react';
 
 const ProductWindow = ({product}) => {
 
-    product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
+    product.imgurl ? null : product.imgurl = 'tealogo150.png'
 
-    const asset = `../assets/${product.imgurl}`
+    //const asset = `../assets/${product.imgurl}`
     // console.log(asset)
 
     const productWindowStyle = {

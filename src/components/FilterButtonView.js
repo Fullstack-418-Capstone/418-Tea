@@ -6,11 +6,13 @@ const FilterButton = ({filter, setFilterWord, title}) => {
     const filterStyle = {
         border:'solid',
         borderRadius:'25px',
-        backgroundColor:"rgb(216,191,216)",
+        borderColor:"#2A4747",
+        backgroundColor:"#439775",
         padding: '3px',
         margin: '5px',
         minWidth:'150px',
-        textAlign:"center"
+        textAlign:"center",
+        color:'white'
     }
     const handleClick = () => {
         if(filter === "tea"){

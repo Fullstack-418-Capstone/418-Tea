@@ -13,8 +13,12 @@ const ProductWindow = ({product}) => {
         flexDirection:'column',
         border:'solid',
         borderRadius:'5px',
+        borderColor:'#439775',
         height:'300px',
-        width:'250px'
+        width:'250px',
+        backgroundColor:'white',
+        margin:'5px',
+        padding:'2px'
     }
 
     const addToCart = (product) => {

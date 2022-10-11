@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import { getAllActiveProducts } from '../api';
+import FilterButton from './FilterButtonView';
 
 import ProductWindow from './ProductWindow';
 
@@ -39,6 +40,7 @@ useEffect(() => {
 
     return(
         <div>
+            <FilterButton onClick={() => {console.log("clicked")}} text={"kettle"}></FilterButton>
             {tea[0] ?
             tea.map((product,index) => {
                 return (

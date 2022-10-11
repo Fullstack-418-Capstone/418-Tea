@@ -14,7 +14,6 @@ import {
 import AdminViewHandler from "./components/Admin/AdminViewHandler";
 
 const App = () => {
-  // const [loggedIn, setLoggedIn] = useState(false)//this is reduntant, no? If a user is logged in, there will be a token, just check if token is not null -Fred
   const [isAdmin, setIsAdmin] = useState(false)
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
@@ -24,7 +23,6 @@ const App = () => {
   useEffect(() => {
     if(localStorage.getItem('418WhatsTeaToken') && !token) {
         const {username, isAdmin: userAdmin} = JSON.parse(localStorage.getItem('418WhatsTeaUser'))
-        // setLoggedIn(true)
         setToken(localStorage.getItem('418WhatsTeaToken'))
         setUser(username)
         setIsAdmin(userAdmin)
@@ -32,21 +30,6 @@ const App = () => {
   }, [])
 
   useEffect(() => {}, [token])
-
-  /* example login
-  const localLogin = () => {
-    const localToken = localStorage.getItem('418WhatsTeaToken');
-    if(localToken && localToken !== 'null'){
-      setToken(localToken);
-    }
-  }
-  useEffect(() => {
-    localLogin();
-  }, [])
-  */
-
-
-
 
 //dummy data
 const setDummyData = () => {
@@ -88,7 +71,7 @@ return (
   <Router>
     <div>
         <header>
-            <Header token={token} isAdmin={isAdmin} /* setLoggedIn={setLoggedIn} */ setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
+            <Header token={token} isAdmin={isAdmin} setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} />
         </header>
         
         <main>

@@ -25,7 +25,7 @@ const Cart = ({token, user}) => {
     
     useEffect(() => {
         token ? getCartForUser(user.username) : getCartFromLocal()
-    },[])
+    },[token])
 
     const handlePlaceOrder = (event) => {
         event.preventDefault()
@@ -47,7 +47,7 @@ const Cart = ({token, user}) => {
             {cartItems.length > 0 ? 
             cartItems.map((product, index) => {
                 return (
-                    <CartItem product={product} key={index} index={index} setCartItems={setCartItems} ></CartItem>
+                    <CartItem product={product} key={index} index={index} setCartItems={setCartItems} token={token} user={user} ></CartItem>
                 )
             })
             : <>No items in cart</>

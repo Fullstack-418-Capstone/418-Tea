@@ -61,9 +61,10 @@ router.patch("/editquantity", async (req, res, next) => {
 
 // delete request
 router.delete("/delete", async (req, res, next) => {
-  const { userId, productId } = req.body;
+  const { id: userId } = req.user
+  const { productId } = req.body;
 
-  const deleteFromCart = deleteOrdersProduct(userId, productId);
+  const deleteFromCart = deleteOrdersProduct({userId, productId});
 
   res.send(deleteFromCart);
 });

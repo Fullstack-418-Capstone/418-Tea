@@ -20,7 +20,7 @@ const loginUser = async (username, password, setToken, setUser, setIsAdmin) => {
     if (data.token) {
         delete data.user.password
       setToken(data.token);
-      setUser(username);
+      setUser(data.user);
       setIsAdmin(data.user.isAdmin);
       localStorage.setItem("418WhatsTeaToken", data.token);
       localStorage.setItem("418WhatsTeaUser", JSON.stringify(data.user));
@@ -131,15 +131,23 @@ const getUserByUsername = async (username) => {
 
         const data = await response.json()
         delete data.password
-        console.log(data)
-
+        
         return data
     } catch (error) {
         console.error(error)
     }
 }
 
-// getCart
+const getCartByUsername = async (username) => {
+    try {
+        const response = await fetch(`${BASE_URL}/orders_products/${username}`)
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        throw error
+    }
+}
 
 //addtocart
 
@@ -153,5 +161,6 @@ export {
   registerUser,
   getAllUsers,
   loginUser,
-  getUserByUsername
+  getUserByUsername,
+  getCartByUsername
 };

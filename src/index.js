@@ -20,10 +20,10 @@ const App = () => {
 
   useEffect(() => {
     if(localStorage.getItem('418WhatsTeaToken') && !token) {
-        const {username, isAdmin: userAdmin} = JSON.parse(localStorage.getItem('418WhatsTeaUser'))
+        const localUser = JSON.parse(localStorage.getItem('418WhatsTeaUser'))
         setToken(localStorage.getItem('418WhatsTeaToken'))
-        setUser(username)
-        setIsAdmin(userAdmin)
+        setUser(localUser)
+        setIsAdmin(localUser.isAdmin)
     }
   }, [])
 

@@ -9,7 +9,7 @@ const {
 } = require("../database/orders_products");
 
 //GET /api/order_products/:username
-router.get("/order_products/:username", async (req, res, next) => {
+router.get("/:username", async (req, res, next) => {
   const { username } = req.params;
   try {
     const orderByUsername = await getOpenCartProductsByUserName(username);
@@ -21,7 +21,7 @@ router.get("/order_products/:username", async (req, res, next) => {
 });
 
 //GET /api/order_products/:orderId
-router.get("/order_products/:orderId", async (req, res, next) => {
+router.get("/:orderId", async (req, res, next) => {
   const { orderId } = req.params;
   try {
     const productByProductId = await getOpenCartProductsByOrderId(orderId);

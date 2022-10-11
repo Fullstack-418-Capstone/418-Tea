@@ -44,8 +44,10 @@ const deleteOrdersProduct = async({userId, productId}) => {
         const {id : orderId } = await getOpenCartByUser(userId);
         const {rows: deletedOrder} = await client.query(`
             DELETE FROM orders_products
-            WHERE "orderId"=$1 AND "productId"=$2;
+            WHERE "orderId"=$1 AND "productId"=$2
+            RETURNING *;
         `,[orderId, productId]);
+
         return deletedOrder;
     }catch(err){
         console.error(err);

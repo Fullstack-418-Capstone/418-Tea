@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getUserByUserId,
+  getAllUsers,
   getUserByUsername,
   createUser,
 } = require("../database/users");
@@ -110,6 +110,16 @@ router.get("/:username", async (req, res, next) => {
     throw error
   }
 } )
+
+//GET /api/users
+router.get("/", async (req, res, next) => {
+  try{
+    const users = await getAllUsers();
+    res.send(users);
+  } catch(err) {
+    throw err;
+  }
+})
 
 // PROMOTE A USER TO AN ADMIN -- COME BACK AND ADD THIS WHOLE ROUTE -- FINISH ONCE NEEDED
 module.exports = router;

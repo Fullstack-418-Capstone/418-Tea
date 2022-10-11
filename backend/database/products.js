@@ -3,14 +3,16 @@ const { getOpenOrders } = require('./orders')
 const { getCartProductsByOrderId, updateOrdersProductPrice } = require('./orders_products')
 
 //Create Product
-const createProduct = async({name, imgurl, description, stock, price, unit, type, isActive}) => {
-    if(isActive === undefined){isActive = true}
+const createProduct = async({name, imgurl, description, stock, price, unit, type, quantitySold, isActive}) => {
+    // if(isActive === undefined){isActive = true}
+    isActive ? null : isActive = true;
+    quantitySold ? null : quantitySold = 0;
     try {
         const {rows: [product]} = await client.query(`
-            INSERT INTO products (name, imgurl, description, stock, price, unit, type, "isActive")
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            INSERT INTO products (name, imgurl, description, stock, price, unit, type, "quantitySold", "isActive")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING *;
-        `, [name, imgurl ? imgurl : null, description, stock, price, unit, type, isActive])
+        `, [name, imgurl ? imgurl : null, description, stock, price, unit, type, quantitySold, isActive])
 
         return product
     } catch (error) {

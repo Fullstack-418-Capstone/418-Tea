@@ -83,7 +83,7 @@ const createTableProducts = async() => {
         price INTEGER,
         unit VARCHAR(30),
         type VARCHAR(50),
-        quantSold INTEGER DEFAULT 0,
+        "quantitySold" INTEGER DEFAULT 0,
         "isActive" boolean DEFAULT true
       );
     `);

@@ -1,9 +1,157 @@
-import React from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
+import { registerUser } from "../api";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipCode] = useState("");
 
-    return(
-        <>hi there from the register page</>
-    )
-}
-export default Register
+  const HandleSubmit = async (event) => {
+    event.preventDefault();
+    await registerUser(
+      firstName,
+      lastName,
+      username,
+      password,
+      confirmPassword,
+      email,
+      address1,
+      //address2,
+      city,
+      state,
+      zipcode
+    );
+    setFirstName("");
+    setLastName("");
+    setUsername("");
+    setPassword("");
+    setConfirmPassword("");
+    setEmail("");
+    setAddress1("");
+    setAddress2("");
+    setState("");
+    setZipCode("");
+    setCity("");
+  };
+
+  return (
+    <div>
+      <h1> Welcome, please register here! </h1>
+      <form onSubmit={HandleSubmit}>
+        <input
+          placeholder="First Name"
+          value={firstName}
+          type="text"
+          onChange={(event) => {
+            setFirstName(event.target.value);
+          }}
+          required
+        ></input>
+        <input
+          placeholder="Last Name"
+          value={lastName}
+          type="text"
+          onChange={(event) => {
+            setLastName(event.target.value);
+          }}
+          required
+        ></input>
+        <input
+          placeholder="Create a username"
+          value={username}
+          type="text"
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+          required
+        ></input>
+        <input
+          placeholder="Create a password"
+          value={password}
+          type="text"
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+          minLength={8}
+          required
+        ></input>
+        <input
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          type="text"
+          onChange={(event) => {
+            setConfirmPassword(event.target.value);
+          }}
+          required
+          minLength={8}
+        ></input>
+        <input
+          placeholder="Please enter email address"
+          value={email}
+          type="text"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+          required
+        ></input>
+        <input
+          placeholder="Please enter your address"
+          value={address1}
+          type="text"
+          onChange={(event) => {
+            setAddress1(event.target.value);
+          }}
+          required
+        ></input>
+        {/* <input
+          placeholder="Please enter your address"
+          value={address2}
+          type="text"
+          onChange={(event) => {
+            setAddress2(event.target.value);
+          }}
+        ></input> */}
+        <input
+          placeholder="Please enter your state - 2 Letters"
+          value={state}
+          type="text"
+          onChange={(event) => {
+            setState(event.target.value);
+          }}
+          maxLength={2}
+          required
+        ></input>
+        <input
+          placeholder="Please enter your city"
+          value={city}
+          type="text"
+          onChange={(event) => {
+            setCity(event.target.value);
+          }}
+          required
+        ></input>
+        <input
+          placeholder="Please enter your zipcode"
+          value={zipcode}
+          type="text"
+          onChange={(event) => {
+            setZipCode(event.target.value);
+          }}
+          maxLength={5}
+          required
+        ></input>
+        <button> Register! </button>
+      </form>
+    </div>
+  );
+};
+export default Register;

@@ -41,7 +41,19 @@ router.post("/login", async (req, res, next) => {
 
 //POST /api/users/register
 router.post("/register", async (req, res, next) => {
-  const { username, password } = req.body;
+  const {
+    username,
+    password,
+    firstname,
+    lastname,
+    address1,
+    email,
+    city,
+    state,
+    zipcode,
+  } = req.body;
+
+  const address = { address1, city, state, zipcode };
 
   try {
     const member = await getUserByUsername(username);
@@ -54,7 +66,14 @@ router.post("/register", async (req, res, next) => {
         message: "A user with that username alread exists",
       });
     }
-    const user = await createUser({ username, password });
+    const user = await createUser({
+      username,
+      password,
+      firstname,
+      lastname,
+      address,
+      email,
+    });
 
     const token = jwt.sign({ id: user.id, username }, process.env.JWT_SECRET);
 

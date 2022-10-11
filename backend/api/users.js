@@ -116,6 +116,7 @@ router.patch("/:userInformation", async (req, res, next) => {
   const { userInformation } = req.params;
   const { firstname, lastname, password, address, state, city, zipcode } =
     req.body;
+  const { id } = req.user;
 
   const updateFields = {};
 
@@ -148,12 +149,9 @@ router.patch("/:userInformation", async (req, res, next) => {
   }
 
   try {
-    const updateInfo = await updateUserInformation(
-      userInformation,
-      updateFields
-    );
+    const updateInfo = await updateUserInformation(id, updateFields);
 
-    res.send({ updateInfo });
+    res.send({ update: updateInfo });
   } catch (error) {
     throw error;
   }

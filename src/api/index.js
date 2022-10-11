@@ -18,7 +18,7 @@ const loginUser = async (username, password, setToken, setUser, setIsAdmin) => {
     const data = await response.json();
 
     if (data.token) {
-        delete data.user.password
+      delete data.user.password;
       setToken(data.token);
       setUser(data.user);
       setIsAdmin(data.user.isAdmin);
@@ -121,57 +121,91 @@ const registerUser = async (
 };
 
 const getUserByUsername = async (username) => {
-    try {
-        const response = await fetch(`${BASE_URL}/users/${username}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
+  try {
+    const response = await fetch(`${BASE_URL}/users/${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-        const data = await response.json()
-        delete data.password
-        
-        return data
-    } catch (error) {
-        console.error(error)
-    }
-}
+    const data = await response.json();
+    delete data.password;
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const getCartByUsername = async (username) => {
-    try {
-        const response = await fetch(`${BASE_URL}/orders_products/${username}`)
-        const data = await response.json()
+  try {
+    const response = await fetch(`${BASE_URL}/orders_products/${username}`);
+    const data = await response.json();
 
-        return data
-    } catch (error) {
-        throw error
-    }
-}
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 //addtocart
 
-const removeFromCart = async(userId, productId) => {
-    try {
-        const response = await fetch(`${BASE_URL}/orders_products/delete`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: {
-                userId,
-                productId
-            }
-        })
-        const data = await response.json()
+const removeFromCart = async (userId, productId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/orders_products/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        userId,
+        productId,
+      },
+    });
+    const data = await response.json();
 
-        return data
-    } catch (error) {
-        throw error
-    }
-}
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 //placeorder
+
+const editUserInformation = async (
+  firstname,
+  lastname,
+  password,
+  address,
+  state,
+  city,
+  zipcode
+) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/:userInformation`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        password,
+        address,
+        state,
+        city,
+        zipcode,
+      }),
+    });
+
+    const data = await response.json();
+    console.log("DATAAAA", data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   getAllProducts,
@@ -181,5 +215,6 @@ export {
   loginUser,
   getUserByUsername,
   getCartByUsername,
-  removeFromCart
+  removeFromCart,
+  editUserInformation,
 };

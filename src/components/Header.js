@@ -7,7 +7,6 @@ const Header = (props) => {
     const {token, isAdmin, setToken, setUser, setIsAdmin} = props
 
 
-
     const headerStyle = {
         backgroundColor:'green',
         display:'flex',
@@ -21,12 +20,13 @@ const Header = (props) => {
     }
     return (
         <div style={headerStyle}>
-            <img src={require("../assets/logo150.png")} alt='temporary logo' />
+            <img src={require("../assets/tealogo150.png")} alt='temporary logo' />
                 <Link to='/' ><h1>What's the Tea?</h1></Link>
     
                 <Link to='/tea-ware' >Tea Ware</Link> <br/>
                 <Link to='/tea-leaf' >Tea</Link> <br/>
                 <Link to='/cart' >Cart</Link> <br/>
+                <Link to='/profile' >Profile</Link> <br/>
                 {token ? null : <><Link to='/register' >Register</Link> <br/> </> }
                 {token ? 
                 <button onClick={(event) =>{handleLogOut(event)}}>Log Out</button>

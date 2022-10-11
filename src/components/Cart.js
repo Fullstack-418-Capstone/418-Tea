@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CartItem from './CartItem';
+import { getCartByUsername } from '../api';
 
 
 const Cart = ({token, user}) => {
@@ -8,9 +9,12 @@ const Cart = ({token, user}) => {
 
     //get cartItems from logged in User OR local storage and map to CartItem View
 
-    const getCartForUser = () => {
+    const getCartForUser = async(username) => {
         //fetch api cart
         console.log('getting items from api')
+        console.log(user)
+        const userCart = await getCartByUsername(username)
+        if(userCart) setCartItems(userCart)
         //setCartItems(result)
     }
     const getCartFromLocal = () => {
@@ -23,7 +27,7 @@ const Cart = ({token, user}) => {
     }
     
     useEffect(() => {
-        token ? getCartForUser() : getCartFromLocal()
+        token ? getCartForUser(user.username) : getCartFromLocal()
     },[])
 
     //dummy cart data .... remove once api getCartForUser and getCartFromLocal are working

@@ -11,14 +11,13 @@ const FilterButton = ({filter, setFilterWord, title}) => {
         margin: '5px',
         minWidth:'150px',
         textAlign:"center"
-
     }
     const handleClick = () => {
         if(filter === "tea"){
             setFilterWord(["loose", "bagged"])
         } else if(filter === "ware"){
             setFilterWord(["cup", "set", "pot"])
-        }else{
+        } else {
         setFilterWord(filter)
         }
     }

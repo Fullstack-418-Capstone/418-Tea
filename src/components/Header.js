@@ -4,7 +4,7 @@ import Login from "./Login";
 
 
 const Header = (props) => {
-    const {token, isAdmin, /*setLoggedIn,*/ setToken, setUser, setIsAdmin} = props
+    const {token, isAdmin, setToken, setUser, setIsAdmin} = props
 
 
 
@@ -28,15 +28,10 @@ const Header = (props) => {
                 <Link to='/tea-leaf' >Tea</Link> <br/>
                 <Link to='/cart' >Cart</Link> <br/>
                 {token ? null : <><Link to='/register' >Register</Link> <br/> </> }
-                {/* the next line to be commented out later */}
-                <Link to='/admin' >Admin</Link>
-                {/* remove the line above later*/}
                 {token ? 
                 <button onClick={(event) =>{handleLogOut(event)}}>Log Out</button>
-                : <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} /*setLoggedIn={setLoggedIn}*/ /> } <br/>
+                : <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} /> } <br/>
                 {isAdmin ? <Link to='/admin' >Admin</Link> : null }
-                
-     
         </div>
     )
 }

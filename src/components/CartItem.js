@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
+import { removeFromCart, getCartByUsername } from '../api';
 
-const CartItem = ({product, index, setCartItems}) => {
+const CartItem = ({product, index, setCartItems, token, user}) => {
 
     product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
     //this is just a boring placeholder file
@@ -9,11 +10,17 @@ const CartItem = ({product, index, setCartItems}) => {
 
     //products is dummy data different from what the api will call (quanity in cart is missing)
     //remove when Cart.js is correctly calling api
-    const removeFromCart = (index) => {
-        const currentCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
-        currentCart.splice(index, 1)
-        localStorage.setItem('418WhatsTeaGuestCart', JSON.stringify(currentCart))
-        setCartItems(currentCart)
+    const removeFromCartButton = async(index, productId) => {
+        if(!token) {
+            const currentCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
+            currentCart.splice(index, 1)
+            localStorage.setItem('418WhatsTeaGuestCart', JSON.stringify(currentCart))
+            setCartItems(currentCart)
+        } else {
+            const removedItem = await removeFromCart(user.id, productId, token)
+            const userCart = await getCartByUsername(user.username)
+            if(userCart) setCartItems(userCart)
+        }
     }
 
     //needs remove from cart button
@@ -39,7 +46,7 @@ const CartItem = ({product, index, setCartItems}) => {
                 } 
                 />
             </form>
-            <button onClick={() => removeFromCart(index) } >Remove from Cart</button>
+            <button onClick={() => removeFromCartButton(index, product.productId) } >Remove from Cart</button>
         </div>
     )
 }

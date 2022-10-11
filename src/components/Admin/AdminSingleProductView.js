@@ -9,6 +9,7 @@ const AdminSingleProductView = ({product}) => {
     return(
         <div>
             <img src={require(`../../assets/${product.imgurl}`)} style={{height:'150px', width:'150px'}} />
+
             <>Name: {product.name}</>
             <br/>
             <>Description: {product.description}</>
@@ -21,8 +22,10 @@ const AdminSingleProductView = ({product}) => {
             <br/>
             <>Stock: {product.stock}</>
             <br/>
+
             <>Sold: {product.quantitySold}</>
             <br/>
+
             <>Active Product?: {product.isActive? "Yes" : "No"}</>
             <hr/>
         </div>

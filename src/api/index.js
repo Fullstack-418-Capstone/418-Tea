@@ -18,9 +18,10 @@ const loginUser = async (username, password, setToken, setUser, setIsAdmin) => {
     const data = await response.json();
 
     if (data.token) {
+        delete data.user.password
       setToken(data.token);
       setUser(username);
-      setIsAdmin(data.isAdmin);
+      setIsAdmin(data.user.isAdmin);
       localStorage.setItem("418WhatsTeaToken", data.token);
       localStorage.setItem("418WhatsTeaUser", JSON.stringify(data.user));
       success = true;
@@ -49,6 +50,7 @@ const getAllProducts = async () => {
     console.error(error);
   }
 };
+
 const getAllActiveProducts = async () => {
   try {
     const response = await fetch(`${BASE_URL}/products`, {
@@ -63,6 +65,7 @@ const getAllActiveProducts = async () => {
     console.error(error);
   }
 };
+
 const getAllUsers = async () => {
   try {
     const response = await fetch(`${BASE_URL}/users`, {
@@ -77,6 +80,7 @@ const getAllUsers = async () => {
     console.error(error);
   }
 };
+
 const registerUser = async (
   firstname,
   lastname,
@@ -116,10 +120,38 @@ const registerUser = async (
   }
 };
 
+const getUserByUsername = async (username) => {
+    try {
+        const response = await fetch(`${BASE_URL}/users/${username}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        const data = await response.json()
+        delete data.password
+        console.log(data)
+
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+// getCart
+
+//addtocart
+
+//removefromcart
+
+//placeorder
+
 export {
   getAllProducts,
   getAllActiveProducts,
   registerUser,
   getAllUsers,
   loginUser,
+  getUserByUsername
 };

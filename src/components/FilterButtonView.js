@@ -1,9 +1,7 @@
 import React from 'react';
 
 
-const FilterButton = ({text, setFilterWord, title}) => {
-    
-    
+const FilterButton = ({filter, setFilterWord, title}) => {
     
     const filterStyle = {
         border:'solid',
@@ -16,13 +14,12 @@ const FilterButton = ({text, setFilterWord, title}) => {
 
     }
     const handleClick = () => {
-        console.log('setting filter to', text)
-        if(text === "tea"){
+        if(filter === "tea"){
             setFilterWord(["loose", "bagged"])
-        } else if(text === "ware"){
+        } else if(filter === "ware"){
             setFilterWord(["cup", "set", "pot"])
         }else{
-        setFilterWord(text)
+        setFilterWord(filter)
         }
     }
 

@@ -42,9 +42,9 @@ const TeaLeaf = () => {
     return(
         <div>
             <div id='filters' style={buttonBar}>
-            <FilterButton text='tea' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
-            <FilterButton text='bagged' setFilterWord={setFilterWord} title = {"TEA BAGS"}></FilterButton>
-            <FilterButton text='loose' setFilterWord={setFilterWord} title = {"LOOSE LEAF"}></FilterButton>
+            <FilterButton filter='tea' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
+            <FilterButton filter='bagged' setFilterWord={setFilterWord} title = {"TEA BAGS"}></FilterButton>
+            <FilterButton filter='loose' setFilterWord={setFilterWord} title = {"LOOSE LEAF"}></FilterButton>
             </div>
 
             {tea[0] ?

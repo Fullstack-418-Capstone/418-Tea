@@ -40,12 +40,12 @@ const TeaWare = () => {
     return(
         <div>
             <div id='filters' style={buttonBar}>
-            <FilterButton text='ware' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
-            <FilterButton text='pot' setFilterWord={setFilterWord} title = {"KETTLE"}></FilterButton>
-            <FilterButton text='cup' setFilterWord={setFilterWord} title = {"MUGS"}></FilterButton>
-            <FilterButton text='set' setFilterWord={setFilterWord} title = {"SETS"}></FilterButton>
+            <FilterButton filter='ware' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
+            <FilterButton filter='pot' setFilterWord={setFilterWord} title = {"KETTLE"}></FilterButton>
+            <FilterButton filter='cup' setFilterWord={setFilterWord} title = {"MUGS"}></FilterButton>
+            <FilterButton filter='set' setFilterWord={setFilterWord} title = {"SETS"}></FilterButton>
             </div>
-            
+
             {teaWare[0] ?
             teaWare.map((product,index) => {
                 return (

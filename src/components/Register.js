@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { registerUser } from "../api";
 
 const Register = () => {
@@ -10,26 +11,48 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
+  //const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipCode] = useState("");
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
-    await registerUser(
-      firstName,
-      lastName,
-      username,
-      password,
-      confirmPassword,
-      email,
-      address1,
-      //address2,
-      city,
-      state,
-      zipcode
-    );
+
+    {
+      password == confirmPassword
+        ? await registerUser(
+            firstName,
+            lastName,
+            username,
+            password,
+            confirmPassword,
+            email,
+            address1,
+            city,
+            state,
+            zipcode
+          )
+        : alert("passwords do not match");
+    }
+
+    {
+      password == confirmPassword
+        ? await registerUser(
+            firstName,
+            lastName,
+            username,
+            password,
+            confirmPassword,
+            email,
+            address1,
+            city,
+            state,
+            zipcode
+          )
+        : alert("passwords do not match");
+    }
+
     setFirstName("");
     setLastName("");
     setUsername("");
@@ -37,10 +60,12 @@ const Register = () => {
     setConfirmPassword("");
     setEmail("");
     setAddress1("");
-    setAddress2("");
+    //setAddress2("");
     setState("");
     setZipCode("");
     setCity("");
+
+    alert("thank you for registering!");
   };
 
   return (
@@ -77,7 +102,7 @@ const Register = () => {
         <input
           placeholder="Create a password"
           value={password}
-          type="text"
+          type="password"
           onChange={(event) => {
             setPassword(event.target.value);
           }}
@@ -142,14 +167,14 @@ const Register = () => {
         <input
           placeholder="Please enter your zipcode"
           value={zipcode}
-          type="text"
+          type="number"
           onChange={(event) => {
             setZipCode(event.target.value);
           }}
           maxLength={5}
           required
         ></input>
-        <button> Register! </button>
+        <button>Register!</button>
       </form>
     </div>
   );

@@ -1,20 +1,25 @@
 import React from 'react';
 
 
-const FilterButton = ({text, setFilterWord}) => {
+const FilterButton = ({text, setFilterWord, title}) => {
     
-    const filter = text
-
+    
+    
     const filterStyle = {
         border:'solid',
-        height:'30px',
-        width:'500px'
+        borderRadius:'25px',
+        backgroundColor:"rgb(216,191,216)",
+        padding: '3px',
+        margin: '5px',
+        minWidth:'150px',
+        textAlign:"center"
+
     }
     const handleClick = () => {
         console.log('setting filter to', text)
-        if(filter === "tea"){
+        if(text === "tea"){
             setFilterWord(["loose", "bagged"])
-        } else if(filter === "ware"){
+        } else if(text === "ware"){
             setFilterWord(["cup", "set", "pot"])
         }else{
         setFilterWord(text)
@@ -22,7 +27,7 @@ const FilterButton = ({text, setFilterWord}) => {
     }
 
     return (
-        <div style={filterStyle} onClick={() => {handleClick()}}>Here  is a {filter} Filter</div>
+        <div style={filterStyle} onClick={() => {handleClick()}}>{title}</div>
     )
 }
 export default FilterButton

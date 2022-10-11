@@ -13,7 +13,7 @@ router.get("/:username", async (req, res, next) => {
   const { username } = req.params;
   try {
     const orderByUsername = await getOpenCartProductsByUserName(username);
-    console.log(orderByUsername)
+
     res.send(orderByUsername);
   } catch (error) {
     throw error;

@@ -11,15 +11,12 @@ const Cart = ({token, user}) => {
 
     const getCartForUser = async(username) => {
         //fetch api cart
-        console.log('getting items from api')
-        console.log(user)
         const userCart = await getCartByUsername(username)
         if(userCart) setCartItems(userCart)
         //setCartItems(result)
     }
     const getCartFromLocal = () => {
         //fetch from local
-        console.log('getting items from local')
         const guestCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
         if(guestCart) {
             setCartItems(guestCart)
@@ -30,21 +27,8 @@ const Cart = ({token, user}) => {
         token ? getCartForUser(user.username) : getCartFromLocal()
     },[])
 
-    //dummy cart data .... remove once api getCartForUser and getCartFromLocal are working
-    //fill cart with all products
-    // useEffect(() => {
-    //     const cartArr = []
-    //     for(let i = 0; i< dummyProducts.length; i++){
-    //         console.log('adding to cart', dummyProducts[i])
-    //         cartArr.push(dummyProducts[i])
-    //     }
-    //     setCartItems(cartArr)
-    // },[])
-    //end of dummy cart data
-
     const handlePlaceOrder = (event) => {
         event.preventDefault()
-        console.log('Placing Order')
         if(token) {
             console.log('WIP')
         } else {

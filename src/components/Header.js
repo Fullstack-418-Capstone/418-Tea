@@ -21,17 +21,21 @@ const Header = (props) => {
     }
     return (
         <div style={headerStyle}>
-            <img src={require("../assets/yellowChip100.jpg")} alt='temporary logo' />
+            <img src={require("../assets/logo150.png")} alt='temporary logo' />
                 <Link to='/' ><h1>What's the Tea?</h1></Link>
     
                 <Link to='/tea-ware' >Tea Ware</Link> <br/>
                 <Link to='/tea-leaf' >Tea</Link> <br/>
                 <Link to='/cart' >Cart</Link> <br/>
                 {token ? null : <><Link to='/register' >Register</Link> <br/> </> }
+                {/* the next line to be commented out later */}
+                <Link to='/admin' >Admin</Link>
+                {/* remove the line above later*/}
                 {token ? 
                 <button onClick={(event) =>{handleLogOut(event)}}>Log Out</button>
                 : <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} /*setLoggedIn={setLoggedIn}*/ /> } <br/>
-                {isAdmin ? <Link to='/admin-view' >Admin Items</Link> : null }
+                {isAdmin ? <Link to='/admin' >Admin</Link> : null }
+                
      
         </div>
     )

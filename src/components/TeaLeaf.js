@@ -34,14 +34,19 @@ const TeaLeaf = () => {
         filterProducts(allActiveProducts)
     },[filterWord])
 
-
+    const buttonBar = {
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:"center"
+    }
     return(
         <div>
+            <div id='filters' style={buttonBar}>
+            <FilterButton filter='tea' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
+            <FilterButton filter='bagged' setFilterWord={setFilterWord} title = {"TEA BAGS"}></FilterButton>
+            <FilterButton filter='loose' setFilterWord={setFilterWord} title = {"LOOSE LEAF"}></FilterButton>
+            </div>
 
-            <FilterButton text='tea' setFilterWord={setFilterWord}></FilterButton>
-            
-            <FilterButton text='loose' setFilterWord={setFilterWord}></FilterButton>
-            <FilterButton text='bagged' setFilterWord={setFilterWord}></FilterButton>
             {tea[0] ?
             tea.map((product,index) => {
                 return (

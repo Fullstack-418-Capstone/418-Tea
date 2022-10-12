@@ -17,16 +17,16 @@ const AdminSingleProductView = ({setEdit, product}) => {
             <div className="outerBox">
                 <img src={require(`../../assets/${product.imgurl}`)} style={{height:'100px', width:'100px'}} />
                 <div style={{display:'flex', flexDirection:'column', margin:'5px'}}>
-                    <h4>{product.name}</h4>
-                    <p>Type: {product.type}</p>            
-                    <p>Stock: ${product.stock}</p>
-                    <p>Sold: {product.quantitySold}</p>
-                    <p>Active Product?: {product.isActive? "Yes" : "No"}</p>
+                    <h4 className='h4'>{product.name}</h4>
+                    <p className='para'>Type: {product.type}</p>            
+                    <p className='para'>Stock: ${product.stock}</p>
+                    <p className='para'>Sold: {product.quantitySold}</p>
+                    <p className='para'>Active Product?: {product.isActive? "Yes" : "No"}</p>
                 </div>
                 <div className="pricebox">
-                    <p>Price: {product.price} /{product.unit}</p>
+                    <p className='para'>Price: {product.price} /{product.unit}</p>
                 </div>
-                <button onClick={() =>handleEditButton()}>Edit</button>
+                <button className="editbutton" onClick={() =>handleEditButton()}>Edit</button>
             </div>
             <div className='desc'>{product.description}</div>
             <hr/>

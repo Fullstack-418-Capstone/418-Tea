@@ -6,8 +6,6 @@ import { getAllProducts } from '../../api/index';
 const AdminProductsPage = () => {
     const [allProducts, setAllProducts] = useState([])
 
-    //call all products regardless of isActive. setAllProducts to the result
-
     const setGatheredProducts = async() => {
         const gatheredProducts = await getAllProducts();
         setAllProducts(gatheredProducts);
@@ -22,7 +20,7 @@ const AdminProductsPage = () => {
 
     return(
         <div>
-            <>List of All Products</>
+            <div style={{fontSize:'32px'}}>All Products</div>
             <hr/>
             {allProducts[0] ? 
             allProducts.map((product) => {

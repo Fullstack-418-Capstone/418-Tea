@@ -1,9 +1,9 @@
 const client = require("./client");
 const { createUser } = require("./users");
 const { createProduct, getProductById } = require("./products");
-const { createNewOrdersProduct } = require("./orders_products");
+const { createNewOrdersProduct, getCartProductsByOrderId } = require("./orders_products");
 const { productsToCreate } = require("./massData");
-const { placeOrder } = require("./orders");
+const { placeOrder, getOrdersByOrderId } = require("./orders");
 
 const createTables = async () => {
   try {
@@ -177,39 +177,6 @@ const createInitialUsers = async () => {
 const createInitialProducts = async () => {
   console.log("creating initial products...");
   try {
-    // const productsToCreate = [
-    //   {
-    //     name: 'Asian Green Tea',
-    //     imgurl: 'tealeaf/greentea.jpg',
-    //     description: "Take a sip of liquid silver",
-    //     stock: 35,
-    //     unit: "canister",
-    //     type: "loose",
-    //     price: 24
-    // },{
-    //   name: 'Ehugos Glass Teapot',
-    //   imgurl: 'teapots/navy.jpg',
-    //   description: "Sit back, watch, and KNOW when you're tea is ready",
-    //   stock: 4,
-    //   unit: "each",
-    //   type: "pot",
-    //   price: 32
-    // }, {
-    //   name: 'Lipton Earl Grey',
-    //   description: "Take a sip of liquid silver, PROOF API IS WORKING",
-    //   stock: 3,
-    //   unit: "box",
-    //   type: "bagged",
-    //   price: 19
-    // },{
-    //   name: 'Ehugos Silicone Teapot',
-    //   imgurl: 'teapots/navy.jpg',
-    //   description: "Sit back, watch, and never get burned",
-    //   stock: 4,
-    //   unit: "each",
-    //   type: "pot",
-    //   price: 56
-    // }]
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
     console.log(products);
@@ -260,7 +227,9 @@ const createInitialCarts = async () => {
     const addOne = await createNewOrdersProduct(addToCartsToCreate[0]);
     const addTwo = await createNewOrdersProduct(addToCartsToCreate[1]);
     const addThree = await createNewOrdersProduct(addToCartsToCreate[2]);
-    const addedCarts = [addOne, addTwo, addThree];
+    const addFour = await createNewOrdersProduct(addToCartsToCreate[3]);
+    const addFive = await createNewOrdersProduct(addToCartsToCreate[4]);
+    const addedCarts = [addOne, addTwo, addThree, addFour, addFive];
     console.log("carts made:");
     console.log(addedCarts);
     console.log("Finished creating initial carts");

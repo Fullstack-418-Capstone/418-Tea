@@ -54,7 +54,7 @@ router.post("/addtocart", async (req, res, next) => {
 router.patch("/editquantity", async (req, res, next) => {
   const { userId, productId, quantity } = req.body;
 
-  const editCart = editNewOrdersProductQuantity(userId, productId, quantity);
+  const editCart = editNewOrdersProductQuantity({userId, productId, quantity});
 
   res.send(editCart);
 });

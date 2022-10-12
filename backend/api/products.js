@@ -15,17 +15,36 @@ router.use((req,res,next) => {
   next();
 })
 
-
 router.get("/", async (req, res, next) => {
   console.log("made it here and running this")
   const products = await getAllProducts();
   res.send(products);
 });
+
 router.get("/active", async (req, res, next) => {
   console.log("made it here and running this")
   const products = await getAllActiveProducts();
   res.send(products);
 });
+
+router.get("/:productId", async (req, res, next) => {
+  const { productId } = req.params
+
+  try {
+    const product = await getProductById(productId)
+
+    if(product){
+      res.send(product)
+    } else {
+      next({
+        name: "ProductNotFoundError",
+        message: "That product does not exist"
+      })
+    }
+  } catch ({name, message}) {
+    next({name, message})
+  }
+})
 
 //DELETE /api/products/:productid
 router.delete("/:productId", async (req, res, next) => {
@@ -107,4 +126,5 @@ router.patch("/:productId", async (req, res, next) => {
     next({ name, message });
   }
 });
+
 module.exports = router;

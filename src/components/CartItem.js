@@ -25,7 +25,7 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
             const userCart = await getCartByUsername(user.username)
             if(userCart) { 
                 setCartItems(userCart)
-                setTrigger
+                setTrigger(!trigger)
             }
         }
     }

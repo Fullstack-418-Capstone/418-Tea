@@ -168,7 +168,8 @@ const setUserToInactiveById = async (userId) => {
   }
 };
 
-async function updateUserInformation({ id, ...fields }) {
+async function updateUserInformationById({ id, ...fields }) {
+  console.log('fields is', fields)
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -217,6 +218,6 @@ module.exports = {
   editUserById,
   updateToAdminById,
   setUserToInactiveById,
-  updateUserInformation,
+  updateUserInformationById,
   //deleteUserById
 };

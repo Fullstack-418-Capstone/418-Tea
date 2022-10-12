@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import AdminSingleProductView from './AdminSingleProductView';
+import SingleProductViewHandler from './SingleProductViewHandler';
 import { getAllProducts } from '../../api/index';
 
 
@@ -27,7 +27,7 @@ const AdminProductsPage = () => {
             {allProducts[0] ? 
             allProducts.map((product) => {
                 return(
-                    <AdminSingleProductView product={product} key={product.id}></AdminSingleProductView>
+                    <SingleProductViewHandler product={product} key={product.id}></SingleProductViewHandler>
                 )
             })
             :null}

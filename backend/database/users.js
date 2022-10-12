@@ -90,7 +90,7 @@ const getUserByUsername = async (username) => {
 const getAllUsers = async () => {
   try {
     const { rows: allUsers } = await client.query(`
-        SELECT *
+        SELECT username, firstname, lastname, email, "isAdmin", "isActive", "addressId"
         FROM users
         JOIN addresses
         ON users."addressId" = addresses."id";

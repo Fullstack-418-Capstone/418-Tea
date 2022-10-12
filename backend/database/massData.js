@@ -7,6 +7,15 @@ const productsToCreate = [
         unit:'box',
         type:"bagged",
         price:24
+    } , {
+        name: 'Antique Japanese Tea Cups',
+        imgurl: 'teacups/japaneseteacup.jpg',
+        description: 'Classic antique Japanese tea cups for all types of collectors',
+        stock: 8,
+        unit: 'set of 3',
+        type: 'cup',
+        quantitySold: 9,
+        price: 75
     }, {
         name: 'Asian Green Tea',
         imgurl: 'teabags/greentea.jpg',
@@ -59,6 +68,67 @@ const productsToCreate = [
         type: "pot",
         price: 56,
         isActive: false
+    } , {
+        name: 'Clear Teapot',
+        imgurl: 'teapots/clear.jpg',
+        description: "For when you want to see the magic happen.",
+        stock: 37,
+        unit: "each",
+        type: "pot",
+        quantitySold: 21,
+        price: 50
+    } , {
+        name: 'Pink Teapot',
+        imgurl: 'teapots/pink.jpg',
+        description: 'A basic pink teapot',
+        stock: 1,
+        unit: 'each',
+        type: 'pot',
+        price: 42
+    } , {
+        name: 'Yellow Teapot',
+        imgurl: 'teapots/yellow.jpg',
+        description: 'A fabulous yellow teapot. Much better than any pink one',
+        stock: 5,
+        unit: 'each',
+        type: 'pot',
+        quantitySold: 100,
+        price: 52
+    } , {
+        name: 'Garden Grove Teacup',
+        imgurl: 'teacups/bluefloralcup.JPG',
+        description: 'A calming cup for a calming tea',
+        stock: 32,
+        unit: 'each',
+        type: 'cup',
+        quantitySold: 4,
+        price: 13
+    } , {
+        name: 'Spode Blue Italian Jumbo Cup and Saucer',
+        imgurl: 'teacups/bluesceniccup.JPG',
+        description: 'Drinking from this transports you to better times',
+        stock: 4,
+        unit: 'each',
+        type: 'cup',
+        quantitySold: 8,
+        price: 9,
+        isActive: false
+    } , {
+        name: 'Vintage Style Cup and Saucer',
+        imgurl: 'teacups/blackgoldcup.jpg',
+        description: 'Bringing class back to the room',
+        stock: 42,
+        unit: 'each',
+        type: 'cup',
+        price: 25
+    } , {
+        name: 'Royal Albert Pink Cheeky Teacup',
+        imgurl: 'teacups/pinkcup.JPG',
+        description: 'Adding sass to every teatime',
+        stock: 37,
+        unit: 'each',
+        type: 'cup',
+        price: 7
     }]
     //test comment
 

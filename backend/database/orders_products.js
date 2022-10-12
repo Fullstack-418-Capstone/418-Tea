@@ -30,7 +30,8 @@ const editNewOrdersProductQuantity = async({userId, productId, quantity}) => {
         const {rows: [editedOrder]} = await client.query(`
             UPDATE orders_products
             SET quantity=$1
-            WHERE "orderId"=$2 AND "productId"=$3;
+            WHERE "orderId"=$2 AND "productId"=$3
+            RETURNING *;
         `,[quantity, orderId, productId]);
         return editedOrder;
     }catch(err){

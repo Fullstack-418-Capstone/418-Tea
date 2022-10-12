@@ -5,6 +5,7 @@ import { getCartByUsername, getProductById } from '../api';
 
 const Cart = ({token, user}) => {
     const [cartItems, setCartItems] = useState([])
+    const [trigger, setTrigger] = useState(false)
 
 
     //get cartItems from logged in User OR local storage and map to CartItem View
@@ -34,7 +35,7 @@ const Cart = ({token, user}) => {
     
     useEffect(() => {
         token ? getCartForUser(user.username) : getCartFromLocal()
-    },[token])
+    },[trigger])
 
     const handlePlaceOrder = (event) => {
         event.preventDefault()
@@ -56,7 +57,10 @@ const Cart = ({token, user}) => {
             {cartItems.length > 0 ? 
             cartItems.map((product, index) => {
                 return (
-                    <CartItem product={product} key={index} index={index} setCartItems={setCartItems} token={token} user={user} ></CartItem>
+                    <CartItem 
+                    product={product} key={index} index={index} 
+                    setCartItems={setCartItems} token={token} user={user} 
+                    setTrigger={setTrigger} trigger={trigger} ></CartItem>
                 )
             })
             : <>No items in cart</>

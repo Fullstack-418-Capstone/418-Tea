@@ -172,6 +172,146 @@ const productsToCreate = [
         unit: 'set',
         type: 'set',
         price: 28
+    } , {
+        name: 'Chamomile Tea',
+        imgurl: 'tealeaf/chamomileleaf.jpg',
+        description: 'Hard to spell but easy to drink',
+        stock: 198,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 9264,
+        price: 19
+    } , {
+        name: 'Cinnamon Apple Tea',
+        imgurl: 'tealeaf/cinnamonapple.jpg',
+        description: 'Frutiy and spiced mixed into one',
+        stock: 283,
+        unit: 'cansiter',
+        type: 'loose',
+        quantitySold: 832,
+        price: 12
+    } , {
+        name: 'Ginger Chai Tea',
+        imgurl: 'tealeaf/gingerchai.jpg',
+        description: 'A tea to help you get your chi in balance',
+        stock: 12,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 828,
+        price: 12
+    } , {
+        name: 'Goldenbud Tea',
+        imgurl: 'tealeaf/goldenbud.jpg',
+        description: 'Get ready to bloom into pure gold',
+        stock: 837,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 392,
+        price: 18
+    } , {
+        name: 'Green Tea',
+        imgurl: 'tealeaf/greentea.jpg',
+        description: 'A refreshing way to start the day',
+        stock: 618,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 76,
+        price: 6
+    } , {
+        name: 'Jasmine Green Tea',
+        imgurl: 'tealeaf/jasminegreentea.jpg',
+        description: 'Adding a hint of jasmine to your normal green tea',
+        stock: 612,
+        unit: 'cansiter',
+        type: 'loose',
+        quantitySold: 90,
+        price: 7
+    } , {
+        name: 'Lemon GingerSnap Tea',
+        imgurl: 'tealeaf/lemongingersnap.jpg',
+        description: 'A little bit of Christmas spirit all year round',
+        stock: 183,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 1,
+        price: 9
+    } , {
+        name: 'Lemongrass Tea',
+        imgurl: 'tealeaf/lemongrass.jpg',
+        description: 'Vibrant and flavorful for the whole family',
+        stock: 376,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 210,
+        price: 6
+    } , {
+        name: 'Oolong Tea',
+        imgurl: 'tealeaf/oolong.jpg',
+        description: 'A tea only for tea lovers; nobody else knows how to say it',
+        stock: 189,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 10,
+        price: 19
+    } , {
+        name: 'Organic Ginger Tea',
+        imgurl: 'tealeaf/organicgingertea.jpg',
+        description: '100% organic ginger, not to be confused with gingerbread',
+        stock: 28,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 182,
+        price: 16
+    } , {
+        name: 'Organic Red Berry Tea',
+        imgurl: 'tealeaf/organicredberry.jpg',
+        description: 'Made out of red berries, but it is unknown if it is strawberries, raspberries, cherries or blueberries if the creator was colorblind',
+        stock: 532,
+        unit: 'canister',
+        type: 'loose',
+        quantitySold: 83,
+        price: 18
+    } , {
+        name: 'Hibiscus Flower Tea',
+        imgurl: 'teabags/hibiscus.jpg',
+        description: 'Channel the tropics with this fresh and fragrant tea',
+        stock: 812,
+        unit: 'box',
+        type: 'bagged',
+        price: 14
+    } , {
+        name: "PauD'arco Tea",
+        imgurl: "teabags/pauD'arco.jpg",
+        description: 'The favorite tea of every Pau in the world',
+        stock: 82,
+        unit: 'box',
+        type: 'bagged',
+        quantitySold: 23,
+        price: 14
+    } , {
+        name: 'Crystal White Tea',
+        imgurl: 'teabags/whitetea.jpg',
+        description: 'Crystal clear and refreshing as new snow',
+        stock: 38,
+        unit: 'box',
+        type: 'bagged',
+        price: 13
+    } , {
+        name: 'Yerbamate Tea',
+        imgurl: 'teabags/yerbamate.webp',
+        description: 'The best tea from Yerbamate you will find anywhere',
+        stock: 1000,
+        unit: 'box',
+        type: 'bagged',
+        price: 20
+    } , {
+        name: 'Classic English Tea',
+        imgurl: 'teabags/englishbreakfast.jpg',
+        description: 'The capstone of any good English breakfast',
+        stock: 253,
+        unit: 'box',
+        type: 'bagged',
+        price: 12
     }]
 
   module.exports = {

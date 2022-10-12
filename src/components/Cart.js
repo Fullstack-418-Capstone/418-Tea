@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CartItem from './CartItem';
-import { getCartByUsername } from '../api';
+import { getCartByUsername, getProductById } from '../api';
 
 
 const Cart = ({token, user}) => {
@@ -12,7 +12,16 @@ const Cart = ({token, user}) => {
     const getCartForUser = async(username) => {
         //fetch api cart
         const userCart = await getCartByUsername(username)
-        if(userCart) setCartItems(userCart)
+        if(userCart) {
+            const productList = []
+            for(const item of userCart) {
+                const productInfo = await getProductById(item.productId)
+                productInfo.quantity = item.quantity
+                productList.push(productInfo)
+            }
+            setCartItems(productList)
+        }
+        
         //setCartItems(result)
     }
     const getCartFromLocal = () => {

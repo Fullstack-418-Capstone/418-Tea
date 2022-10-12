@@ -149,19 +149,56 @@ const getCartByUsername = async (username) => {
   }
 };
 
-//addtocart
+const getProductById = async (productId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/products/${productId}`,{
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json()
 
-const removeFromCart = async (userId, productId) => {
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+const addToCart = async (userId, productId, quantity = 1, price, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/orders_products/addtocart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        userId,
+        productId,
+        quantity,
+        price
+      })
+    });
+    const data = await response.json()
+
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+const removeFromCart = async (userId, productId, token) => {
   try {
     const response = await fetch(`${BASE_URL}/orders_products/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
-      body: {
+      body: JSON.stringify({
         userId,
         productId,
-      },
+      }),
     });
     const data = await response.json();
 
@@ -170,6 +207,33 @@ const removeFromCart = async (userId, productId) => {
     throw error;
   }
 };
+
+const editCartQuantity = async (userId, productId, quantity, token) => {
+  if(typeof(quantity) === 'string') {
+    quantity = parseInt(quantity)
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/orders_products/editquantity`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        userId,
+        productId,
+        quantity
+      }),
+    })
+    const data = await response.json()
+
+    // console.log(data)
+
+    return data
+  } catch (error) {
+    throw error
+  }
+}
 
 //placeorder
 
@@ -219,4 +283,7 @@ export {
   getCartByUsername,
   removeFromCart,
   editUserInformation,
+  getProductById,
+  addToCart,
+  editCartQuantity
 };

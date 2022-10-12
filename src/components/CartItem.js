@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
-import { removeFromCart, getCartByUsername } from '../api';
+import React, {useState, useEffect} from 'react';
+import { 
+    removeFromCart, 
+    getCartByUsername,
+    editCartQuantity,
+    getProductById
+} from '../api';
 
 const CartItem = ({product, index, setCartItems, token, user}) => {
 
     product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
-    //this is just a boring placeholder file
     const [quantity, setQuantity] = useState(1)
-
 
     //products is dummy data different from what the api will call (quanity in cart is missing)
     //remove when Cart.js is correctly calling api
@@ -23,6 +26,19 @@ const CartItem = ({product, index, setCartItems, token, user}) => {
         }
     }
 
+    const quantityHandler = async(quantity, productId) => {
+        try {
+            const editedItem = await editCartQuantity(user.id, productId, quantity, token)
+            return editedItem
+        } catch (error) {
+            throw error
+        }
+    }
+
+    useEffect(() => {
+        setQuantity(product.quantity)
+    }, [])
+
     //needs remove from cart button
     //needs ability to edit quantity
     return (
@@ -32,7 +48,13 @@ const CartItem = ({product, index, setCartItems, token, user}) => {
             <>{product.description}</><br/>
             <>${product.price} / {product.unit}</><br/>
             <>Total: ${product.price * quantity}</>
-            <form >
+            <form onSubmit={async(event) => {
+                event.preventDefault()
+                if(token) {
+                    await quantityHandler(quantity, product.id)
+                }
+            }} >
+                <h5>*Must submit for changes to apply when placing order</h5>
                 <label>Quantity: {quantity}</label>
                 <br/>
                 <input type='number' value={quantity} onChange={() => {
@@ -45,8 +67,9 @@ const CartItem = ({product, index, setCartItems, token, user}) => {
                     }} 
                 } 
                 />
+                <button type='submit'>Submit</button>
             </form>
-            <button onClick={() => removeFromCartButton(index, product.productId) } >Remove from Cart</button>
+            <button onClick={() => removeFromCartButton(index, product.id) } >Remove from Cart</button>
         </div>
     )
 }

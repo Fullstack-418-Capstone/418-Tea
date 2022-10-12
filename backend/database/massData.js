@@ -129,6 +129,49 @@ const productsToCreate = [
         unit: 'each',
         type: 'cup',
         price: 7
+    }, {
+        name: 'DaGiBayCn 20 PCS Tea Set',
+        imgurl: 'teasets/greenteaset.JPG',
+        description: 'A classic and classy teaset for your next teaparty',
+        stock: 10,
+        unit: 'set',
+        type: 'set',
+        price: 307
+    } , {
+        name: 'Almond Blossoms Inspireed Tea Set',
+        imgurl: 'teasets/almondteaset.jpg',
+        description: 'For those who love almonds, but cannot eat them',
+        stock: 3,
+        unit: 'set',
+        type: 'set',
+        quantitySold: 3,
+        price: 276
+    } , {
+        name: 'Vintage Turkish Teapot Set for 6',
+        imgurl: 'teasets/turkishset.JPG',
+        description: 'Perfect for when you want to show off your Turkish heritage and love tea',
+        stock: 6,
+        unit: 'set',
+        type: 'set',
+        quantitySold: 2,
+        price: 418
+    } , {
+        name: 'Vintage English Tea Set',
+        imgurl: 'teasets/englishteaset.jpg',
+        description: 'A beautifully marbled set to show off a new level of sophistication',
+        stock: 1,
+        unit: 'set',
+        type: 'set',
+        quantitySold: 6,
+        price: 360
+    } , {
+        name: 'Kid Connection 18-Piece Tea Set',
+        imgurl: 'teasets/kiddyset.jpg',
+        description: 'A perfect present for a precocious pretty princess',
+        stock: 2,
+        unit: 'set',
+        type: 'set',
+        price: 28
     }]
     //test comment
 

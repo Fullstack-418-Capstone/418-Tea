@@ -1,0 +1,28 @@
+.outerBox {
+    display: flex;
+    flex-direction: row;
+}
+
+.pricebox {
+    display:flex;
+    flex-direction: column;
+    align-content: flex-start;
+    margin-top: 6;
+    margin-left: 25;
+}
+
+.desc {
+    margin-top: 3;
+}
+
+p {
+    margin: 0;
+}
+h4 {
+    margin: 0;
+}
+button {
+    margin-left: auto;
+    margin-right: 4;
+    height: 20px;
+}

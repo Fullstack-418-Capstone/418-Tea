@@ -1,40 +1,63 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getUserByUsername } from "../api";
 import { editUserInformation } from "../api";
 
-const Profile = ({ token }) => {
+const Profile = ({ user }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [userState, setUserState] = useState("");
-  const [city, setCity] = useState("jax");
-  const [zipcode, setZipCode] = useState("123456");
+  //const [address, setAddress] = useState("");
+  //const [userState, setUserState] = useState("");
+  //const [city, setCity] = useState("");
+  //const [zipcode, setZipCode] = useState("");
+  const [orders, setOrders] = useState([]);
+
+  const BASE_URL = "http://localhost:3001/api";
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const results = await showOrders(user.id);
+      console.log("USERRRRRR, making it test", user.id);
+      console.log("RESULTSSSS", results);
+      setOrders(results);
+    };
+    fetchOrders();
+  }, []);
+
+  const showOrders = async (userid) => {
+    console.log("USERR IDDDD, needed for route", userid);
+    const response = await fetch(`${BASE_URL}/orders/order/${userid}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    console.log("DATAAAA", data);
+    return data;
+  };
 
   const HandleChanges = async (event) => {
     event.preventDefault();
     await editUserInformation(
       firstName,
       lastName,
-      password,
-      address,
-      userState,
-      city,
-      zipcode,
-      token
+      password
+      //   address,
+      //   userState,
+      //   city,
+      //   zipcode,
+      //   token
     );
     setFirstName("");
     setLastName("");
     setPassword("");
-    setAddress("");
-    setUserState("");
-    setCity("");
-    setZipCode("");
-  };
-
-  const HandleOrders = async () => {
-    //come and add the function here that will display the orders for the customer
+    // setAddress("");
+    // setUserState("");
+    // setCity("");
+    // setZipCode("");
   };
 
   return (
@@ -67,7 +90,7 @@ const Profile = ({ token }) => {
               setPassword(event.target.value);
             }}
           ></input>
-          <input
+          {/* <input
             placeholder="Edit Address"
             type="text"
             value={address}
@@ -98,13 +121,23 @@ const Profile = ({ token }) => {
             onChange={(event) => {
               setZipCode(event.value.target);
             }}
-          ></input>
+          ></input> */}
           <button> Make Changes </button>
         </form>
       </div>
 
       <div>
-        <h3> Previous Orders </h3>
+        <h3> Your Previous Orders </h3>
+        {orders.map((individualOrder, i) => {
+          return (
+            <div key={i}>
+              <h4>Order: {individualOrder.status}</h4>
+              <ul>
+                {/* <li>Description: {individualOrder.description}</li> */}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

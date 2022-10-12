@@ -5,7 +5,9 @@ const {
   getOpenOrders,
   getOrdersbyUserId,
   getOpenCartByUser,
+  getOrdersByOrderId,
 } = require("../database/orders");
+const { getCartProductsByOrderId } = require("../database/orders_products");
 
 //GET all orders
 router.get("/", async (req, res, next) => {
@@ -42,12 +44,23 @@ router.get("/cart/:userid", async (req, res, next) => {
 });
 
 //GET ORDERS by user id
-router.get("/order/:userid", async (req, res, next) => {
+router.get("/order/:userId", async (req, res, next) => {
+  console.log("REQPARAMSSSSS", req.params);
   const { userId } = req.params;
+  console.log("USER IDDDDD", userId);
   try {
+    const ordersToReturn = [];
     const orderByUser = await getOrdersbyUserId(userId);
+    for (let i = 0; i < orderByUser.length; i++) {
+      const thisOrder = await getOrdersByOrderId(orderByUser[i].id);
+      console.log("ORDERRRRR", thisOrder);
+      if (!thisOrder.isOpen) {
+        const items = await getCartProductsByOrderId(thisOrder.id);
+        ordersToReturn.push(items);
+      }
+    }
 
-    res.send(orderByUser);
+    res.send(ordersToReturn);
   } catch (error) {
     throw error;
   }

@@ -1,9 +1,9 @@
 const client = require("./client");
-const {createUser} = require("./users")
-const {createProduct, getProductById} = require("./products");
-const { createNewOrdersProduct} = require("./orders_products");
-const {productsToCreate} = require("./massData")
-
+const { createUser } = require("./users");
+const { createProduct, getProductById } = require("./products");
+const { createNewOrdersProduct } = require("./orders_products");
+const { productsToCreate } = require("./massData");
+const { placeOrder } = require("./orders");
 
 const createTables = async () => {
   try {
@@ -71,7 +71,7 @@ const createTableAddresses = async () => {
   }
 };
 
-const createTableProducts = async() => {
+const createTableProducts = async () => {
   try {
     await client.query(`
       CREATE TABLE products(
@@ -87,13 +87,13 @@ const createTableProducts = async() => {
         "isActive" boolean DEFAULT true
       );
     `);
-  }catch (error) {
+  } catch (error) {
     console.error("error during create products table!");
     throw error;
   }
-}
+};
 
-const createTableOrders = async() => {
+const createTableOrders = async () => {
   try {
     await client.query(`
       CREATE TABLE orders(
@@ -103,13 +103,13 @@ const createTableOrders = async() => {
         "isOpen" BOOLEAN DEFAULT true
       );
     `);
-  }catch (error) {
+  } catch (error) {
     console.error("error during create orders table!");
     throw error;
   }
-}
+};
 
-const createTableOrdersProducts = async() => {
+const createTableOrdersProducts = async () => {
   try {
     await client.query(`
       CREATE TABLE orders_products(
@@ -120,62 +120,62 @@ const createTableOrdersProducts = async() => {
         price INTEGER
       );
     `);
-  }catch (error) {
+  } catch (error) {
     console.error("error during create orders_products table!");
     throw error;
   }
-}
+};
 
 /* 
 
               MAKING TEST DATA
 */
-const createInitialUsers = async() => {
+const createInitialUsers = async () => {
   //creates users and addresses for each user
-  console.log('starting create initial users');
+  console.log("starting create initial users");
   const addressOne = {
-    address1: '123 Main Street',
-    address2: 'apt 456',
-    city: 'Boston',
-    state: 'MA',
-    zipcode: '02108'
-   }
-   
-   const userOne = {
-    username: 'IronMan',
-    password: 'thanksJarvis',
-    firstname: 'Tony',
-    lastname: 'Stark',
-    email: 'theSmartAvenger@gmail.com',
+    address1: "123 Main Street",
+    address2: "apt 456",
+    city: "Boston",
+    state: "MA",
+    zipcode: "02108",
+  };
+
+  const userOne = {
+    username: "IronMan",
+    password: "thanksJarvis",
+    firstname: "Tony",
+    lastname: "Stark",
+    email: "theSmartAvenger@gmail.com",
     address: addressOne,
-    isAdmin: true
-   }
-  const createUserOneResult = await createUser(userOne)
-  console.log('result of create user one', createUserOneResult)
+    isAdmin: true,
+  };
+  const createUserOneResult = await createUser(userOne);
+  console.log("result of create user one", createUserOneResult);
   const addressTwo = {
-    address1: '250 52nd street ',
-    city: 'Gotham',
-    state: 'NJ',
-    zipcode: '07015'
-   }
-   //const { id: idTwo } = await createAddress(addressTwo)
-   //assistantDA
-   //crispygirl@gmail.com
-   const userTwo = {
-    username: 'assistantDA',
-    password: 'futureAG',
-    firstname: 'Rachel',
-    lastname: 'Dawes',
-    email: 'crispygirl@gmail.com',
+    address1: "250 52nd street ",
+    city: "Gotham",
+    state: "NJ",
+    zipcode: "07015",
+  };
+  //const { id: idTwo } = await createAddress(addressTwo)
+  //assistantDA
+  //crispygirl@gmail.com
+  const userTwo = {
+    username: "assistantDA",
+    password: "futureAG",
+    firstname: "Rachel",
+    lastname: "Dawes",
+    email: "crispygirl@gmail.com",
     address: addressTwo,
-    isAdmin: false
-   }
-   const createUserTwoResult = await createUser(userTwo)
-  console.log('result of create user Two', createUserTwoResult)
-  console.log('finsihed created two initial users and addresses')
-}
-const createInitialProducts = async()  => {
-  console.log('creating initial products...');
+    isAdmin: false,
+  };
+  const createUserTwoResult = await createUser(userTwo);
+  console.log("result of create user Two", createUserTwoResult);
+  console.log("finsihed created two initial users and addresses");
+};
+const createInitialProducts = async () => {
+  console.log("creating initial products...");
   try {
     // const productsToCreate = [
     //   {
@@ -211,53 +211,64 @@ const createInitialProducts = async()  => {
     //   price: 56
     // }]
     const products = await Promise.all(productsToCreate.map(createProduct));
-    console.log("Products created:")
-    console.log(products)
-    console.log("Finished creating initial products")  
-  } catch (error){
-    console.error('issue creating initial products');
+    console.log("Products created:");
+    console.log(products);
+    console.log("Finished creating initial products");
+  } catch (error) {
+    console.error("issue creating initial products");
     throw error;
-  }  
-}
-const createInitialCarts = async() => {
-  console.log('creating initial carts...');
+  }
+};
+const createInitialCarts = async () => {
+  console.log("creating initial carts...");
   try {
-    const {price: priceOne} = await getProductById(2)
-    const {price: priceTwo} = await getProductById(3)
+    const { price: priceOne } = await getProductById(2);
+    const { price: priceTwo } = await getProductById(3);
     const addToCartsToCreate = [
       {
         userId: 1,
         productId: 2,
         quantity: 2,
-        price: priceOne
-      }, {
+        price: priceOne,
+      },
+      {
         userId: 1,
         productId: 3,
         quantity: 1,
-        price: priceTwo
-      }, {
+        price: priceTwo,
+      },
+      {
         userId: 2,
-        productId:3,
-        quantity:1,
-        price: priceTwo
-      }
-    ]
-    
-    const addOne = await createNewOrdersProduct(addToCartsToCreate[0])
-    const addTwo = await createNewOrdersProduct(addToCartsToCreate[1])
-    const addThree = await createNewOrdersProduct(addToCartsToCreate[2])
-    const addedCarts = [addOne, addTwo, addThree]
-    console.log('carts made:')
-    console.log(addedCarts)
-    console.log("Finished creating initial carts")
+        productId: 3,
+        quantity: 1,
+        price: priceTwo,
+      },
+      {
+        userId: 2,
+        productId: 4,
+        quantity: 1,
+        price: priceTwo,
+      },
+      {
+        userId: 2,
+        productId: 5,
+        quantity: 1,
+        price: priceTwo,
+      },
+    ];
 
-
-  }catch (error){
-    console.error('issue creating initial carts');
+    const addOne = await createNewOrdersProduct(addToCartsToCreate[0]);
+    const addTwo = await createNewOrdersProduct(addToCartsToCreate[1]);
+    const addThree = await createNewOrdersProduct(addToCartsToCreate[2]);
+    const addedCarts = [addOne, addTwo, addThree];
+    console.log("carts made:");
+    console.log(addedCarts);
+    console.log("Finished creating initial carts");
+  } catch (error) {
+    console.error("issue creating initial carts");
     throw error;
-  } 
-}
-
+  }
+};
 
 const rebuildDB = async () => {
   try {
@@ -266,6 +277,7 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
+    await placeOrder(2);
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

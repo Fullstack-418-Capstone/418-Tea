@@ -24,7 +24,8 @@ const productsToCreate = [
         unit: "canister",
         type: "bagged",
         quantitySold: 312,
-        price: 24
+        price: 24,
+        isActive: false
     }, {
         name: 'Black Tea',
         imgurl: 'tealeaf/blacktea.jpg',
@@ -186,7 +187,7 @@ const productsToCreate = [
         imgurl: 'tealeaf/cinnamonapple.jpg',
         description: 'Frutiy and spiced mixed into one',
         stock: 283,
-        unit: 'cansiter',
+        unit: 'canister',
         type: 'loose',
         quantitySold: 832,
         price: 12
@@ -222,7 +223,7 @@ const productsToCreate = [
         imgurl: 'tealeaf/jasminegreentea.jpg',
         description: 'Adding a hint of jasmine to your normal green tea',
         stock: 612,
-        unit: 'cansiter',
+        unit: 'canister',
         type: 'loose',
         quantitySold: 90,
         price: 7

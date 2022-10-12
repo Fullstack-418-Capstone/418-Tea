@@ -227,7 +227,7 @@ const productsToCreate = [
         quantitySold: 90,
         price: 7
     } , {
-        name: 'Lemon GingerSnap Tea',
+        name: 'Lemon Gingersnap Tea',
         imgurl: 'tealeaf/lemongingersnap.jpg',
         description: 'A little bit of Christmas spirit all year round',
         stock: 183,

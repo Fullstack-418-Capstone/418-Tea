@@ -42,10 +42,10 @@ return (
                 <Register setToken={setToken}></Register>
               }></Route>
               <Route path='/tea-leaf' element = {
-                <TeaLeaf></TeaLeaf>
+                <TeaLeaf token={token} user={user} ></TeaLeaf>
               }></Route>
               <Route path='/tea-ware' element = {
-                <TeaWare></TeaWare>
+                <TeaWare token={token} user={user} ></TeaWare>
               }></Route>
               <Route path='/cart' element = {
                 <Cart token={token} user={user} ></Cart>

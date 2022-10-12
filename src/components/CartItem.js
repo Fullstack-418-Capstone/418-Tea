@@ -6,7 +6,7 @@ import {
     getProductById
 } from '../api';
 
-const CartItem = ({product, index, setCartItems, token, user}) => {
+const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigger}) => {
 
     product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
     const [quantity, setQuantity] = useState(1)
@@ -19,10 +19,16 @@ const CartItem = ({product, index, setCartItems, token, user}) => {
             currentCart.splice(index, 1)
             localStorage.setItem('418WhatsTeaGuestCart', JSON.stringify(currentCart))
             setCartItems(currentCart)
+            setTrigger(!trigger)
         } else {
             const removedItem = await removeFromCart(user.id, productId, token)
+            console.log(user.username)
             const userCart = await getCartByUsername(user.username)
-            if(userCart) setCartItems(userCart)
+            console.log(userCart)
+            if(userCart) { 
+                setCartItems(userCart)
+                setTrigger
+            }
         }
     }
 

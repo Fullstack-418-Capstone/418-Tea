@@ -9,3 +9,10 @@
 .productinput {
     float: right;
 }
+.selectbar {
+    margin: 2px;
+}
+.textbox {
+    width: 500px;
+    margin-bottom: 2px;
+}

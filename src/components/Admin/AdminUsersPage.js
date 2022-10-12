@@ -19,10 +19,10 @@ const AdminUsersPage = () => {
 
     return(
         <div>
-            <>List of All Users</><hr/>
-            {allUsers[0] ? allUsers.map((user) => {
+            <div style={{fontSize:'32px'}}>All Users</div><hr/>
+            {allUsers[0] ? allUsers.map((user, index) => {
                 return (
-                    <AdminSingleUserView key={user.id} user={user}></AdminSingleUserView>
+                    <AdminSingleUserView key={index} user={user}></AdminSingleUserView>
                 )
             })
             

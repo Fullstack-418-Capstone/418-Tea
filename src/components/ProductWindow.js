@@ -6,9 +6,6 @@ const ProductWindow = ({product, user, token}) => {
 
     product.imgurl ? null : product.imgurl = 'tealogo150.png'
 
-    //const asset = `../assets/${product.imgurl}`
-    // console.log(asset)
-
     const productWindowStyle = {
         display:'flex',
         flexDirection:'column',
@@ -24,7 +21,6 @@ const ProductWindow = ({product, user, token}) => {
 
     const addItem = async(product) => {
         if(user){
-            // console.log('test')
             const cartList = await addToCart(user.id, product.id, 1, product.price, token)
             return cartList
         } else {

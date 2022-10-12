@@ -22,9 +22,7 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
             setTrigger(!trigger)
         } else {
             const removedItem = await removeFromCart(user.id, productId, token)
-            console.log(user.username)
             const userCart = await getCartByUsername(user.username)
-            console.log(userCart)
             if(userCart) { 
                 setCartItems(userCart)
                 setTrigger

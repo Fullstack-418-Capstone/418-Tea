@@ -10,7 +10,6 @@ const TeaWare = ({token, user}) => {
 
     const getAll = async() => {
         const allproduct = await getAllActiveProducts();
-        // console.log('fetched products', allproduct)
         setAllActiveProducts(allproduct)
         filterProducts(allproduct)
     }
@@ -18,7 +17,6 @@ const TeaWare = ({token, user}) => {
         const newArr=[]
         for(let i = 0; i< productArr.length; i++){
             if(filterWord.includes(productArr[i].type)){
-                // console.log("matching", productArr[i])
                 newArr.push(productArr[i])
             }
         }

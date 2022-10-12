@@ -37,12 +37,12 @@ router.post("/addtocart", async (req, res, next) => {
   const { userId, productId, quantity, price } = req.body;
 
   try {
-    addToCartMember = createNewOrdersProduct(
+    addToCartMember = await createNewOrdersProduct({
       userId,
       productId,
       quantity,
       price
-    );
+    });
 
     res.send(addToCartMember);
   } catch (error) {
@@ -54,7 +54,7 @@ router.post("/addtocart", async (req, res, next) => {
 router.patch("/editquantity", async (req, res, next) => {
   const { userId, productId, quantity } = req.body;
 
-  const editCart = editNewOrdersProductQuantity({userId, productId, quantity});
+  const editCart = await editNewOrdersProductQuantity({userId, productId, quantity});
 
   res.send(editCart);
 });
@@ -64,7 +64,7 @@ router.delete("/delete", async (req, res, next) => {
   const { id: userId } = req.user
   const { productId } = req.body;
 
-  const deleteFromCart = deleteOrdersProduct({userId, productId});
+  const deleteFromCart = await deleteOrdersProduct({userId, productId});
 
   res.send(deleteFromCart);
 });

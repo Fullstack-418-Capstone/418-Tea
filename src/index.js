@@ -43,27 +43,27 @@ const App = () => {
         </header>
 
         <main>
-          <Routes>
-            <Route
-              path="/register"
-              element={<Register setToken={setToken}></Register>}
-            ></Route>
-            <Route path="/tea-leaf" element={<TeaLeaf></TeaLeaf>}></Route>
-            <Route path="/tea-ware" element={<TeaWare></TeaWare>}></Route>
-            <Route
-              path="/cart"
-              element={<Cart token={token} user={user}></Cart>}
-            ></Route>
-            <Route
-              path="/profile"
-              element={<Profile token={token} user={user}></Profile>}
-            ></Route>
-            <Route
-              path="/admin"
-              element={<AdminPage isAdmin={isAdmin}></AdminPage>}
-            ></Route>
-            <Route path="/" element={<HomePage />} />
-          </Routes>
+            <Routes>
+              <Route path='/register' element = {
+                <Register setToken={setToken}></Register>
+              }></Route>
+              <Route path='/tea-leaf' element = {
+                <TeaLeaf token={token} user={user} ></TeaLeaf>
+              }></Route>
+              <Route path='/tea-ware' element = {
+                <TeaWare token={token} user={user} ></TeaWare>
+              }></Route>
+              <Route path='/cart' element = {
+                <Cart token={token} user={user} ></Cart>
+              }></Route>
+              <Route path='/profile' element = {
+                <Profile token={token} user={user} ></Profile>
+              }></Route>
+              <Route path='/admin' element = {
+                <AdminPage isAdmin={isAdmin}></AdminPage>
+              }></Route>
+                <Route path="/" element={<HomePage />} />
+            </Routes>
         </main>
       </div>
     </Router>

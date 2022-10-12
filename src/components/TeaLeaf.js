@@ -3,7 +3,7 @@ import { getAllActiveProducts } from '../api';
 import FilterButton from './FilterButtonView';
 import ProductWindow from './ProductWindow';
 
-const TeaLeaf = () => {
+const TeaLeaf = ({token, user}) => {
     const [tea, setTea] = useState([])
     const [filterWord, setFilterWord] = useState(["loose", "bagged"])
     const [allActiveProducts, setAllActiveProducts] = useState([]);
@@ -11,7 +11,6 @@ const TeaLeaf = () => {
 
     const getAll = async() => {
         const allproduct = await getAllActiveProducts();
-        console.log('fetched products', allproduct)
         setAllActiveProducts(allproduct)
         filterProducts(allproduct)
     }
@@ -19,7 +18,6 @@ const TeaLeaf = () => {
         const newArr=[]
         for(let i = 0; i< productArr.length; i++){
             if(filterWord.includes(productArr[i].type)){
-                console.log("matching", productArr[i])
                 newArr.push(productArr[i])
             }
         }
@@ -50,7 +48,7 @@ const TeaLeaf = () => {
             {tea[0] ?
             tea.map((product,index) => {
                 return (
-                    <ProductWindow key = {index} product={product}></ProductWindow>
+                    <ProductWindow key = {index} product={product} token={token} user={user} ></ProductWindow>
                 )
             })
             : <>Out of Stock!</>

@@ -312,6 +312,14 @@ const productsToCreate = [
         unit: 'box',
         type: 'bagged',
         price: 12
+    } , {
+        name: 'Sweet Tri Tea',
+        imgurl: 'tealeaf/tritea.jpg',
+        description: 'The best tea made from a tree',
+        stock: 1,
+        unit: 'box',
+        type: 'bagged',
+        price: 1000000
     }]
 
   module.exports = {

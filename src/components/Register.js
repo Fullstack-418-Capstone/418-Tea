@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { registerUser } from "../api";
 
 const Register = () => {
@@ -11,13 +10,15 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [address1, setAddress1] = useState("");
-  //const [address2, setAddress2] = useState("");
+  const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipCode] = useState("");
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
+
+    //console.log line 97 on src index to check address 2
 
     {
       password == confirmPassword
@@ -60,12 +61,12 @@ const Register = () => {
     setConfirmPassword("");
     setEmail("");
     setAddress1("");
-    //setAddress2("");
     setState("");
     setZipCode("");
     setCity("");
+    setAddress2("");
 
-    alert("thank you for registering!");
+    alert("Thank You for Registering!");
   };
 
   return (
@@ -112,7 +113,7 @@ const Register = () => {
         <input
           placeholder="Confirm Password"
           value={confirmPassword}
-          type="text"
+          type="password"
           onChange={(event) => {
             setConfirmPassword(event.target.value);
           }}
@@ -137,14 +138,6 @@ const Register = () => {
           }}
           required
         ></input>
-        {/* <input
-          placeholder="Please enter your address"
-          value={address2}
-          type="text"
-          onChange={(event) => {
-            setAddress2(event.target.value);
-          }}
-        ></input> */}
         <input
           placeholder="Please enter your state - 2 Letters"
           value={state}
@@ -173,6 +166,14 @@ const Register = () => {
           }}
           maxLength={5}
           required
+        ></input>
+        <input
+          placeholder="Please enter your address"
+          value={address2}
+          type="text"
+          onChange={(event) => {
+            setAddress2(event.target.value);
+          }}
         ></input>
         <button>Register!</button>
       </form>

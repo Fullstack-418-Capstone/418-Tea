@@ -6,7 +6,9 @@ const {
   getOrdersbyUserId,
   getOpenCartByUser,
   getOrdersByOrderId,
+  placeOrder,
 } = require("../database/orders");
+const { createNewOrdersProduct } = require("../database/orders_products");
 const { getCartProductsByOrderId } = require("../database/orders_products");
 
 //GET all orders
@@ -67,6 +69,29 @@ router.get("/order/:userId", async (req, res, next) => {
 });
 
 //PATCH edit orders -- decided we did not need this
+router.patch("/placeorder/:userId", async (req, res, next) => {
+  const { userId } = req.params;
+  const { cartItems } = req.body;
+  try {
+    if(!req.user) {
+      for(const item of cartItems) {
+        await createNewOrdersProduct({
+          userId,
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price
+        })
+      }
+    }
+    const orderId = await getOpenCartByUser(userId)
+    const orderPlaced = await placeOrder(orderId)
+    console.log(orderPlaced)
+
+    return orderPlaced
+  } catch ({name, message}) {
+    next({name, message})
+  }
+})
 
 //DELETE delete order -- decided we did not need this either
 module.exports = router;

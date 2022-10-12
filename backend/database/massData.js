@@ -173,7 +173,6 @@ const productsToCreate = [
         type: 'set',
         price: 28
     }]
-    //test comment
 
   module.exports = {
     productsToCreate

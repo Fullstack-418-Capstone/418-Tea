@@ -24,7 +24,8 @@ const productsToCreate = [
         unit: "canister",
         type: "bagged",
         quantitySold: 312,
-        price: 24
+        price: 24,
+        isActive: false
     }, {
         name: 'Black Tea',
         imgurl: 'tealeaf/blacktea.jpg',

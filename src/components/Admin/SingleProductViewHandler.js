@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AdminSingleProductEditView from "./AdminSingleProductEditView";
 import AdminSingleProductView from "./AdminSingleProductView";
 
 const SingleProductViewHandler = ({product}) => {
@@ -8,7 +9,9 @@ const SingleProductViewHandler = ({product}) => {
 
     return (
         <div>
-            {edit ? <>time to edit</> : <AdminSingleProductView
+            {edit ? <AdminSingleProductEditView
+            product={product}
+            ></AdminSingleProductEditView>: <AdminSingleProductView
             product={product}
             setEdit={setEdit}></AdminSingleProductView>}
         </div>                

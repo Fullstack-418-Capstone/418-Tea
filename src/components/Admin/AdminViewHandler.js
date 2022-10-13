@@ -6,7 +6,7 @@ import FilterButton from '../FilterButtonView';
 
 //this page will have the buttons to switch between products and users and anything else we think of
 
-const AdminViewHandler = ({adminToken}) => {
+const AdminViewHandler = ({token}) => {
     const [tab, setTab] = useState('products');
 
 
@@ -35,8 +35,8 @@ const AdminViewHandler = ({adminToken}) => {
             </div>
 
             {/* this could be a single turnary but left as two incase we add more admin pages*/}
-            {tab === 'products' ? <AdminProductsPage adminToken={adminToken}></AdminProductsPage> : null}
-            {tab === 'users' ? <AdminUsersPage adminToken={adminToken}></AdminUsersPage> : null}
+            {tab === 'products' ? <AdminProductsPage token={token}></AdminProductsPage> : null}
+            {tab === 'users' ? <AdminUsersPage token={token}></AdminUsersPage> : null}
 
         </div>
     )

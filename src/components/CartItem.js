@@ -10,8 +10,6 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
     product.imgurl ? null : product.imgurl = 'tealeaf/blacktea.jpg'
     const [quantity, setQuantity] = useState(1)
 
-    //products is dummy data different from what the api will call (quanity in cart is missing)
-    //remove when Cart.js is correctly calling api
     const removeFromCartButton = async(index, productId) => {
         if(!token) {
             const currentCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
@@ -30,7 +28,6 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
     }
 
     const quantityHandler = async(quantity, productId) => {
-        console.log('hits function')
         if(token) {
             try {
                 const editedItem = await editCartQuantity(user.id, productId, quantity, token)
@@ -40,9 +37,7 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
             }
         } else {
             const currentCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
-            console.log(currentCart[index])
             currentCart[index].quantity = quantity
-            console.log(currentCart)
             localStorage.setItem('418WhatsTeaGuestCart', JSON.stringify(currentCart))
         }
     }
@@ -51,8 +46,6 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
         setQuantity(product.quantity)
     }, [])
 
-    //needs remove from cart button
-    //needs ability to edit quantity
     return (
         <div>
             <img src={require(`../assets/${product.imgurl}`)} style={{height:'50px', width:'50px'}} />

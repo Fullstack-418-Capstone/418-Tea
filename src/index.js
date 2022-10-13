@@ -60,7 +60,7 @@ const App = () => {
                 <Profile token={token} user={user} ></Profile>
               }></Route>
               <Route path='/admin' element = {
-                <AdminPage isAdmin={isAdmin}></AdminPage>
+                <AdminPage token={token} isAdmin={isAdmin}></AdminPage>
               }></Route>
                 <Route path="/" element={<HomePage />} />
             </Routes>

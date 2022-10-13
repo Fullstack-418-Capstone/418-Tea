@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { updateProduct } from "../../api";
 import "./AdminSingleProductEditView.css"
 
 
 
-const AdminSingleProductEditView = ({product}) => {
+const AdminSingleProductEditView = ({token, product, setEdit}) => {
     const [name, setName] = useState(product.name);
     const [imgurl, setImgurl] = useState(product.imgurl);
     const [description, setDescription] = useState(product.description)
@@ -12,16 +13,50 @@ const AdminSingleProductEditView = ({product}) => {
     const [price, setPrice] = useState(product.price);
     const [stock, setStock] = useState(product.stock);
     const [isActive, setIsActive] = useState(product.isActive);
+
+    const [errorMessage, setErrorMessage] = useState('')
     
     const changeActive = () => {
         isActive ? setIsActive(false) : setIsActive(true)
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault()
-        if(name && imgurl && description && price){
-            console.log('Remove this console.log and plug in API call')
+        setErrorMessage('')
+        if(nameCheck() && imgurlCheck() && descCheck() && priceCheck() && stockCheck()){
+            console.log(token, product.id,name, imgurl,price, stock, type, unit, description, isActive)
+            await updateProduct(token, product.id,name, imgurl,price, stock, type, unit, description, isActive)
+            setEdit(false)
         }
+    }
+    const nameCheck = () => {
+        if(name){return true}
+        setErrorMessage('Enter a name');
+        return false;
+    }
+    const imgurlCheck = () => {
+        if(imgurl){return true}
+        setErrorMessage('Enter an image link');
+        return false;
+    }
+    const descCheck = () => {
+        if(description){return true}
+        setErrorMessage('Enter a description that sells');
+        return false;
+    }
+    const priceCheck = () => {
+        if(price){return true}
+        setErrorMessage('Enter a Price');
+        return false;
+    }
+    const stockCheck = () => {
+        if(stock){return true}
+        setErrorMessage('How many are in stock?');
+        return false;
+    }
+    const handleCancel = (event) => {
+        event.preventDefault();
+        setEdit(false)
     }
 
     return (
@@ -83,8 +118,11 @@ const AdminSingleProductEditView = ({product}) => {
                 <div>
                     <input className="textbox" placeholder='Description' value={description} type='textbox' onChange={(event) =>{setDescription(event.target.value)}}></input>
                 </div>
-                <button onClick={(event) => {
+                {errorMessage ? <div style={{color:'red'}}>{errorMessage}</div> : null}
+                <button style={{marginRight:'2px'}} onClick={(event) => {
                     handleSubmit(event)}}>Submit changes</button>
+                <button onClick={(event) => {
+                    handleCancel(event)}}>Cancel</button>
             </div>
         </form>
     )

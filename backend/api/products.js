@@ -4,25 +4,18 @@ const {
   getAllProducts,
   deleteProduct,
   getProductById,
-  getAllActiveProducts
+  getAllActiveProducts,
+  editProductById
 } = require("../database/products");
 
 // GET /api/products  --> get all products
 
-router.use((req,res,next) => {
-  console.log("A request is being made to /products");
-
-  next();
-})
-
 router.get("/", async (req, res, next) => {
-  console.log("made it here and running this")
   const products = await getAllProducts();
   res.send(products);
 });
 
 router.get("/active", async (req, res, next) => {
-  console.log("made it here and running this")
   const products = await getAllActiveProducts();
   res.send(products);
 });
@@ -77,8 +70,8 @@ router.delete("/:productId", async (req, res, next) => {
 //UPDATE // PATCH /api/products/:productid
 router.patch("/:productId", async (req, res, next) => {
   const { productId } = req.params;
-  const { isadmin } = req.user;
-  const { name, imgurl, description, stock, price, unit, type } = req.body;
+  const { isAdmin } = req.user;
+  const { name, imgurl, description, stock, price, unit, type, isActive } = req.body;
 
   const updateFields = {};
 
@@ -109,12 +102,13 @@ router.patch("/:productId", async (req, res, next) => {
   if (type) {
     updateFields.type = type;
   }
+  updateFields.isActive = isActive;
 
   updateFields.id = productId;
 
   try {
-    if (isadmin) {
-      const edit = await editProduct(updateFields);
+    if (isAdmin) {
+      const edit = await editProductById(updateFields);
       res.send({ product: edit });
     } else {
       next({

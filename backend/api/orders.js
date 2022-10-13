@@ -47,15 +47,12 @@ router.get("/cart/:userid", async (req, res, next) => {
 
 //GET ORDERS by user id
 router.get("/order/:userId", async (req, res, next) => {
-  console.log("REQPARAMSSSSS", req.params);
   const { id: userId } = req.user;
-  console.log("USER IDDDDD", userId);
   try {
     const ordersToReturn = [];
     const orderByUser = await getOrdersbyUserId(userId);
     for (let i = 0; i < orderByUser.length; i++) {
       const thisOrder = await getOrdersByOrderId(orderByUser[i].id);
-      console.log("ORDERRRRR", thisOrder);
       if (!thisOrder.isOpen) {
         const items = await getCartProductsByOrderId(thisOrder.id);
         ordersToReturn.push(items);

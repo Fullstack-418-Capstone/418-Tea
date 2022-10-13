@@ -19,6 +19,7 @@ const Cart = ({token, user}) => {
             setCartItems(productList)
         }
     }
+    
     const getCartFromLocal = () => {
         const guestCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
         if(guestCart) {
@@ -27,6 +28,15 @@ const Cart = ({token, user}) => {
             }
             setCartItems(guestCart)
         }
+    }
+
+    const getTotal = () => {
+        let total = 0
+        for(const item of cartItems) {
+            let itemTotal = item.price * item.quantity
+            total += itemTotal
+        }
+        return total
     }
     
     useEffect(() => {
@@ -57,6 +67,9 @@ const Cart = ({token, user}) => {
 
     return(
         <div>
+            <h3>Total: ${getTotal()}</h3>
+            <h5>*Total updates on refresh/leaving and returning after submitting quantity changes.</h5>
+            <button onClick={(event) => {handlePlaceOrder(event)}}>Place Order</button>
             <hr/>
             {cartItems.length > 0 ? 
             cartItems.map((product, index) => {
@@ -70,7 +83,6 @@ const Cart = ({token, user}) => {
             : <p>No items in cart</p>
             }
             <hr/>
-            <button onClick={(event) => {handlePlaceOrder(event)}}>Place Order</button>
         </div>
     )
 }

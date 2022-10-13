@@ -3,6 +3,7 @@ import { getProductById } from "../api";
 
 const PastOrderLine = ({ item }) => {
   const [product, setProduct] = useState({});
+  product.imgurl ? null : (product.imgurl = "tealogo150.png");
 
   useEffect(() => {
     const pastOrder = async () => {

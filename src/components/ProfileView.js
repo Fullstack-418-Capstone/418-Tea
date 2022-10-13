@@ -2,8 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getUserByUsername } from "../api";
 import { editUserInformation } from "../api";
+import PastOrderView from "./PastOrderView";
 
-const Profile = ({ user }) => {
+const Profile = ({ user, token }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,13 +18,14 @@ const Profile = ({ user }) => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      console.log("USER HERE", user);
       const results = await showOrders(user.id);
       console.log("USERRRRRR, making it test", user.id);
       console.log("RESULTSSSS", results);
       setOrders(results);
     };
     fetchOrders();
-  }, []);
+  }, [token]);
 
   const showOrders = async (userid) => {
     console.log("USERR IDDDD, needed for route", userid);
@@ -31,7 +33,7 @@ const Profile = ({ user }) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await response.json();
@@ -128,16 +130,11 @@ const Profile = ({ user }) => {
 
       <div>
         <h3> Your Previous Orders </h3>
-        {orders.map((individualOrder, i) => {
-          return (
-            <div key={i}>
-              <h4>Order: {individualOrder.status}</h4>
-              <ul>
-                {/* <li>Description: {individualOrder.description}</li> */}
-              </ul>
-            </div>
-          );
-        })}
+        {orders[0]
+          ? orders.map((order, i) => {
+              return <PastOrderView key={i} order={order}></PastOrderView>;
+            })
+          : null}
       </div>
     </div>
   );

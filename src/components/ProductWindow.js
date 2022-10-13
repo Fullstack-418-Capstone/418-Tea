@@ -24,7 +24,8 @@ const ProductWindow = ({product, token}) => {
             <div id='productTitle' className='productDiv'>{product.name}</div>
             <img className='productDiv' src={require(`../assets/${product.imgurl}`)} style={{height:'150px', width:'150px'}} />
             <div className='productDiv'>{product.description}</div>
-            {product.stock < 6 ? <div className='stockWarning'>Only {product.stock} left in stock</div>: null}
+            {product.stock < 6 && product.stock > 0 ? <div className='stockWarning'>Only {product.stock} left in stock</div>: null}
+            {product.stock === 0 ? <div className='stockWarning'>Out of Stock!</div>: null}
             <div className='priceBar'>
                 <div>${product.price} /{product.unit}</div>
                 <button onClick={() => {addItem(product)}}>Add to Cart</button>

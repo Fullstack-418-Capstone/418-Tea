@@ -46,7 +46,7 @@ const TeaWare = ({token}) => {
             <div id='filters' style={buttonBar}>
                 <FilterButton filter='ware' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
                 <FilterButton filter='pot' setFilterWord={setFilterWord} title = {"KETTLE"}></FilterButton>
-                <FilterButton filter='cup' setFilterWord={setFilterWord} title = {"MUGS"}></FilterButton>
+                <FilterButton filter='cup' setFilterWord={setFilterWord} title = {"CUPS"}></FilterButton>
                 <FilterButton filter='set' setFilterWord={setFilterWord} title = {"SETS"}></FilterButton>
             </div>
             <div style={productsMap}>

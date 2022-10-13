@@ -164,7 +164,7 @@ const getProductById = async (productId) => {
   }
 }
 
-const addToCart = async (userId, productId, quantity = 1, price, token) => {
+const addToCart = async (productId, quantity = 1, price, token) => {
   try {
     const response = await fetch(`${BASE_URL}/orders_products/addtocart`, {
       method: "POST",
@@ -173,7 +173,6 @@ const addToCart = async (userId, productId, quantity = 1, price, token) => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        userId,
         productId,
         quantity,
         price

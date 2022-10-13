@@ -2,26 +2,12 @@ import React from 'react';
 import { addToCart } from '../api';
 
 
-const ProductWindow = ({product, user, token}) => {
-
+const ProductWindow = ({product, token}) => {
     product.imgurl ? null : product.imgurl = 'tealogo150.png'
 
-    const productWindowStyle = {
-        display:'flex',
-        flexDirection:'column',
-        border:'solid',
-        borderRadius:'5px',
-        borderColor:'#439775',
-        height:'300px',
-        width:'250px',
-        backgroundColor:'white',
-        margin:'5px',
-        padding:'2px'
-    }
-
     const addItem = async(product) => {
-        if(user){
-            const cartList = await addToCart(user.id, product.id, 1, product.price, token)
+        if(token){
+            const cartList = await addToCart(product.id, 1, product.price, token)
             return cartList
         } else {
             const cartList = [product]
@@ -34,15 +20,15 @@ const ProductWindow = ({product, user, token}) => {
     }
 
     return (
-        <div style={productWindowStyle}>
-            <>{product.name}</>
-            <img src={require(`../assets/${product.imgurl}`)} style={{height:'150px', width:'150px'}} />
-            <>{product.description}</>
-            <div style={{justifyContent:'space-between'}}>
-                <>{product.price} /{product.unit}</>
+        <div className='productWindow'>
+            <div id='productTitle' className='productDiv'>{product.name}</div>
+            <img className='productDiv' src={require(`../assets/${product.imgurl}`)} style={{height:'150px', width:'150px'}} />
+            <div className='productDiv'>{product.description}</div>
+            {product.stock < 6 ? <div className='stockWarning'>Only {product.stock} left in stock</div>: null}
+            <div className='priceBar'>
+                <div>{product.price} /{product.unit}</div>
                 <button onClick={() => {addItem(product)}}>Add to Cart</button>
             </div>
-            {product.stock < 6 ? <>Only {product.stock} left in stock</>: null}
         </div>
     )
 }

@@ -34,7 +34,8 @@ router.get("/:orderId", async (req, res, next) => {
 
 // POST /api/addtocart
 router.post("/addtocart", async (req, res, next) => {
-  const { userId, productId, quantity, price } = req.body;
+  const { productId, quantity, price } = req.body;
+  const {id: userId} = req.user;
 
   try {
     addToCartMember = await createNewOrdersProduct({

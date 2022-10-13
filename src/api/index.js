@@ -231,7 +231,7 @@ const editCartQuantity = async (userId, productId, quantity, token) => {
 }
 
 //placeorder
-const placeOrder = async (cartItems, token, userId = 1) => {
+const placeOrder = async (cartItems, token, userId = 3) => {
   try {
     const response = await fetch(`${BASE_URL}/orders/placeorder/${userId}`, {
       method: 'PATCH',

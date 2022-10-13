@@ -170,9 +170,25 @@ const createInitialUsers = async () => {
     address: addressTwo,
     isAdmin: false,
   };
+
+  
   const createUserTwoResult = await createUser(userTwo);
   console.log("result of create user Two", createUserTwoResult);
-  console.log("finsihed created two initial users and addresses");
+  
+  const userGuest = {
+    username: "Guest",
+    password: 'I am a guest.',
+    firstname: 'Gue',
+    lastname: 'Ste',
+    email: 'IgowhereIplease.gmail.com',
+    address: addressTwo,
+    isAdmin: false,
+  }
+  
+  const createUserGuestResult = await createUser(userGuest);
+  console.log('Result of creating guest user: ', createUserGuestResult)
+  console.log("finsihed created three initial users and addresses");
+  
 };
 const createInitialProducts = async () => {
   console.log("creating initial products...");

@@ -38,7 +38,7 @@ router.post("/addtocart", async (req, res, next) => {
   const {id: userId} = req.user;
 
   try {
-    addToCartMember = await createNewOrdersProduct({
+    const addToCartMember = await createNewOrdersProduct({
       userId,
       productId,
       quantity,

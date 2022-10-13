@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CartItem from './CartItem';
-import { getCartByUsername, getProductById } from '../api';
+import { getCartByUsername, getProductById, placeOrder } from '../api';
 
 
 const Cart = ({token, user}) => {
@@ -29,6 +29,9 @@ const Cart = ({token, user}) => {
         //fetch from local
         const guestCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
         if(guestCart) {
+            for(const item of guestCart) {
+                !item.quantity ? item.quantity = 1 : null
+            }
             setCartItems(guestCart)
         }
     }
@@ -37,15 +40,27 @@ const Cart = ({token, user}) => {
         token ? getCartForUser(user.username) : getCartFromLocal()
     },[trigger])
 
-    const handlePlaceOrder = (event) => {
+    const handlePlaceOrder = async(event) => {
         event.preventDefault()
         if(token) {
-            console.log('WIP')
+            const submittedOrder = await placeOrder(cartItems, token, user.id)
+            if(submittedOrder) {
+                setTrigger(!trigger)
+                alert('Thank you for your purchase.')
+                return submittedOrder
+            }
         } else {
-            localStorage.removeItem('418WhatsTeaGuestCart')
-            setCartItems([])
-            alert('Thank you for your purchase.')
+            const submittedOrder = await placeOrder(cartItems)
+            if(submittedOrder) {
+                localStorage.removeItem('418WhatsTeaGuestCart')
+                setTrigger(!trigger)
+                setCartItems([])
+                alert('Thank you for your purchase.')
+                return submittedOrder
+            }
         }
+        alert('There was an issue placing your order')
+        
         //api call
     }
 

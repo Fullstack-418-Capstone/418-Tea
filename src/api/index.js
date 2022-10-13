@@ -231,20 +231,21 @@ const editCartQuantity = async (userId, productId, quantity, token) => {
 }
 
 //placeorder
-const placeOrder = async (cartItems, userId = 1) => {
+const placeOrder = async (cartItems, token, userId = 1) => {
   try {
     const response = await fetch(`${BASE_URL}/orders/placeorder/${userId}`, {
       method: 'PATCH',
-      headers: {
+      headers: token ? {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cartItems ? cartItems : null)
+        "Authorization": `Bearer ${token}`
+      } : {"Content-Type": "application/json"},
+      body: JSON.stringify({cartItems: cartItems ? cartItems : null})
     });
     const data = await response.json()
 
     return data
   } catch (error) {
-    throw error
+    console.error(error)
   }
 }
 
@@ -295,5 +296,6 @@ export {
   editUserInformation,
   getProductById,
   addToCart,
-  editCartQuantity
+  editCartQuantity,
+  placeOrder
 };

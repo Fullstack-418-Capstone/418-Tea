@@ -3,7 +3,7 @@ import SingleProductViewHandler from './SingleProductViewHandler';
 import { getAllProducts } from '../../api/index';
 
 
-const AdminProductsPage = () => {
+const AdminProductsPage = ({token}) => {
     const [allProducts, setAllProducts] = useState([])
 
     const setGatheredProducts = async() => {
@@ -25,7 +25,7 @@ const AdminProductsPage = () => {
             {allProducts[0] ? 
             allProducts.map((product) => {
                 return(
-                    <SingleProductViewHandler product={product} key={product.id}></SingleProductViewHandler>
+                    <SingleProductViewHandler token={token} product={product} key={product.id}></SingleProductViewHandler>
                 )
             })
             :null}

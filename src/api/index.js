@@ -29,7 +29,6 @@ const loginUser = async (username, password, setToken, setUser, setIsAdmin) => {
       success = false;
     }
 
-    alert(data.message);
     return success;
   } catch (error) {
     console.error(error);
@@ -284,6 +283,32 @@ const editUserInformation = async (
   }
 };
 
+const updateProduct = async(token, productId, name, imgurl, price, stock, type, unit, description, isActive) => {
+  try {
+    const response = await fetch(`${BASE_URL}/products/${productId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        imgurl,
+        price,
+        stock,
+        type,
+        unit,
+        description,
+        isActive
+      })
+    });
+    const data = await response.json();
+    return data
+  }catch (error) {
+    throw error;
+  }
+}
+
 export {
   getAllProducts,
   getAllActiveProducts,
@@ -297,5 +322,6 @@ export {
   getProductById,
   addToCart,
   editCartQuantity,
-  placeOrder
+  placeOrder,
+  updateProduct
 };

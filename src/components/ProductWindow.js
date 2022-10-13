@@ -26,7 +26,7 @@ const ProductWindow = ({product, token}) => {
             <div className='productDiv'>{product.description}</div>
             {product.stock < 6 ? <div className='stockWarning'>Only {product.stock} left in stock</div>: null}
             <div className='priceBar'>
-                <div>{product.price} /{product.unit}</div>
+                <div>${product.price} /{product.unit}</div>
                 <button onClick={() => {addItem(product)}}>Add to Cart</button>
             </div>
         </div>

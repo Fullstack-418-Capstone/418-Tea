@@ -48,10 +48,10 @@ const App = () => {
                 <Register setToken={setToken}></Register>
               }></Route>
               <Route path='/tea-leaf' element = {
-                <TeaLeaf token={token} user={user} ></TeaLeaf>
+                <TeaLeaf token={token}></TeaLeaf>
               }></Route>
               <Route path='/tea-ware' element = {
-                <TeaWare token={token} user={user} ></TeaWare>
+                <TeaWare token={token}></TeaWare>
               }></Route>
               <Route path='/cart' element = {
                 <Cart token={token} user={user} ></Cart>

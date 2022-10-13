@@ -73,25 +73,24 @@ router.patch("/placeorder/:userId", async (req, res, next) => {
   const { userId } = req.params;
   const { cartItems } = req.body;
   try {
-    if (!req.user) {
-      for (const item of cartItems) {
-        await createNewOrdersProduct({
+    if(!req.user) {
+      for(const item of cartItems) {
+        const newItem = await createNewOrdersProduct({
           userId,
           productId: item.id,
           quantity: item.quantity,
-          price: item.price,
-        });
+          price: item.price
+        })
       }
     }
-    const orderId = await getOpenCartByUser(userId);
-    const orderPlaced = await placeOrder(orderId);
-    console.log(orderPlaced);
+    const { id : orderId } = await getOpenCartByUser(userId)
+    const orderPlaced = await placeOrder(orderId)
 
-    return orderPlaced;
-  } catch ({ name, message }) {
-    next({ name, message });
+    res.send(orderPlaced)
+  } catch ({name, message}) {
+    next({name, message})
   }
-});
+})
 
 //DELETE delete order -- decided we did not need this either
 module.exports = router;

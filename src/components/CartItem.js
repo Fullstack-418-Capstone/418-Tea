@@ -3,7 +3,6 @@ import {
     removeFromCart, 
     getCartByUsername,
     editCartQuantity,
-    getProductById
 } from '../api';
 
 const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigger}) => {
@@ -31,11 +30,20 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
     }
 
     const quantityHandler = async(quantity, productId) => {
-        try {
-            const editedItem = await editCartQuantity(user.id, productId, quantity, token)
-            return editedItem
-        } catch (error) {
-            throw error
+        console.log('hits function')
+        if(token) {
+            try {
+                const editedItem = await editCartQuantity(user.id, productId, quantity, token)
+                return editedItem
+            } catch (error) {
+                throw error
+            }
+        } else {
+            const currentCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
+            console.log(currentCart[index])
+            currentCart[index].quantity = quantity
+            console.log(currentCart)
+            localStorage.setItem('418WhatsTeaGuestCart', JSON.stringify(currentCart))
         }
     }
 
@@ -54,9 +62,7 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
             <>Total: ${product.price * quantity}</>
             <form onSubmit={async(event) => {
                 event.preventDefault()
-                if(token) {
-                    await quantityHandler(quantity, product.id)
-                }
+                await quantityHandler(quantity, product.id)
             }} >
                 <h5>*Must submit for changes to apply when placing order</h5>
                 <label>Quantity: {quantity}</label>

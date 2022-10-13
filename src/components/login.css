@@ -1,0 +1,26 @@
+.header button{
+  background-color: #61D095; 
+  border: none;
+  color: white;
+  margin: 2px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header button a{
+    text-decoration: none;
+    color: white;
+}
+
+.field{
+    border: 2px solid rgb(239, 239, 239);
+    border-radius: 4px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    width: 170px;
+}
+

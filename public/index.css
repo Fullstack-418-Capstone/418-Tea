@@ -4,6 +4,7 @@
     flex-direction:row;
     justify-content:space-between;
 }
+
 .header img {
     height: 100px;
 }

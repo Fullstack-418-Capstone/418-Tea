@@ -47,8 +47,8 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
     }, [])
 
     return (
-        <div>
-            <img src={require(`../assets/${product.imgurl}`)} style={{height:'50px', width:'50px'}} />
+        <div className='productWindow'>
+            <img src={require(`../assets/${product.imgurl}`)} style={{height:'125px', width:'125px'}} />
             <>{product.name}</><br/>
             <>{product.description}</><br/>
             <>${product.price} / {product.unit}</><br/>
@@ -57,10 +57,10 @@ const CartItem = ({product, index, setCartItems, token, user, setTrigger, trigge
                 event.preventDefault()
                 await quantityHandler(quantity, product.id)
             }} >
-                <h5>*Must submit for changes to apply when placing order</h5>
+                <h6 style={{margin: 0}}>*Must submit for changes to apply when placing order</h6>
                 <label>Quantity: {quantity}</label>
                 <br/>
-                <input type='number' value={quantity} onChange={() => {
+                <input type='number' value={quantity} onChange={(event) => {
                     if(event.target.value <= 0) {
                         setQuantity(1)
                     } else if(event.target.value > product.stock) {

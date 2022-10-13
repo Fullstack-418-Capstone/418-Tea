@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { registerUser } from "../api";
+import "./register.css";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -71,8 +72,8 @@ const Register = () => {
 
   return (
     <div>
-      <h1> Welcome, please register here! </h1>
-      <form onSubmit={HandleSubmit}>
+      <h1> Welcome, Please Register Here! </h1>
+      <form className="form" onSubmit={HandleSubmit}>
         <input
           placeholder="First Name"
           value={firstName}
@@ -81,6 +82,7 @@ const Register = () => {
             setFirstName(event.target.value);
           }}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Last Name"
@@ -90,6 +92,7 @@ const Register = () => {
             setLastName(event.target.value);
           }}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Create a username"
@@ -99,6 +102,7 @@ const Register = () => {
             setUsername(event.target.value);
           }}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Create a password"
@@ -109,6 +113,7 @@ const Register = () => {
           }}
           minLength={8}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Confirm Password"
@@ -119,6 +124,7 @@ const Register = () => {
           }}
           required
           minLength={8}
+          className="fields"
         ></input>
         <input
           placeholder="Please enter email address"
@@ -128,6 +134,7 @@ const Register = () => {
             setEmail(event.target.value);
           }}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Please enter your address"
@@ -137,6 +144,7 @@ const Register = () => {
             setAddress1(event.target.value);
           }}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Please enter your state - 2 Letters"
@@ -147,6 +155,7 @@ const Register = () => {
           }}
           maxLength={2}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Please enter your city"
@@ -156,6 +165,7 @@ const Register = () => {
             setCity(event.target.value);
           }}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Please enter your zipcode"
@@ -166,6 +176,7 @@ const Register = () => {
           }}
           maxLength={5}
           required
+          className="fields"
         ></input>
         <input
           placeholder="Please enter your address"
@@ -174,8 +185,9 @@ const Register = () => {
           onChange={(event) => {
             setAddress2(event.target.value);
           }}
+          className="fields"
         ></input>
-        <button>Register!</button>
+        <button className="register">Register!</button>
       </form>
     </div>
   );

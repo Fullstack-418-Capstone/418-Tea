@@ -4,6 +4,7 @@ const { createProduct, getProductById } = require("./products");
 const { createNewOrdersProduct, getCartProductsByOrderId } = require("./orders_products");
 const { productsToCreate } = require("./massData");
 const { placeOrder, getOrdersByOrderId } = require("./orders");
+const { createRandomUser } = require('./massProfileData')
 
 const createTables = async () => {
   try {
@@ -175,13 +176,20 @@ const createInitialUsers = async () => {
   const createUserTwoResult = await createUser(userTwo);
   console.log("result of create user Two", createUserTwoResult);
   
+  const addressDefault = {
+    address1: "9298 S PiCount Lane",
+    city: "Circum City",
+    state: "NA",
+    zipcode: "10101",
+  };
+
   const userGuest = {
     username: "Guest",
     password: 'I am a guest.',
     firstname: 'Gue',
     lastname: 'Ste',
     email: 'IgowhereIplease.gmail.com',
-    address: addressTwo,
+    address: addressDefault,
     isAdmin: false,
   }
   
@@ -189,6 +197,14 @@ const createInitialUsers = async () => {
   console.log('Result of creating guest user: ', createUserGuestResult)
   console.log("finsihed created three initial users and addresses");
   
+  for (let i = 0; i < 50; i++){
+    createUser(createRandomUser());
+    i++;
+  };
+  
+  const randomUser = await createUser(createRandomUser());
+  console.log('I AM THE MOST MAGIC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', randomUser);
+
 };
 const createInitialProducts = async () => {
   console.log("creating initial products...");

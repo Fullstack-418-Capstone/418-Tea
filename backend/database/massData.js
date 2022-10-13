@@ -321,6 +321,230 @@ const productsToCreate = [
         unit: 'box',
         type: 'bagged',
         price: 1000000
+    } , {
+        name: 'Bodum Douro Tea Press',
+        imgurl: 'teapots/bodumpot.jpg',
+        description: 'Basic black and gold that makes the magic happen',
+        stock: 38,
+        unit: 'each',
+        type: 'pot',
+        price: 48
+    } , {
+        name: 'Honeycomb Tea Pot',
+        imgurl: 'teapots/honeycombteapot.jpg',
+        description: 'Beautifully glazed and elegantly etched with gold to attract all the bees',
+        stock: 37,
+        unit: 'each',
+        type: 'pot',
+        price: 47
+    } , {
+        name: 'Peter Pots Pottery',
+        imgurl: 'teapots/peterpot.jpg',
+        description: 'A rustic looking ceramic teapot that will make delicious tea every time',
+        stock: 2,
+        unit: 'each',
+        type: 'pot',
+        price: 29
+    } , {
+        name: 'Queen Victoria VBO',
+        imgurl: 'teapots/queenteapot.jpg',
+        description: 'A classy rainbow of colors that can brigten up your day',
+        stock: 15,
+        unit: 'each',
+        type: 'pot',
+        price: 42
+    } , {
+        name: 'Mackenzie Childs Enamel Teapot',
+        imgurl: 'teapots/squarespot.jpg',
+        description: 'Inspired by the classic game of chess, this pot is a perfect gift for grandmasters',
+        stock: 2,
+        unit: 'each',
+        type: 'pot',
+        price: 52,
+    } , {
+        name: 'Amfocus Wistling Tea Kettle',
+        imgurl: 'teapots/teakettle.jpg',
+        description: 'For the person who enjoys a shrill warning before the tea burns',
+        stock: 0,
+        unit: 'each',
+        type: 'pot',
+        price: 87
+    } , {
+        name: 'Tortoise Majolica Teapot',
+        imgurl: 'teapots/turtleteapot.jpg',
+        description: 'Aquatic affecionados are all over this truly transformitive teapot',
+        stock: 7,
+        unit: 'each',
+        type: 'pot',
+        price: 36
+    } , {
+        name: 'Neon Pink Teacup',
+        imgurl: 'teacups/brightpinkcup.jpg',
+        description: 'This teacup will brighten up your day with its vibrant pink colour',
+        stock: 5,
+        unit: 'each',
+        type: 'cup',
+        price: 4
+    } , {
+        name: 'Fly Away Butterfly Teacup',
+        imgurl: 'teacups/butterflycup.jpg',
+        description: 'As free and elegant as a butterfree',
+        stock: 7,
+        unit: 'each',
+        type: 'cup',
+        price: 5
+    } , {
+        name: 'Transparent Floral Dream',
+        imgurl: 'teacups/clearflowercup.jpg',
+        description: 'If you have ever wondered what the inside of a flower looks like, this cup is for you',
+        stock: 17,
+        unit: 'each',
+        type: 'cup',
+        price: 15
+    } , {
+        name: 'Vermillion Vegitation',
+        imgurl: 'teacups/foilagecup.jpg',
+        description: 'Bringing the vibrant foiliage of the jungle to your home',
+        stock: 23,
+        unit: 'each',
+        type: 'cup',
+        price: 5
+    } , {
+        name: 'Golden Sakura Teacup',
+        imgurl: 'teacups/goldensakuracup.jpg',
+        description: 'The beauty of sakura elegently painted in gold leaf',
+        stock: 24,
+        unit: 'each',
+        type: 'cup',
+        price: 6
+    } , {
+        name: 'Lilly Teacup',
+        imgurl: 'teacups/lilliecup.jpg',
+        description: 'Inspired by the beauty of the lillies of the field',
+        stock: 19,
+        unit: 'each',
+        type: 'cup',
+        price: 3
+    } , {
+        name: 'Pink Marble Teacup',
+        imgurl: 'teacups/marblepinkcup.jpg',
+        description: 'A teacup with beautiful pink marbling on it',
+        stock: 23,
+        unit: 'each',
+        type: 'cup',
+        price: 1
+    } , {
+        name: 'King of the Fowls Teacup',
+        imgurl: 'teacups/peacockcup.jpg',
+        description: 'The most ostentatious feathered fowl made into a fabulous teacup for you',
+        stock: 5,
+        unit: 'each',
+        type: 'cup',
+        price: 25
+    } , {
+        name: 'Love as a Red Rose Teacup',
+        imgurl: 'teacups/redrosecup.jpg',
+        description: 'A boquet of these roses would never wilt',
+        stock: 73,
+        unit: 'each',
+        type: 'cup',
+        price: 7,
+    } , {
+        name: 'Magestic Pink Teacup',
+        imgurl: 'teacups/scentedpinkcup.jpg',
+        description: 'Wow your friends and create envy in your enemies with this richly guilded masterpiece',
+        stock: 8,
+        unit: 'each',
+        type: 'cup',
+        price: 8
+    } , {
+        name: 'Black and White Cat Set',
+        imgurl: 'teasets/catset.jpg',
+        description: 'A fun shoutout to our feline friends',
+        stock: 6,
+        unit: 'set',
+        type: 'set',
+        price: 76
+    } , {
+        name: 'Disturbing Facial Fear',
+        imgurl: 'teasets/creepyfaceset.jpg',
+        description: 'It will always be watching you',
+        stock: 8,
+        unit: 'set',
+        type: 'set',
+        price: 187
+    } , {
+        name: 'Dance of the Happy Jester',
+        imgurl: 'teasets/exoticclearset.jpg',
+        description: 'Mostly clear components with just a little splash of jesters',
+        stock: 9,
+        unit: 'set',
+        type: 'set',
+        price: 864
+    } , {
+        name: 'Fabulous Flamingo Set',
+        imgurl: 'teasets/flamingoset.jpg',
+        description: 'White with our favorite pink birds, lounging on one foot',
+        stock: 7,
+        unit: 'set',
+        type: 'set',
+        price: 216
+    } , {
+        name: 'Classy Black and Gold Halloween Teaset',
+        imgurl: 'teasets/halloweenblackgoldset.JPG',
+        description: "It's Spooky Season!",
+        stock: 666,
+        unit: 'set',
+        type: 'set',
+        price: 666
+    } , {
+        name: 'Refreshing Japanese Botany Teaset',
+        imgurl: 'teasets/japanesebotanyset.jpg',
+        description: 'Salmon and yellow floral fun',
+        stock: 5,
+        unit: 'set',
+        type: 'set',
+        price: 864
+    } , {
+        name: 'Japanese Boxed Teaset',
+        imgurl: 'teasets/japaneseboxset.JPG',
+        description: 'A beautiful teaset with a rustic brown box, enscribed with delicate kanji',
+        stock: 48,
+        unit: 'set',
+        type: 'set',
+        price: 629
+    } , {
+        name: 'Lomono Sov Teaset',
+        imgurl: 'teasets/Lomonosovteaset.jpg',
+        description: 'Blue, gold, and white patterned to break your mind',
+        stock: 31,
+        unit: 'set',
+        type: 'set',
+        price: 165
+    } , {
+        name: 'Lovely Lavendar Lunchset',
+        imgurl: 'teasets/purpleset.jpg',
+        description: 'A basic set with a dainty color',
+        stock: 13,
+        unit: 'set',
+        type: 'set',
+        price: 252
+    } , {
+        name: 'Royal Reign Teaset',
+        imgurl: 'teasets/redgoldset.jpg',
+        description: 'Furnished in red and gold, perfect for any new monarch',
+        stock: 12,
+        unit: 'set',
+        type: 'set',
+        price: 583
+    } , {
+        name: 'Sweet Strawberry Set',
+        imgurl: 'teasets/strawberryset.jpg',
+        description: 'Not just for berry teas, this teaset provides a decoration that is as refreshing as a summer strawberry',
+        stock: 6,
+        unit: 'set',
+        type: 'set',
+        price: 371
     }]
 
   module.exports = {

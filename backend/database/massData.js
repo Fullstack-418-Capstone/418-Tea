@@ -309,7 +309,7 @@ const productsToCreate = [
         name: 'Classic English Tea',
         imgurl: 'teabags/englishbreakfast.jpg',
         description: 'The capstone of any good English breakfast',
-        stock: 253,
+        stock: 0,
         unit: 'box',
         type: 'bagged',
         price: 12

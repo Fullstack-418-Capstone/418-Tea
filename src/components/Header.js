@@ -19,7 +19,7 @@ const Header = (props) => {
             <Link to='/tea-leaf' className="headLink">Tea</Link> <br/>
             <Link to='/tea-ware' className="headLink">Accessories</Link> <br/>
             <Link to='/cart' className="headLink">Cart</Link> <br/>
-            {token ? <><Link to='/profile' className="headLink">Profile</Link> <br/></> : null}{/*<><Link to='/register' >Register</Link> <br/> </> } */}
+            {token ? <><Link to='/profile' className="headLink">Profile</Link> <br/></> : null}
             {isAdmin ? <Link to='/admin' className="headLink">Admin</Link> : null }
             {token ? 
                 <button onClick={(event) =>{handleLogOut(event)}}>Log Out</button>
@@ -27,5 +27,5 @@ const Header = (props) => {
                 
         </div>
     )
-
+}
 export default Header

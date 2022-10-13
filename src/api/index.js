@@ -229,7 +229,6 @@ const editCartQuantity = async (userId, productId, quantity, token) => {
   }
 }
 
-//placeorder
 const placeOrder = async (cartItems, token, userId = 3) => {
   try {
     const response = await fetch(`${BASE_URL}/orders/placeorder/${userId}`, {
@@ -249,17 +248,13 @@ const placeOrder = async (cartItems, token, userId = 3) => {
 }
 
 const editUserInformation = async (
+  token,
   firstname,
   lastname,
-  password,
-  address,
-  state,
-  city,
-  zipcode,
-  token
+  password
 ) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/:userInformation`, {
+    const response = await fetch(`${BASE_URL}/users/userInformation`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -268,15 +263,12 @@ const editUserInformation = async (
       body: JSON.stringify({
         firstname,
         lastname,
-        password,
-        address,
-        state,
-        city,
-        zipcode,
+        password
       }),
     });
 
     const data = await response.json();
+
     return data;
   } catch (error) {
     throw error;

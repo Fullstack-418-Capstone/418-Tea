@@ -1,7 +1,7 @@
 import React from "react";
+import TopSellingWindow from "./TopSellingWindow";
 
-
-const HomePage = (props) => {
+const HomePage = ({token}) => {
 
     const placeholderProductArr = ['Tea', 'Pot', 'Cup']
     const placeholderReviewArr = [
@@ -30,17 +30,7 @@ const HomePage = (props) => {
             </div>
             <div>
                 <h2>Top Selling</h2>
-                <div style={{display:'flex'}}>
-                { placeholderProductArr.map((item, i) => {
-                    return (
-                        <div key={i} style={{margin:'5px'}} >
-                            <p>{item}</p>
-                            <img src={require("../assets/yellowChip100.jpg")} alt='placeholder' />
-                            <p>Price: $18</p>
-                        </div>
-                    )
-                })}
-                </div>
+                <TopSellingWindow token={token}></TopSellingWindow>
                 <h2>Reviews</h2>
                 { placeholderReviewArr.map((review, i) => {
                     return (

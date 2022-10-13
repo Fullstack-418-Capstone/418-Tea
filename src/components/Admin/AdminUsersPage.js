@@ -6,10 +6,10 @@ import { getAllUsers } from '../../api/index'
 const AdminUsersPage = () => {
     const [allUsers, setAllUsers] = useState([])
 
-    //tier 4 add a user search bar
 
     const setGatheredUsers = async() =>{
         const gatheredUsers = await getAllUsers();
+        console.log('GATHERED USERS ', gatheredUsers )
         setAllUsers(gatheredUsers);
     }
 

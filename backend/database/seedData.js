@@ -230,6 +230,24 @@ const createInitialCarts = async () => {
     const addFour = await createNewOrdersProduct(addToCartsToCreate[3]);
     const addFive = await createNewOrdersProduct(addToCartsToCreate[4]);
     const addedCarts = [addOne, addTwo, addThree, addFour, addFive];
+    await placeOrder(2);
+    const cartsToCreateTwo = [
+      {
+        userId: 2,
+        productId: 7,
+        quantity: 1,
+        price: priceTwo,
+      },
+      {
+        userId: 2,
+        productId: 12,
+        quantity: 3,
+        price: priceTwo,
+      }
+    ]
+    await Promise.all(cartsToCreateTwo.map(createNewOrdersProduct))
+    await placeOrder(3)
+
     console.log("carts made:");
     console.log(addedCarts);
     console.log("Finished creating initial carts");
@@ -246,7 +264,7 @@ const rebuildDB = async () => {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCarts();
-    await placeOrder(2);
+    
   } catch (error) {
     console.error("error rebuilding the db!");
     throw error;

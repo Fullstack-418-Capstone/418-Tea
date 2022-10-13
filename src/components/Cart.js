@@ -7,11 +7,7 @@ const Cart = ({token, user}) => {
     const [cartItems, setCartItems] = useState([])
     const [trigger, setTrigger] = useState(false)
 
-
-    //get cartItems from logged in User OR local storage and map to CartItem View
-
     const getCartForUser = async(username) => {
-        //fetch api cart
         const userCart = await getCartByUsername(username)
         if(userCart) {
             const productList = []
@@ -22,11 +18,8 @@ const Cart = ({token, user}) => {
             }
             setCartItems(productList)
         }
-        
-        //setCartItems(result)
     }
     const getCartFromLocal = () => {
-        //fetch from local
         const guestCart = JSON.parse(localStorage.getItem('418WhatsTeaGuestCart'))
         if(guestCart) {
             for(const item of guestCart) {
@@ -60,14 +53,10 @@ const Cart = ({token, user}) => {
             }
         }
         alert('There was an issue placing your order')
-        
-        //api call
     }
 
     return(
         <div>
-            <>Hi there from the Cart View</><br/>
-            <>Everything under me is a call to the CartItem.js View</>
             <hr/>
             {cartItems.length > 0 ? 
             cartItems.map((product, index) => {
@@ -78,14 +67,10 @@ const Cart = ({token, user}) => {
                     setTrigger={setTrigger} trigger={trigger} ></CartItem>
                 )
             })
-            : <>No items in cart</>
+            : <p>No items in cart</p>
             }
             <hr/>
-            <>End of calls to CartItem.js View</>
-            <hr/>
-
             <button onClick={(event) => {handlePlaceOrder(event)}}>Place Order</button>
-
         </div>
     )
 }

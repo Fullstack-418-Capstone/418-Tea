@@ -53,7 +53,7 @@ const getAllProducts = async () => {
 
 const getAllActiveProducts = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/products`, {
+    const response = await fetch(`${BASE_URL}/products/active`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,6 @@ const registerUser = async (
   zipcode
 ) => {
   try {
-    console.log("STATEEEE", state);
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
       headers: {
@@ -164,7 +163,7 @@ const getProductById = async (productId) => {
   }
 }
 
-const addToCart = async (userId, productId, quantity = 1, price, token) => {
+const addToCart = async (productId, quantity = 1, price, token) => {
   try {
     const response = await fetch(`${BASE_URL}/orders_products/addtocart`, {
       method: "POST",
@@ -173,7 +172,6 @@ const addToCart = async (userId, productId, quantity = 1, price, token) => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        userId,
         productId,
         quantity,
         price
@@ -226,9 +224,6 @@ const editCartQuantity = async (userId, productId, quantity, token) => {
       }),
     })
     const data = await response.json()
-
-    // console.log(data)
-
     return data
   } catch (error) {
     throw error
@@ -282,7 +277,6 @@ const editUserInformation = async (
     });
 
     const data = await response.json();
-    console.log("DATAAAA", data);
     return data;
   } catch (error) {
     throw error;

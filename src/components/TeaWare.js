@@ -3,7 +3,7 @@ import { getAllActiveProducts } from '../api';
 import FilterButton from './FilterButtonView';
 import ProductWindow from './ProductWindow';
 
-const TeaWare = ({token, user}) => {
+const TeaWare = ({token}) => {
     const [teaWare, setTeaWare] = useState([]);
     const [filterWord, setFilterWord] = useState(["pot", "cup", "set"]);
     const [allActiveProducts, setAllActiveProducts] = useState([]);
@@ -35,23 +35,33 @@ const TeaWare = ({token, user}) => {
         flexDirection:'row',
         justifyContent:"center"
     }
+    const productsMap = {
+        display:'flex',
+        flexDirection:'row',
+        flexWrap:'wrap',
+        justifyContent:'center'
+    }
     return(
         <div>
             <div id='filters' style={buttonBar}>
-            <FilterButton filter='ware' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
-            <FilterButton filter='pot' setFilterWord={setFilterWord} title = {"KETTLE"}></FilterButton>
-            <FilterButton filter='cup' setFilterWord={setFilterWord} title = {"MUGS"}></FilterButton>
-            <FilterButton filter='set' setFilterWord={setFilterWord} title = {"SETS"}></FilterButton>
+                <FilterButton filter='ware' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
+                <FilterButton filter='pot' setFilterWord={setFilterWord} title = {"KETTLE"}></FilterButton>
+                <FilterButton filter='cup' setFilterWord={setFilterWord} title = {"MUGS"}></FilterButton>
+                <FilterButton filter='set' setFilterWord={setFilterWord} title = {"SETS"}></FilterButton>
             </div>
-
-            {teaWare[0] ?
-            teaWare.map((product,index) => {
-                return (
-                    <ProductWindow key = {index} product={product} token={token} user={user} ></ProductWindow>
-                )
-            })
-            : <>Out of Stock!</>
-            }
+            <div style={productsMap}>
+                {teaWare[0] ?
+                teaWare.map((product,index) => {
+                    return (
+                        <ProductWindow
+                        key = {index}
+                        product={product}
+                        token={token}></ProductWindow>
+                    )
+                })
+                : <div>Out of Stock!</div>
+                }
+            </div>
         </div>
     )
 }

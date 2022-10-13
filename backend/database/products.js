@@ -4,8 +4,11 @@ const { getCartProductsByOrderId, updateOrdersProductPrice } = require('./orders
 
 //Create Product
 const createProduct = async({name, imgurl, description, stock, price, unit, type, quantitySold, isActive}) => {
-    // if(isActive === undefined){isActive = true}
-    isActive ? null : isActive = true;
+    if(isActive===false){
+        isActive===false
+    }else{
+        isActive ? null : isActive = true
+    }
     quantitySold ? null : quantitySold = 0;
     try {
         const {rows: [product]} = await client.query(`

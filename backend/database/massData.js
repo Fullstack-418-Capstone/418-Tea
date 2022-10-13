@@ -185,7 +185,7 @@ const productsToCreate = [
     } , {
         name: 'Cinnamon Apple Tea',
         imgurl: 'tealeaf/cinnamonapple.jpg',
-        description: 'Frutiy and spiced mixed into one',
+        description: 'Fruity and spiced mixed into one',
         stock: 283,
         unit: 'canister',
         type: 'loose',

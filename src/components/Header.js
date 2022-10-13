@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
-import "./header.css";
 
 const Header = (props) => {
   const { token, isAdmin, setToken, setUser, setIsAdmin } = props;

@@ -40,7 +40,6 @@ const getProductById = async(id) => {
 
 //Get All Products 
 const getAllProducts = async() => {
-    console.log('running get all products')
     try {
         const {rows: products} = await client.query(`
             SELECT *

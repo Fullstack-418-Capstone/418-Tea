@@ -4,29 +4,14 @@ import AdminUsersPage from './AdminUsersPage';
 import FilterButton from '../FilterButtonView';
 
 
-//this page will have the buttons to switch between products and users and anything else we think of
-
 const AdminViewHandler = ({token}) => {
     const [tab, setTab] = useState('products');
 
-
-    const showProducts = (event) => {
-        event.preventDefault();
-        setTab('products')
-    }
-    const showUsers = (event) => {
-        event.preventDefault();
-        setTab('users')
-    }
-    
-    //just base level styling
     const buttonBar = {
         display:'flex',
         flexDirection:'row',
         justifyContent:"center"
     }
-
-
     return(
         <div>
             <div style={buttonBar}>
@@ -34,7 +19,6 @@ const AdminViewHandler = ({token}) => {
                 <FilterButton filter='users' setFilterWord={setTab} title = {"USERS"}></FilterButton>
             </div>
 
-            {/* this could be a single turnary but left as two incase we add more admin pages*/}
             {tab === 'products' ? <AdminProductsPage token={token}></AdminProductsPage> : null}
             {tab === 'users' ? <AdminUsersPage token={token}></AdminUsersPage> : null}
 

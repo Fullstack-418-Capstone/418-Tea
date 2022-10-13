@@ -4,7 +4,7 @@ import "./AdminSingleProductEditView.css"
 
 
 
-const AdminSingleProductEditView = ({token, product, setEdit}) => {
+const AdminSingleProductEditView = ({token, product, setEdit, edits, setEdits}) => {
     const [name, setName] = useState(product.name);
     const [imgurl, setImgurl] = useState(product.imgurl);
     const [description, setDescription] = useState(product.description)
@@ -24,8 +24,8 @@ const AdminSingleProductEditView = ({token, product, setEdit}) => {
         event.preventDefault()
         setErrorMessage('')
         if(nameCheck() && imgurlCheck() && descCheck() && priceCheck() && stockCheck()){
-            console.log(token, product.id,name, imgurl,price, stock, type, unit, description, isActive)
             await updateProduct(token, product.id,name, imgurl,price, stock, type, unit, description, isActive)
+            setEdits(edits+1)
             setEdit(false)
         }
     }

@@ -4,19 +4,28 @@ import { getAllProducts } from '../../api/index';
 
 
 const AdminProductsPage = ({token}) => {
-    const [allProducts, setAllProducts] = useState([])
+    const [allProducts, setAllProducts] = useState([]);
+    const [edits, setEdits] = useState(0);
 
     const setGatheredProducts = async() => {
         const gatheredProducts = await getAllProducts();
+        gatheredProducts.sort(compareName)
         setAllProducts(gatheredProducts);
     }
 
     useEffect(() => {
         setGatheredProducts();
-    }, []);
+    }, [edits]);
 
-
-    //tier 4 add a product search bar
+    const compareName = (a,b) => {
+        if(a.name < b.name){
+            return -1;
+        }else if(a.name > b.name){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
 
     return(
         <div>
@@ -25,7 +34,7 @@ const AdminProductsPage = ({token}) => {
             {allProducts[0] ? 
             allProducts.map((product) => {
                 return(
-                    <SingleProductViewHandler token={token} product={product} key={product.id}></SingleProductViewHandler>
+                    <SingleProductViewHandler token={token} product={product} key={product.id} edits={edits}setEdits={setEdits}></SingleProductViewHandler>
                 )
             })
             :null}

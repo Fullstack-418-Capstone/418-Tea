@@ -1,16 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 
 
 const Header = (props) => {
     const {token, isAdmin, setToken, setUser, setIsAdmin} = props
+    const navigate = useNavigate()
 
     const handleLogOut = (event) => {
         event.preventDefault();
         setToken("");
         setIsAdmin(false);
         localStorage.removeItem('418WhatsTeaToken')
+        navigate('/')
     }
     return (
         <div className="header">

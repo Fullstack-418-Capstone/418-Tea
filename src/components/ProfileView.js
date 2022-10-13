@@ -92,38 +92,6 @@ const Profile = ({ user, token }) => {
               setPassword(event.target.value);
             }}
           ></input>
-          {/* <input
-            placeholder="Edit Address"
-            type="text"
-            value={address}
-            onChange={(event) => {
-              setAddress(event.target.value);
-            }}
-          ></input>
-          <input
-            placeholder="Edit State"
-            type="text"
-            value={userState}
-            onChange={(event) => {
-              setUserState(event.target.value);
-            }}
-          ></input>
-          <input
-            placeholder="Edit City"
-            type="text"
-            value={city}
-            onChange={(event) => {
-              setCity(event.value.target);
-            }}
-          ></input>
-          <input
-            placeholder="Edit Zip Code"
-            type="text"
-            value={zipcode}
-            onChange={(event) => {
-              setZipCode(event.value.target);
-            }}
-          ></input> */}
           <button> Make Changes </button>
         </form>
       </div>
@@ -132,7 +100,7 @@ const Profile = ({ user, token }) => {
         <h3> Your Previous Orders </h3>
         {orders[0]
           ? orders.map((order, i) => {
-              return <PastOrderView key={i} order={order}></PastOrderView>;
+              return <PastOrderView key={i} order={order} index={i} ></PastOrderView>;
             })
           : null}
       </div>

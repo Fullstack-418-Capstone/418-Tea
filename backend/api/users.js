@@ -35,7 +35,7 @@ router.post("/login", async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     next(error);
   }
 });
@@ -112,14 +112,12 @@ router.get("/:username", async (req, res, next) => {
   }
 });
 
-router.patch("/:userInformation", async (req, res, next) => {
-  const { userInformation } = req.params;
+router.patch("/userInformation", async (req, res, next) => {
   const { firstname, lastname, password, address, state, city, zipcode } =
     req.body;
     
   const { id } = req.user;
-  console.log('id from token is', id)
-  const updateFields = {};
+  const updateFields = { id };
 
   if (firstname) {
     updateFields.firstname = firstname;
@@ -150,7 +148,7 @@ router.patch("/:userInformation", async (req, res, next) => {
   }
 
   try {
-    const updateInfo = await updateUserInformationById({id, firstname, lastname, password});
+    const updateInfo = await updateUserInformationById(updateFields);
 
     res.send(updateInfo);
   } catch (error) {

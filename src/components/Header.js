@@ -11,6 +11,7 @@ const Header = (props) => {
         setToken("");
         setIsAdmin(false);
         localStorage.removeItem('418WhatsTeaToken')
+        localStorage.removeItem('418WhatsTeaUser')
         navigate('/')
     }
     return (

@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/index";
 
 const Login = (props) => {
     const {setUser, setToken, setIsAdmin} = props
     const [usernameString, setUsernameString] = useState('')
     const [passwordString, setPasswordString] = useState('')
+    const navigate = useNavigate()
 
     return (
         <form
@@ -15,10 +16,10 @@ const Login = (props) => {
                 if(success) {
                     setUsernameString('')
                     setPasswordString('')
+                    navigate('/')
                 }
             }}
         >
-            {/* <label>Username:</label> */}
             <input
                 value={usernameString}
                 onChange={(event) => setUsernameString(event.target.value) }
@@ -26,7 +27,6 @@ const Login = (props) => {
                 required
             />
             <br/>
-            {/* <label>Password:</label> */}
             <input
                 value={passwordString} 
                 onChange={(event) => setPasswordString(event.target.value)} 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getProductById } from "../api";
+import "./pastorderproductline.css";
 
 const PastOrderLine = ({ item }) => {
   const [product, setProduct] = useState({});
@@ -14,7 +15,7 @@ const PastOrderLine = ({ item }) => {
   }, []);
 
   return (
-    <div>
+    <div className="design">
       <div>{product.name}</div>
       <div>{item.price}</div>
       <img

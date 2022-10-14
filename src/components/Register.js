@@ -75,7 +75,7 @@ const Register = () => {
       <h1> Welcome, Please Register Here! </h1>
       <form className="form" onSubmit={HandleSubmit}>
         <input
-          placeholder="First Name"
+          placeholder="*First Name"
           value={firstName}
           type="text"
           onChange={(event) => {
@@ -85,7 +85,7 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Last Name"
+          placeholder="*Last Name"
           value={lastName}
           type="text"
           onChange={(event) => {
@@ -95,7 +95,7 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Create a username"
+          placeholder="*Create a username"
           value={username}
           type="text"
           onChange={(event) => {
@@ -105,7 +105,7 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Create a password"
+          placeholder="*Create a password"
           value={password}
           type="password"
           onChange={(event) => {
@@ -116,7 +116,7 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Confirm Password"
+          placeholder="*Confirm Password"
           value={confirmPassword}
           type="password"
           onChange={(event) => {
@@ -127,7 +127,7 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Please enter email address"
+          placeholder="*Please enter email address"
           value={email}
           type="text"
           onChange={(event) => {
@@ -137,44 +137,12 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Please enter your address"
+          placeholder="*Please enter your address"
           value={address1}
           type="text"
           onChange={(event) => {
             setAddress1(event.target.value);
           }}
-          required
-          className="fields"
-        ></input>
-        <input
-          placeholder="Please enter your state - 2 Letters"
-          value={state}
-          type="text"
-          onChange={(event) => {
-            setState(event.target.value);
-          }}
-          maxLength={2}
-          required
-          className="fields"
-        ></input>
-        <input
-          placeholder="Please enter your city"
-          value={city}
-          type="text"
-          onChange={(event) => {
-            setCity(event.target.value);
-          }}
-          required
-          className="fields"
-        ></input>
-        <input
-          placeholder="Please enter your zipcode"
-          value={zipcode}
-          type="number"
-          onChange={(event) => {
-            setZipCode(event.target.value);
-          }}
-          maxLength={5}
           required
           className="fields"
         ></input>
@@ -187,6 +155,39 @@ const Register = () => {
           }}
           className="fields"
         ></input>
+        <input
+          placeholder="*Please enter your state - 2 Letters"
+          value={state}
+          type="text"
+          onChange={(event) => {
+            setState(event.target.value);
+          }}
+          maxLength={2}
+          required
+          className="fields"
+        ></input>
+        <input
+          placeholder="*Please enter your city"
+          value={city}
+          type="text"
+          onChange={(event) => {
+            setCity(event.target.value);
+          }}
+          required
+          className="fields"
+        ></input>
+        <input
+          placeholder="*Please enter your zipcode"
+          value={zipcode}
+          type="number"
+          onChange={(event) => {
+            setZipCode(event.target.value);
+          }}
+          maxLength={5}
+          required
+          className="fields"
+        ></input>
+
         <button className="register">Register!</button>
       </form>
     </div>

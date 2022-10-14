@@ -1,5 +1,6 @@
 import React from "react";
 import TopSellingWindow from "./TopSellingWindow";
+import "./home.css";
 
 const HomePage = ({ token }) => {
   const placeholderReviewArr = [
@@ -70,9 +71,11 @@ const HomePage = ({ token }) => {
         <h3> But What Makes Us Different? We Have the Tea!</h3>
       </div>
       <div>
-        <h2>Top Selling</h2>
-        <TopSellingWindow token={token}></TopSellingWindow>
-        <h2>Reviews</h2>
+        <h2 className="center">Top Selling</h2>
+        <div className="move">
+          <TopSellingWindow token={token}></TopSellingWindow>
+        </div>
+        <h2 className="center">Reviews</h2>
         {placeholderReviewArr.map((review, i) => {
           return (
             <div key={i}>

@@ -44,8 +44,9 @@ const ProductWindow = ({ product, token }) => {
         </div>
         <button
           className="add"
-          onClick={() => {
+          onClick={(event) => {
             addItem(product);
+            event.target.innerText = 'Added'
           }}
         >
           Add to Cart

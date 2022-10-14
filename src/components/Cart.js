@@ -26,6 +26,7 @@ const Cart = ({ token, user }) => {
 
   const getCartForUser = async () => {
     const userCart = await getOpenCart(token);
+    console.log('setting user cart to', userCart)
     setCartItems(userCart)
   }
 
@@ -52,6 +53,7 @@ const Cart = ({ token, user }) => {
   },[cartItems])
 
   useEffect(() => {
+    console.log('triggered')
     token ? getCartForUser() : getCartFromLocal();
   }, [trigger]);
 

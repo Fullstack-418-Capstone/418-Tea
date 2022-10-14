@@ -34,6 +34,7 @@ const Cart = ({ token, user }) => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
     if (guestCart) {
       for (const item of guestCart) {
+        console.log('guest cart is', guestCart)
         !item.quantity ? (item.quantity = 1) : null;
       }
       setCartItems(guestCart);

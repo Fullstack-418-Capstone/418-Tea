@@ -35,8 +35,8 @@ const AdminSingleProductEditView = ({token, product, setEdit, edits, setEdits}) 
         return false;
     }
     const imgurlCheck = () => {
-        if(imgurl){return true}
-        setErrorMessage('Enter an image link');
+        if(imgurl && findImg()){return true}
+        setErrorMessage('Enter a valid image link');
         return false;
     }
     const descCheck = () => {
@@ -45,18 +45,26 @@ const AdminSingleProductEditView = ({token, product, setEdit, edits, setEdits}) 
         return false;
     }
     const priceCheck = () => {
-        if(price){return true}
-        setErrorMessage('Enter a Price');
+        if(price > 0){return true}
+        setErrorMessage('Enter a Price above 0');
         return false;
     }
     const stockCheck = () => {
-        if(stock){return true}
+        if(stock > -1){return true}
         setErrorMessage('How many are in stock?');
         return false;
     }
     const handleCancel = (event) => {
         event.preventDefault();
         setEdit(false)
+    }
+    const findImg = () => {
+        try {
+            const img = require(`../../assets/${imgurl}`)
+            return true
+        } catch {
+            return false
+        }
     }
 
     return (

@@ -57,7 +57,7 @@ const CartItem = ({
             product.id,
             quantity
           );
-          setTrigger(!trigger);
+          // setTrigger(!trigger)
           return editedItem;
         } catch (error) {
           throw error;
@@ -67,9 +67,12 @@ const CartItem = ({
       const currentCart = JSON.parse(
         localStorage.getItem("418WhatsTeaGuestCart")
       );
-      currentCart[index].quantity = quantity;
+      // console.log('setting guest user quantity to', quantity)
+      !quantity ? setQuantity(item.quantity) : null
+      currentCart[index].quantity = parseInt(quantity);
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
     }
+    setTrigger(!trigger)
   };
   useEffect(() => {
     if (quantity === "0") {
@@ -84,7 +87,6 @@ const CartItem = ({
 
   return (
     <div className="productWindow">
-      <button onClick={()=>{console.log(product.name)}}>helper</button>
       <img
         src={require(`../assets/${product.imgurl}`)}
         style={{ height: "115px", width: "115px" }}

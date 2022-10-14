@@ -33,11 +33,17 @@ const Cart = ({ token, user }) => {
   const getCartFromLocal = () => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
     if (guestCart) {
+      const cartBuild = []
       for (const item of guestCart) {
-        console.log('guest cart is', guestCart)
-        !item.quantity ? (item.quantity = 1) : null;
+        const cartItem = {}
+        
+        !item.quantity ? (cartItem.quantity = 1) :(cartItem.quantity = item.quantity);
+        cartItem.productId = item.id
+        cartBuild.push(cartItem)
       }
-      setCartItems(guestCart);
+      console.log('guest cart is', cartBuild)
+      setCartItems(cartBuild)
+      // setCartItems(guestCart);
     }
   };
 

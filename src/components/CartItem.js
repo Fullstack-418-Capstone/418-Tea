@@ -51,7 +51,7 @@ const CartItem = ({
             product.id,
             quantity
           );
-          setTrigger(!trigger)
+          // setTrigger(!trigger)
           return editedItem;
         } catch (error) {
           throw error;
@@ -62,9 +62,10 @@ const CartItem = ({
       const currentCart = JSON.parse(
         localStorage.getItem("418WhatsTeaGuestCart")
       );
-      currentCart[index].quantity = quantity;
+      currentCart[index].quantity = parseInt(quantity);
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
     }
+    setTrigger(!trigger)
   };
   useEffect(() => {
     if(quantity==='0'){

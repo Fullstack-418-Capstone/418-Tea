@@ -5,10 +5,31 @@ const {
   deleteProduct,
   getProductById,
   getAllActiveProducts,
-  editProductById
+  editProductById,
+  createProduct,
 } = require("../database/products");
 
 // GET /api/products  --> get all products
+
+router.post("/add", async (req, res, next) => {
+  const { name, imgurl, description, stock, price, unit, type, isActive } =
+    req.body;
+
+  try {
+    newProduct = await createProduct({
+      name,
+      imgurl,
+      description,
+      stock,
+      price,
+      unit,
+      type,
+      isActive,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
 
 router.get("/", async (req, res, next) => {
   const products = await getAllProducts();
@@ -21,23 +42,23 @@ router.get("/active", async (req, res, next) => {
 });
 
 router.get("/:productId", async (req, res, next) => {
-  const { productId } = req.params
+  const { productId } = req.params;
 
   try {
-    const product = await getProductById(productId)
+    const product = await getProductById(productId);
 
-    if(product){
-      res.send(product)
+    if (product) {
+      res.send(product);
     } else {
       next({
         name: "ProductNotFoundError",
-        message: "That product does not exist"
-      })
+        message: "That product does not exist",
+      });
     }
-  } catch ({name, message}) {
-    next({name, message})
+  } catch ({ name, message }) {
+    next({ name, message });
   }
-})
+});
 
 //DELETE /api/products/:productid
 router.delete("/:productId", async (req, res, next) => {
@@ -71,7 +92,8 @@ router.delete("/:productId", async (req, res, next) => {
 router.patch("/:productId", async (req, res, next) => {
   const { productId } = req.params;
   const { isAdmin } = req.user;
-  const { name, imgurl, description, stock, price, unit, type, isActive } = req.body;
+  const { name, imgurl, description, stock, price, unit, type, isActive } =
+    req.body;
 
   const updateFields = {};
 

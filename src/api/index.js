@@ -147,13 +147,13 @@ const getCartByUsername = async (username) => {
   }
 };
 
-const getOpenCart = async(token) => {
+const getOpenCart = async (token) => {
   try {
     const response = await fetch(`${BASE_URL}/orders_products/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -162,22 +162,22 @@ const getOpenCart = async(token) => {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 const getProductById = async (productId) => {
   try {
-    const response = await fetch(`${BASE_URL}/products/${productId}`,{
+    const response = await fetch(`${BASE_URL}/products/${productId}`, {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
-    const data = await response.json()
+    const data = await response.json();
 
-    return data
+    return data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 const addToCart = async (productId, quantity = 1, price, token) => {
   try {
@@ -185,21 +185,21 @@ const addToCart = async (productId, quantity = 1, price, token) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         productId,
         quantity,
-        price
-      })
+        price,
+      }),
     });
-    const data = await response.json()
+    const data = await response.json();
 
-    return data
+    return data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 const removeFromCart = async (token, productId) => {
   try {
@@ -207,7 +207,7 @@ const removeFromCart = async (token, productId) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         productId,
@@ -222,52 +222,49 @@ const removeFromCart = async (token, productId) => {
 };
 
 const editCartQuantity = async (token, productId, quantity) => {
-  if(typeof(quantity) === 'string') {
-    quantity = parseInt(quantity)
+  if (typeof quantity === "string") {
+    quantity = parseInt(quantity);
   }
   try {
     const response = await fetch(`${BASE_URL}/orders_products/editquantity`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         productId,
-        quantity
+        quantity,
       }),
-    })
-    const data = await response.json()
-    return data
+    });
+    const data = await response.json();
+    return data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 const placeOrder = async (cartItems, token, userId = 3) => {
   try {
     const response = await fetch(`${BASE_URL}/orders/placeorder/${userId}`, {
-      method: 'PATCH',
-      headers: token ? {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      } : {"Content-Type": "application/json"},
-      body: JSON.stringify({cartItems: cartItems ? cartItems : null})
+      method: "PATCH",
+      headers: token
+        ? {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          }
+        : { "Content-Type": "application/json" },
+      body: JSON.stringify({ cartItems: cartItems ? cartItems : null }),
     });
-    const data = await response.json()
+    const data = await response.json();
 
-    return data
+    return data;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};
 
-const editUserInformation = async (
-  token,
-  firstname,
-  lastname,
-  password
-) => {
+const editUserInformation = async (token, firstname, lastname, password) => {
   try {
     const response = await fetch(`${BASE_URL}/users/userInformation`, {
       method: "PATCH",
@@ -278,7 +275,7 @@ const editUserInformation = async (
       body: JSON.stringify({
         firstname,
         lastname,
-        password
+        password,
       }),
     });
 
@@ -290,7 +287,18 @@ const editUserInformation = async (
   }
 };
 
-const updateProduct = async(token, productId, name, imgurl, price, stock, type, unit, description, isActive) => {
+const updateProduct = async (
+  token,
+  productId,
+  name,
+  imgurl,
+  price,
+  stock,
+  type,
+  unit,
+  description,
+  isActive
+) => {
   try {
     const response = await fetch(`${BASE_URL}/products/${productId}`, {
       method: "PATCH",
@@ -306,15 +314,52 @@ const updateProduct = async(token, productId, name, imgurl, price, stock, type, 
         type,
         unit,
         description,
-        isActive
-      })
+        isActive,
+      }),
     });
     const data = await response.json();
-    return data
-  }catch (error) {
+    return data;
+  } catch (error) {
     throw error;
   }
-}
+};
+
+const addNewProduct = async (
+  name,
+  description,
+  stock,
+  price,
+  unit,
+  type,
+  isActive,
+  imgurl
+) => {
+  try {
+    console.log(name, imgurl, description, stock, price, unit, type, isActive);
+    const response = await fetch(`${BASE_URL}/products/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        imgurl,
+        description,
+        stock,
+        price,
+        unit,
+        type,
+        isActive,
+      }),
+    });
+    const data = await response.json();
+    console.log("DATAAAAA", data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   getAllProducts,
@@ -331,5 +376,6 @@ export {
   addToCart,
   editCartQuantity,
   placeOrder,
-  updateProduct
+  updateProduct,
+  addNewProduct,
 };

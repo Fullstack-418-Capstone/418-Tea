@@ -53,7 +53,7 @@ const TeaLeaf = ({token}) => {
                 {tea[0] ?
                 tea.map((product,index) => {
                     return (
-                        <ProductWindow key = {index} product={product} token={token} ></ProductWindow>
+                        <ProductWindow key = {product.id} product={product} token={token} ></ProductWindow>
                     )
                 })
                 : <>Out of Stock!</>

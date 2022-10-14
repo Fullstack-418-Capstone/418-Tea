@@ -1,14 +1,17 @@
-import React from "react";
-import { addToCart } from "../api";
+import React, { useEffect, useState } from "react";
+import { addToCart, editCartQuantity, getOpenCart } from "../api";
 import "./productwindow.css";
 
 const ProductWindow = ({ product, token }) => {
   product.imgurl ? null : (product.imgurl = "tealogo150.png");
+  const [inCart, setInCart] = useState(false);
+  const [cartItem, setCartItem] = useState([]);
+  const [quantity, setQuantity] = useState(0);
 
-  const addItem = async (product) => {
+  const addItem = async () => {
     if (token) {
       const cartList = await addToCart(product.id, 1, product.price, token);
-      return cartList;
+      // return cartList;
     } else {
       const cartList = [product];
       const currentCart = JSON.parse(
@@ -19,10 +22,44 @@ const ProductWindow = ({ product, token }) => {
       }
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(cartList));
     }
+    setQuantity(quantity+1)
+    setInCart(true)
   };
+  const increaseQuantity = async() => {
+    if (token){
+      await editCartQuantity(token, product.id, newQuantity())
+    } else{
+      //fetch from local cart
+    }
+    setQuantity(quantity+1)
+  }
+
+  const newQuantity = () => {
+    return (quantity+1)
+  }
+
+  const getCart = async() => {
+    if(token){
+      const usercart = await getOpenCart(token);
+      for(let i = 0; i< usercart.length; i++){
+        if(usercart[i].productId === product.id){
+          setQuantity(usercart[i].quantity)
+          setInCart(true)
+          return
+        }
+      }
+    } else{
+      //fetch from local cart
+    }
+  }
+
+  useEffect(() => {
+    getCart()
+  },[token])
 
   return (
     <div className="productWindow">
+      <button onClick={() =>{console.log(inCart)}}>Helper</button>
       <div id="productTitle" className="productDiv">
         {product.name}
       </div>
@@ -42,15 +79,19 @@ const ProductWindow = ({ product, token }) => {
         <div>
           ${product.price} /{product.unit}
         </div>
-        <button
+        { inCart ? (<button
           className="add"
-          onClick={(event) => {
-            addItem(product);
-            event.target.innerText = 'Added'
+          onClick={() => {
+            increaseQuantity();
           }}
-        >
-          Add to Cart
-        </button>
+        >In Cart</button>) :(
+          <button
+          className="add"
+          onClick={() => {
+            addItem();
+          }}
+        > Add to Cart
+        </button>)}
       </div>
     </div>
   );

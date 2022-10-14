@@ -54,7 +54,7 @@ const TeaWare = ({token}) => {
                 teaWare.map((product,index) => {
                     return (
                         <ProductWindow
-                        key = {index}
+                        key = {product.id}
                         product={product}
                         token={token}></ProductWindow>
                     )

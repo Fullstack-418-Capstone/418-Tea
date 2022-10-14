@@ -106,7 +106,7 @@ const Cart = ({ token, user }) => {
           return (
             <CartItem
               item={item}
-              key={index}
+              key={item.productId}
               index={index}
               setCartItems={setCartItems}
               token={token}

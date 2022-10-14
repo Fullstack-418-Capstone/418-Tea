@@ -57,9 +57,8 @@ const CartItem = ({
 
       }
     } else {
-      const currentCart = JSON.parse(
-        localStorage.getItem("418WhatsTeaGuestCart")
-      );
+      const currentCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
+      console.log(quantity)
       currentCart[index].quantity = quantity;
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
     }

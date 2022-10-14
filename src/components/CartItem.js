@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { removeFromCart, getCartByUsername, editCartQuantity, getProductById, getOpenCart } from "../api";
+import {
+  removeFromCart,
+  getCartByUsername,
+  editCartQuantity,
+  getProductById,
+  getOpenCart,
+} from "../api";
 import "./cart.css";
 
 const CartItem = ({
@@ -8,17 +14,17 @@ const CartItem = ({
   setCartItems,
   token,
   setTrigger,
-  trigger
+  trigger,
 }) => {
-  const [product, setProduct] = useState({imgurl:"tealeaf/blacktea.jpg"});
-  const getProduct = async() => {
+  const [product, setProduct] = useState({ imgurl: "tealeaf/blacktea.jpg" });
+  const getProduct = async () => {
     const productfetch = await getProductById(item.productId);
     productfetch.imgurl ? null : (productfetch.imgurl = "tealeaf/blacktea.jpg");
-    setProduct(productfetch)
-  }
+    setProduct(productfetch);
+  };
   useEffect(() => {
-    getProduct()
-  },[])
+    getProduct();
+  }, []);
   const [quantity, setQuantity] = useState(item.quantity);
 
   const removeFromCartButton = async (index, productId) => {
@@ -43,20 +49,19 @@ const CartItem = ({
   };
 
   const quantityHandler = async () => {
-    if (token){
-      if(product.id && quantity !== undefined){
+    if (token) {
+      if (product.id && quantity !== undefined) {
         try {
           const editedItem = await editCartQuantity(
             token,
             product.id,
             quantity
           );
-          setTrigger(!trigger)
+          setTrigger(!trigger);
           return editedItem;
         } catch (error) {
           throw error;
         }
-
       }
     } else {
       const currentCart = JSON.parse(
@@ -67,10 +72,12 @@ const CartItem = ({
     }
   };
   useEffect(() => {
-    if(quantity==='0'){
-      removeFromCartButton(index, product.id)
-    }else{quantityHandler(quantity, product.id)}
-  },[quantity]);
+    if (quantity === "0") {
+      removeFromCartButton(index, product.id);
+    } else {
+      quantityHandler(quantity, product.id);
+    }
+  }, [quantity]);
   useEffect(() => {
     setQuantity(product.quantity);
   }, []);
@@ -80,7 +87,7 @@ const CartItem = ({
       <button onClick={()=>{console.log(product.name)}}>helper</button>
       <img
         src={require(`../assets/${product.imgurl}`)}
-        style={{ height: "125px", width: "125px" }}
+        style={{ height: "115px", width: "115px" }}
       />
       <>{product.name}</>
       <br />
@@ -92,12 +99,15 @@ const CartItem = ({
       <br />
       {/* <>Total: ${product.price * quantity}</> */}
       <form>
-        <h6 style={{ margin: 0 }}>
-        </h6>
+        <h6 style={{ margin: 0 }}></h6>
         <label>Quantity: </label>
-        <select value={quantity} onChange={(event) => setQuantity(event.target.value)}>Qty: {quantity}
-          <option value='0'>0 (delete)</option>
-          <hr/>
+        <select
+          value={quantity}
+          onChange={(event) => setQuantity(event.target.value)}
+        >
+          Qty: {quantity}
+          <option value="0">0 (delete)</option>
+          <hr />
           <option>1</option>
           <option>2</option>
           <option>3</option>

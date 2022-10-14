@@ -62,6 +62,8 @@ const CartItem = ({
       const currentCart = JSON.parse(
         localStorage.getItem("418WhatsTeaGuestCart")
       );
+      // console.log('setting guest user quantity to', quantity)
+      !quantity ? setQuantity(item.quantity) : null
       currentCart[index].quantity = parseInt(quantity);
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
     }
@@ -78,7 +80,6 @@ const CartItem = ({
 
   return (
     <div className="productWindow">
-      <button onClick={()=>{console.log(product.name)}}>helper</button>
       <img
         src={require(`../assets/${product.imgurl}`)}
         style={{ height: "125px", width: "125px" }}

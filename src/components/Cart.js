@@ -26,7 +26,7 @@ const Cart = ({ token, user }) => {
 
   const getCartForUser = async () => {
     const userCart = await getOpenCart(token);
-    console.log('setting user cart to', userCart)
+    // console.log('setting user cart to', userCart)
     setCartItems(userCart)
   }
 
@@ -36,12 +36,14 @@ const Cart = ({ token, user }) => {
       const cartBuild = []
       for (const item of guestCart) {
         const cartItem = {}
+        // console.log('item is', item)
         
         !item.quantity ? (cartItem.quantity = 1) :(cartItem.quantity = item.quantity);
+        cartItem.price = item.price
         cartItem.productId = item.id
         cartBuild.push(cartItem)
       }
-      console.log('guest cart is', cartBuild)
+      // console.log('guest cart is', cartBuild)
       setCartItems(cartBuild)
       // setCartItems(guestCart);
     }
@@ -60,7 +62,7 @@ const Cart = ({ token, user }) => {
   },[cartItems])
 
   useEffect(() => {
-    console.log('triggered')
+    // console.log('triggered')
     token ? getCartForUser() : getCartFromLocal();
   }, [trigger]);
 

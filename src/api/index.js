@@ -147,6 +147,23 @@ const getCartByUsername = async (username) => {
   }
 };
 
+const getOpenCart = async(token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/orders_products/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 const getProductById = async (productId) => {
   try {
     const response = await fetch(`${BASE_URL}/products/${productId}`,{
@@ -184,7 +201,7 @@ const addToCart = async (productId, quantity = 1, price, token) => {
   }
 }
 
-const removeFromCart = async (userId, productId, token) => {
+const removeFromCart = async (token, productId) => {
   try {
     const response = await fetch(`${BASE_URL}/orders_products/delete`, {
       method: "DELETE",
@@ -193,7 +210,6 @@ const removeFromCart = async (userId, productId, token) => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        userId,
         productId,
       }),
     });
@@ -205,7 +221,7 @@ const removeFromCart = async (userId, productId, token) => {
   }
 };
 
-const editCartQuantity = async (userId, productId, quantity, token) => {
+const editCartQuantity = async (token, productId, quantity) => {
   if(typeof(quantity) === 'string') {
     quantity = parseInt(quantity)
   }
@@ -217,7 +233,6 @@ const editCartQuantity = async (userId, productId, quantity, token) => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        userId,
         productId,
         quantity
       }),
@@ -309,6 +324,7 @@ export {
   loginUser,
   getUserByUsername,
   getCartByUsername,
+  getOpenCart,
   removeFromCart,
   editUserInformation,
   getProductById,

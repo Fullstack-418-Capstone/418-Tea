@@ -100,17 +100,7 @@ router.get("/address/:username", async (req, res, next) => {
   }
 });
 
-//GET /api/users/username
-router.get("/:username", async (req, res, next) => {
-  const { username } = req.params;
 
-  try {
-    const user = await getUserByUsername(username);
-    res.send(user);
-  } catch (error) {
-    throw error;
-  }
-});
 
 router.patch("/userInformation", async (req, res, next) => {
   const { firstname, lastname, password, address, state, city, zipcode } =
@@ -163,6 +153,18 @@ router.get("/", async (req, res, next) => {
     res.send(users);
   } catch (err) {
     throw err;
+  }
+});
+
+//GET /api/users/username
+router.get("/:username", async (req, res, next) => {
+  const { username } = req.params;
+
+  try {
+    const user = await getUserByUsername(username);
+    res.send(user);
+  } catch (error) {
+    throw error;
   }
 });
 

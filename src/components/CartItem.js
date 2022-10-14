@@ -94,6 +94,7 @@ const CartItem = ({
         <label>Quantity: </label>
         <select value={quantity} onChange={(event) => setQuantity(event.target.value)}>Qty: {quantity}
           <option value='0'>0 (delete)</option>
+          <hr/>
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -125,7 +126,7 @@ const CartItem = ({
       </form>
       <br />
       <br />
-      <div onClick={() => removeFromCartButton(index, product.id)}>remove</div>
+      <div onClick={() => removeFromCartButton(index, product.id)}>Delete</div>
       {/* <button
         className="remove"
         onClick={() => removeFromCartButton(index, product.id)}

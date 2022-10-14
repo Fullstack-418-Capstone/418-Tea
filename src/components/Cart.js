@@ -80,10 +80,7 @@ const Cart = ({ token, user }) => {
   return (
     <div>
       <h3>Total: ${total}</h3>
-      <h5>
-        *Total updates on refresh/leaving and returning after submitting
-        quantity changes.
-      </h5>
+      
       <button
         className="place-order"
         onClick={(event) => {

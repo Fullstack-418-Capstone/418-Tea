@@ -81,7 +81,7 @@ const CartItem = ({
         }}
       >
         <h6 style={{ margin: 0 }}>
-          *Must submit for changes to apply when placing order
+          * Must submit for changes to apply when placing order
         </h6>
         <label>Quantity: {quantity}</label>
         <br />

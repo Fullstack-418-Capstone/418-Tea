@@ -179,7 +179,7 @@ const Register = () => {
           className="fields"
         ></input>
         <input
-          placeholder="Address 2 if needed"
+          placeholder="Address 2 - if needed"
           value={address2}
           type="text"
           onChange={(event) => {

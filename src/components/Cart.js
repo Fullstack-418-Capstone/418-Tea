@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
-import { getCartByUsername, getProductById, placeOrder } from "../api";
+import { getCartByUsername, getOpenCart, getProductById, placeOrder } from "../api";
 import "./cart.css";
 
 const Cart = ({ token, user }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [total, setTotal] = useState(0);
   const [trigger, setTrigger] = useState(false);
 
-  const getCartForUser = async (username) => {
-    const userCart = await getCartByUsername(username);
-    if (userCart) {
-      const productList = [];
-      for (const item of userCart) {
-        const productInfo = await getProductById(item.productId);
-        productInfo.quantity = item.quantity;
-        productList.push(productInfo);
-      }
-      setCartItems(productList);
-    }
-  };
+
+  // const getCartForUser = async (username) => {
+  //   const userCart = await getCartByUsername(username);
+  //   console.log('user cart is', userCart)
+  //   if (userCart) {
+  //     const productList = [];
+  //     for (const item of userCart) {
+  //       const productInfo = await getProductById(item.productId);
+  //       productInfo.quantity = item.quantity;
+  //       productList.push(productInfo);
+  //     }
+  //     console.log('setting cart to', productList)
+  //     setCartItems(productList);
+  //   }
+  // };
+
+  const getCartForUser = async () => {
+    const userCart = await getOpenCart(token);
+    setCartItems(userCart)
+  }
 
   const getCartFromLocal = () => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
@@ -31,16 +40,19 @@ const Cart = ({ token, user }) => {
   };
 
   const getTotal = () => {
-    let total = 0;
+    let cartTotal = 0;
     for (const item of cartItems) {
       let itemTotal = item.price * item.quantity;
-      total += itemTotal;
+      cartTotal += itemTotal;
     }
-    return total;
+    setTotal(cartTotal);
   };
+  useEffect(() => {
+    getTotal();
+  },[cartItems])
 
   useEffect(() => {
-    token ? getCartForUser(user.username) : getCartFromLocal();
+    token ? getCartForUser() : getCartFromLocal();
   }, [trigger]);
 
   const handlePlaceOrder = async (event) => {
@@ -67,7 +79,7 @@ const Cart = ({ token, user }) => {
 
   return (
     <div>
-      <h3>Total: ${getTotal()}</h3>
+      <h3>Total: ${total}</h3>
       <h5>
         *Total updates on refresh/leaving and returning after submitting
         quantity changes.
@@ -82,15 +94,14 @@ const Cart = ({ token, user }) => {
       </button>
       <hr />
       {cartItems.length > 0 ? (
-        cartItems.map((product, index) => {
+        cartItems.map((item, index) => {
           return (
             <CartItem
-              product={product}
+              item={item}
               key={index}
               index={index}
               setCartItems={setCartItems}
               token={token}
-              user={user}
               setTrigger={setTrigger}
               trigger={trigger}
             ></CartItem>

@@ -72,6 +72,20 @@ const getOpenCartProductsByUserName = async(username) => {
         throw err;
     }
 }
+const getOpenCartProductsByUserId = async(userId) => {
+    try { 
+        const {id : orderId } = await getOpenCartByUser(userId);
+        const { rows: cart } = await client.query(`
+        SELECT *
+        FROM orders_products
+        WHERE "orderId"=${orderId};
+        `);
+        return cart
+    } catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 
 //get Orders_product by order Id
 const getCartProductsByOrderId = async (orderId) => {
@@ -111,6 +125,7 @@ module.exports = {
     editNewOrdersProductQuantity,
     deleteOrdersProduct,
     getOpenCartProductsByUserName,
+    getOpenCartProductsByUserId,
     getCartProductsByOrderId,
     updateOrdersProductPrice
 }

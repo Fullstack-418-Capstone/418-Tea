@@ -63,7 +63,7 @@ const CartItem = ({
     <div className="productWindow">
       <img
         src={require(`../assets/${product.imgurl}`)}
-        style={{ height: "125px", width: "125px" }}
+        style={{ height: "115px", width: "115px" }}
       />
       <>{product.name}</>
       <br />
@@ -102,8 +102,6 @@ const CartItem = ({
           Submit
         </button>
       </form>
-      <br />
-      <br />
       <button
         className="remove"
         onClick={() => removeFromCartButton(index, product.id)}

@@ -26,6 +26,7 @@ const Cart = ({ token, user }) => {
 
   const getCartForUser = async () => {
     const userCart = await getOpenCart(token);
+    console.log('setting user cart to', userCart)
     setCartItems(userCart)
   }
 
@@ -33,6 +34,7 @@ const Cart = ({ token, user }) => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
     if (guestCart) {
       for (const item of guestCart) {
+        console.log('guest cart is', guestCart)
         !item.quantity ? (item.quantity = 1) : null;
       }
       setCartItems(guestCart);
@@ -52,6 +54,7 @@ const Cart = ({ token, user }) => {
   },[cartItems])
 
   useEffect(() => {
+    console.log('triggered')
     token ? getCartForUser() : getCartFromLocal();
   }, [trigger]);
 

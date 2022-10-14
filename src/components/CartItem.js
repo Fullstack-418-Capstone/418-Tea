@@ -31,12 +31,14 @@ const CartItem = ({
       setCartItems(currentCart);
       setTrigger(!trigger);
     } else {
-      const removedItem = await removeFromCart(token, product.id);
-      const userCart = await getOpenCart(token);
-      if (userCart) {
-        setCartItems(userCart);
-        setTrigger(!trigger);
-      }
+      // const removedItem = await removeFromCart(token, product.id);
+      // const userCart = await getOpenCart(token);
+      // if (userCart) {
+      //   setCartItems(userCart);
+      //   setTrigger(!trigger);
+      // }
+      await removeFromCart(token, product.id);
+      setTrigger(!trigger)
     }
   };
 
@@ -75,6 +77,7 @@ const CartItem = ({
 
   return (
     <div className="productWindow">
+      <button onClick={()=>{console.log(product.name)}}>helper</button>
       <img
         src={require(`../assets/${product.imgurl}`)}
         style={{ height: "125px", width: "125px" }}

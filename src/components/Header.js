@@ -15,55 +15,60 @@ const Header = (props) => {
     navigate("/");
   };
   return (
-    <div className="header">
-      <Link to="/">
-        {" "}
-        <img
-          src={require("../assets/tealogotransparent150.png")}
-          alt="temporary logo"
-          className="headLink"
-        />
-      </Link>
-      <Link to="/tea-leaf" className="headLink">
-        Tea
-      </Link>{" "}
-      <br />
-      <Link to="/tea-ware" className="headLink">
-        Accessories
-      </Link>{" "}
-      <br />
-      <Link to="/cart" className="headLink">
-        Cart
-      </Link>{" "}
-      <br />
-      {token ? (
-        <>
-          <Link to="/profile" className="headLink">
-            Profile
-          </Link>{" "}
-          <br />
-        </>
-      ) : null}
-      {isAdmin ? (
-        <Link to="/admin" className="headLink">
-          Admin
+    <div>
+      <header className="header">
+        <Link to="/">
+          {" "}
+          <img
+            src={require("../assets/tealogotransparent150.png")}
+            alt="temporary logo"
+            className="headLink"
+          />
         </Link>
-      ) : null}
-      {token ? (
-        <button
-          id="logout"
-          onClick={(event) => {
-            handleLogOut(event);
-          }}
-        >
-          Log Out
-        </button>
-      ) : (
-        <Login setUser={setUser} setIsAdmin={setIsAdmin} setToken={setToken} />
-      )}{" "}
-      <br />
+        <Link to="/tea-leaf" className="headLink">
+          Tea
+        </Link>{" "}
+        <br />
+        <Link to="/tea-ware" className="headLink">
+          Accessories
+        </Link>{" "}
+        <br />
+        <Link to="/cart" className="headLink">
+          Cart
+        </Link>{" "}
+        <br />
+        {token ? (
+          <>
+            <Link to="/profile" className="headLink">
+              Profile
+            </Link>{" "}
+            <br />
+          </>
+        ) : null}
+        {isAdmin ? (
+          <Link to="/admin" className="headLink">
+            Admin
+          </Link>
+        ) : null}
+        {token ? (
+          <button
+            id="logout"
+            onClick={(event) => {
+              handleLogOut(event);
+            }}
+          >
+            Log Out
+          </button>
+        ) : (
+          <Login
+            setUser={setUser}
+            setIsAdmin={setIsAdmin}
+            setToken={setToken}
+          />
+        )}{" "}
+        <br />
+      </header>
     </div>
   );
 };
 export default Header;
-

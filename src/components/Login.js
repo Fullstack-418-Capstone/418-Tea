@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/index";
 import "./login.css";
@@ -7,7 +7,7 @@ const Login = (props) => {
   const { setUser, setToken, setIsAdmin } = props;
   const [usernameString, setUsernameString] = useState("");
   const [passwordString, setPasswordString] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <form
@@ -23,7 +23,11 @@ const Login = (props) => {
         if (success) {
           setUsernameString("");
           setPasswordString("");
-          navigate('/')
+          navigate("/");
+        }
+
+        if (!success) {
+          alert("Incorrect username or password.");
         }
       }}
     >

@@ -62,7 +62,7 @@ const App = () => {
               <Route path='/admin' element = {
                 <AdminPage token={token} isAdmin={isAdmin}></AdminPage>
               }></Route>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<HomePage token={token} />} />
             </Routes>
         </main>
       </div>

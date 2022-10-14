@@ -156,6 +156,16 @@ const Register = () => {
           className="fields"
         ></input>
         <input
+          placeholder="*Please enter your city"
+          value={city}
+          type="text"
+          onChange={(event) => {
+            setCity(event.target.value);
+          }}
+          required
+          className="fields"
+        ></input>
+        <input
           placeholder="*Please enter your state - 2 Letters"
           value={state}
           type="text"
@@ -163,16 +173,6 @@ const Register = () => {
             setState(event.target.value);
           }}
           maxLength={2}
-          required
-          className="fields"
-        ></input>
-        <input
-          placeholder="*Please enter your city"
-          value={city}
-          type="text"
-          onChange={(event) => {
-            setCity(event.target.value);
-          }}
           required
           className="fields"
         ></input>

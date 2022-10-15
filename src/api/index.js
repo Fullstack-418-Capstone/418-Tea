@@ -1,5 +1,5 @@
 // for all API call functions
-const BASE_URL = "http://localhost:3001/api";
+const BASE_URL = "https://damp-caverns-68020.herokuapp.com/api";
 
 const loginUser = async (username, password, setToken, setIsAdmin) => {
   let success;

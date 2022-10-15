@@ -8,7 +8,6 @@ const TeaLeaf = ({token}) => {
     const [filterWord, setFilterWord] = useState(["loose", "bagged"])
     const [allActiveProducts, setAllActiveProducts] = useState([]);
 
-
     const getAll = async() => {
         const allproduct = await getAllActiveProducts();
         setAllActiveProducts(allproduct)

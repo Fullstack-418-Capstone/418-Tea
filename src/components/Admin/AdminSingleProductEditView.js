@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { updateProduct } from "../../api";
 import "./AdminSingleProductEditView.css"
 
-
-
 const AdminSingleProductEditView = ({token, product, setEdit, edits, setEdits}) => {
     const [name, setName] = useState(product.name);
     const [imgurl, setImgurl] = useState(product.imgurl);
@@ -13,7 +11,6 @@ const AdminSingleProductEditView = ({token, product, setEdit, edits, setEdits}) 
     const [price, setPrice] = useState(product.price);
     const [stock, setStock] = useState(product.stock);
     const [isActive, setIsActive] = useState(product.isActive);
-
     const [errorMessage, setErrorMessage] = useState('')
     
     const changeActive = () => {

@@ -103,16 +103,17 @@ const AdminAddProductPage = () => {
           }}
           required
         ></input>
+        <div style={{display:'flex', justifyContent:'center'}}>
+        <label>Active
         <input
-          className="fields"
-          placeholder="Active Status"
-          value={isActive}
-          type="text"
-          onChange={(event) => {
-            setIsActive(event.target.value);
+          
+          checked={isActive}
+          type="checkbox"
+          onChange={() => {
+            setIsActive(!isActive);
           }}
           required
-        ></input>
+        ></input></label></div>
         <button className="submit">Add New Product</button>
       </form>
     </div>

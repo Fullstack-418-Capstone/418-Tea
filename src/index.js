@@ -21,7 +21,6 @@ const App = () => {
     if (localStorage.getItem("418WhatsTeaToken") && !token) {
       const localUser = JSON.parse(localStorage.getItem("418WhatsTeaUser"));
       setToken(localStorage.getItem("418WhatsTeaToken"));
-      setUser(localUser);
       setIsAdmin(localUser.isAdmin);
     }
   }, []);
@@ -36,7 +35,6 @@ const App = () => {
             token={token}
             isAdmin={isAdmin}
             setToken={setToken}
-            setUser={setUser}
             setIsAdmin={setIsAdmin}
           />
         </header>

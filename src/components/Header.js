@@ -4,7 +4,7 @@ import Login from "./Login";
 import "./header.css";
 
 const Header = (props) => {
-  const { token, isAdmin, setToken, setUser, setIsAdmin } = props;
+  const { token, isAdmin, setToken, setIsAdmin } = props;
   const navigate = useNavigate();
 
   const handleLogOut = (event) => {
@@ -61,7 +61,6 @@ const Header = (props) => {
           </button>
         ) : (
           <Login
-            setUser={setUser}
             setIsAdmin={setIsAdmin}
             setToken={setToken}
           />

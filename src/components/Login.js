@@ -4,7 +4,7 @@ import { loginUser } from "../api/index";
 import "./login.css";
 
 const Login = (props) => {
-  const { setUser, setToken, setIsAdmin } = props;
+  const { setToken, setIsAdmin } = props;
   const [usernameString, setUsernameString] = useState("");
   const [passwordString, setPasswordString] = useState("");
   const navigate = useNavigate();
@@ -17,7 +17,6 @@ const Login = (props) => {
           usernameString,
           passwordString,
           setToken,
-          setUser,
           setIsAdmin
         );
         if (success) {

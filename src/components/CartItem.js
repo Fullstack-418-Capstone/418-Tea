@@ -81,7 +81,7 @@ const CartItem = ({
                 value={product.quantity}
                 onChange={(event) => changeQuantity(event.target.value)}>
                 <option value="0">0 (delete)</option>
-                <hr />
+                <hr/>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>

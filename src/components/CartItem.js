@@ -5,78 +5,58 @@ import "./cart.css";
 const CartItem = ({
   item,
   index,
-  setCartItems,
   token,
   setTrigger,
   trigger,
 }) => {
   const [product, setProduct] = useState({ imgurl: "tealeaf/blacktea.jpg" });
-  const getProduct = async () => {
-    const productfetch = await getProductById(item.id);
-    productfetch.imgurl ? null : (productfetch.imgurl = "tealeaf/blacktea.jpg");
-    setProduct(productfetch);
-  };
-  useEffect(() => {
-    getProduct();
-  }, []);
-  const [quantity, setQuantity] = useState(item.quantity);
+  const [updatedQuant, setUpdatedQuant] = useState(item.quantity)
+  const [firstLoad, setFirstLoad] = useState(true)
+  const [reloadItem, setReloadItem] = useState(false)
 
-  const removeFromCartButton = async (index) => {
-    if (!token) {
-      const currentCart = JSON.parse(
-        localStorage.getItem("418WhatsTeaGuestCart")
-      );
-      currentCart.splice(index, 1);
-      localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
-      setCartItems(currentCart);
-      setTrigger(!trigger);
-    } else {
-
-      await removeFromCart(token, product.id);
-      setTrigger(!trigger)
+    const buildProduct = async() => {
+        const productfetch = await getProductById(item.productId)
+        productfetch.imgurl ? null : (productfetch.imgurl = "tealeaf/blacktea.jpg");
+        firstLoad ? productfetch.quantity = item.quantity : productfetch.quantity = updatedQuant;
+        setProduct(productfetch)
     }
-  };
 
-  const quantityHandler = async () => {
-    if (token) {
-      if (product.id && quantity !== undefined) {
-        try {
-          const editedItem = await editCartQuantity(
-            token,
-            product.id,
-            quantity
-          );
-          return editedItem;
-        } catch (error) {
-          throw error;
+    useEffect(() => {
+        buildProduct();
+        setFirstLoad(false)
+    },[reloadItem])
+
+    const changeQuantity = async(num) => {
+        if (num === "0") {
+            await removeFromCartButton();
+        } else {
+            await quantityHandler(num);
         }
-      }
+        setUpdatedQuant(num)
+        setTrigger(!trigger)
+        setReloadItem(!reloadItem)
+    }
+
+    const quantityHandler = async (num) => {
+        if (token) {
+          if ( num !== undefined){await editCartQuantity (token, product.id, num)}
+        } else {
+          const currentCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
+          currentCart[index].quantity = parseInt(num);
+          localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
+        }
+    };
+
+  const removeFromCartButton = async () => {
+    if (token) {
+        await removeFromCart(token, product.id);
     } else {
-      const currentCart = JSON.parse(
-        localStorage.getItem("418WhatsTeaGuestCart")
-      );
-      !quantity ? setQuantity(item.quantity) : null
-      currentCart[index].quantity = parseInt(quantity);
+      const currentCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
+      currentCart.splice(index, 1);
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
     }
     setTrigger(!trigger)
   };
-
-  useEffect(() => {
-    setQuantity(product.quantity);
-  }, []);
-
-  const effectQuant = async()=> {
-    if (quantity === "0") {
-      await removeFromCartButton(index, product.id);
-    } else {
-      await quantityHandler(quantity, product.id);
-    }
-    setTrigger(!trigger);
-  }
-  useEffect(() => {
-    effectQuant()
-  }, [quantity]);
 
   return (
     <div>
@@ -94,12 +74,12 @@ const CartItem = ({
             <form>
               <h6 style={{ margin: 0 }}></h6>
               <label>Quantity: </label>
-              { (quantity > 9 || item.quantity > 9)? (
-                  <input type='number' value={quantity} style={{width:'78px'}} onChange={(event) => {setQuantity(event.target.value)}}></input>
+              { (product.quantity > 9)? (
+                  <input type='number' value={product.quantity} style={{width:'78px'}} onChange={(event) => {changeQuantity(event.target.value)}}></input>
               ) : (
               <select
-                value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}>
+                value={product.quantity}
+                onChange={(event) => changeQuantity(event.target.value)}>
                 <option value="0">0 (delete)</option>
                 <hr />
                 <option>1</option>
@@ -115,7 +95,7 @@ const CartItem = ({
               </select>)}
             </form>
           </div>
-          <div className="cartbutton" onClick={() => removeFromCartButton(index, product.id)}>DELETE</div>
+          <div className="cartbutton" onClick={() => removeFromCartButton()}>DELETE</div>
         </div>
       </div>
       <hr/>

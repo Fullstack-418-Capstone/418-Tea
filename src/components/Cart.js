@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
-import { getCartByUsername, getOpenCart, getProductById, placeOrder } from "../api";
+import { getOpenCart, getProductById, placeOrder } from "../api";
 import "./cart.css";
 
 const Cart = ({token}) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+     token ? getCartForUser() : getCartFromLocal();
+  }, [token, trigger]);
 
   const compareId = (a, b) => {
     if (a.productId < b.productId) {
@@ -20,38 +24,29 @@ const Cart = ({token}) => {
 
   const getCartForUser = async () => {
     const userCart = await getOpenCart(token);
-    userCart.sort(compareId)
-    setCartItems(userCart)
-    getTotal(userCart)
+    userCart.sort(compareId);
+    getTotal(userCart);
+    setCartItems([]);
+    setCartItems(userCart);
   }
 
   const getCartFromLocal = async() => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
     if (guestCart) {
-      const cartBuild = []
-      for (const item of guestCart) {
-        const cartItem = await getProductById(item.id)
-        !item.quantity ? (cartItem.quantity = 1) :(cartItem.quantity = item.quantity);
-        cartItem.productId = item.id
-        cartBuild.push(cartItem)
-      }
-      getTotal(cartBuild)
-      setCartItems(cartBuild)
+      getTotal(guestCart)
+      setCartItems(guestCart)
     }
   };
 
-  const getTotal = (array) => {
+  const getTotal = async(array) => {
     let cartTotal = 0;
     for (const item of array) {
-      let itemTotal = item.price * item.quantity;
+      const {price} = await getProductById(item.productId)
+      let itemTotal = price * item.quantity;
       cartTotal += itemTotal;
     }
     setTotal(cartTotal);
   };
-
-  useEffect(() => {
-    token ? getCartForUser() : getCartFromLocal();
-  }, [trigger]);
 
   const handlePlaceOrder = async (event) => {
     event.preventDefault();
@@ -75,7 +70,6 @@ const Cart = ({token}) => {
     alert("There was an issue placing your order");
   };
 
-
   return (
     <div>
       <h3>Total: ${total}</h3>
@@ -96,7 +90,6 @@ const Cart = ({token}) => {
               item={item}
               key={item.productId}
               index={index}
-              setCartItems={setCartItems}
               token={token}
               setTrigger={setTrigger}
               trigger={trigger}

@@ -11,7 +11,7 @@ const ProductWindow = ({ product, token }) => {
     if (token) {
       await addToCart(product.id, 1, product.price, token);
     } else {
-      const cartList = [{id:product.id}];
+      const cartList = [{productId: product.id, quantity:1}];
       const currentCart = JSON.parse(
         localStorage.getItem("418WhatsTeaGuestCart")
       );
@@ -31,7 +31,7 @@ const ProductWindow = ({ product, token }) => {
     } else{
       const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
       for(let i = 0; i< guestCart.length; i++){
-        if(guestCart[i].id === product.id){
+        if(guestCart[i].productId === product.id){
           guestCart[i].quantity = quantity+1;
           setQuantity(quantity+1)
           localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(guestCart));
@@ -40,25 +40,20 @@ const ProductWindow = ({ product, token }) => {
       }
     }
   }
+
   const getCart = async() => {
+    let cart;
     if(token){
-      const usercart = await getOpenCart(token);
-      for(let i = 0; i< usercart.length; i++){
-        if(usercart[i].productId === product.id){
-          setQuantity(usercart[i].quantity)
+      cart = await getOpenCart(token)
+    } else {
+      cart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
+    }
+    if(cart){
+      for(let i = 0; i< cart.length; i++){
+        if(cart[i].productId === product.id){
+          setQuantity(cart[i].quantity)
           setInCart(true)
-          return
-        }
-      }
-    } else{
-      const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
-      if (guestCart){
-        for(let i = 0; i< guestCart.length; i++){
-          if(guestCart[i].id === product.id){
-            setQuantity(guestCart[i].quantity)
-            setInCart(true)
-            return
-          }
+          break
         }
       }
     }

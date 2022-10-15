@@ -38,3 +38,13 @@
     cursor: pointer;
   }
 
+.cartButton{
+  background-color: #61D095;
+  color: white;
+  text-align: center;
+  font-size: small;
+  padding-bottom: 1;
+  width: 55;
+  border: #61D095;
+  border-radius: 3px;
+}

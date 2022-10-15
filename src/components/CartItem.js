@@ -74,19 +74,37 @@ const CartItem = ({
     }
     setTrigger(!trigger)
   };
-  useEffect(() => {
-    if (quantity === "0") {
-      removeFromCartButton(index, product.id);
-    } else {
-      quantityHandler(quantity, product.id);
-    }
-  }, [quantity]);
+  // useEffect(() => {
+  //   console.log('firing4')
+  //   if (quantity === "0") {
+  //     removeFromCartButton(index, product.id);
+  //   } else {
+  //     quantityHandler(quantity, product.id);
+  //   }
+  // }, [quantity]);
   useEffect(() => {
     setQuantity(product.quantity);
   }, []);
+  // useEffect(()=> {
+  //   console.log('firing2')
+  //   setTrigger(!trigger);
+  // },[quantity])
+  const effectQuant = async()=> {
+    console.log('firing4')
+    if (quantity === "0") {
+      await removeFromCartButton(index, product.id);
+    } else {
+      await quantityHandler(quantity, product.id);
+    }
+    setTrigger(!trigger);
+  }
+  useEffect(() => {
+    effectQuant()
+  }, [quantity]);
 
   return (
     <div className="productWindow">
+      <button onClick={() => {console.log(quantity, item.quantity)}}>help</button>
       <img
         src={require(`../assets/${product.imgurl}`)}
         style={{ height: "115px", width: "115px" }}
@@ -103,11 +121,15 @@ const CartItem = ({
       <form>
         <h6 style={{ margin: 0 }}></h6>
         <label>Quantity: </label>
+        { (quantity > 9 || item.quantity > 9)? (
+            <input type='number' value={quantity} style={{width:'78px'}} onChange={(event) => {setQuantity(event.target.value)}}></input>
+        )
+        : (
         <select
           value={quantity}
           onChange={(event) => setQuantity(event.target.value)}
         >
-          Qty: {quantity}
+          {/* //Qty: {quantity} */}
           <option value="0">0 (delete)</option>
           <hr />
           <option>1</option>
@@ -119,8 +141,8 @@ const CartItem = ({
           <option>7</option>
           <option>8</option>
           <option>9</option>
-          <option>10+</option>
-        </select>
+          <option value='10'>10+</option>
+        </select>)}
         <br />
         {/* <input
           type="number"
@@ -141,7 +163,7 @@ const CartItem = ({
       </form>
       <br />
       <br />
-      <div onClick={() => removeFromCartButton(index, product.id)}>Delete</div>
+      <div className="cartbutton" onClick={() => removeFromCartButton(index, product.id)}>DELETE</div>
       {/* <button
         className="remove"
         onClick={() => removeFromCartButton(index, product.id)}

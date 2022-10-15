@@ -23,11 +23,31 @@ const Cart = ({ token, user }) => {
   //     setCartItems(productList);
   //   }
   // };
+  const compareName = (a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    } else if (a.name > b.name) {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
+
+  const compareId = (a, b) => {
+    if (a.productId < b.productId) {
+      return -1;
+    } else if (a.productId > b.productId) {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
 
   const getCartForUser = async () => {
     const userCart = await getOpenCart(token);
-    // console.log('setting user cart to', userCart)
+    userCart.sort(compareId)
     setCartItems(userCart)
+    getTotal(userCart)
   }
 
   const getCartFromLocal = () => {
@@ -43,26 +63,29 @@ const Cart = ({ token, user }) => {
         cartItem.productId = item.id
         cartBuild.push(cartItem)
       }
-      // console.log('guest cart is', cartBuild)
+      cartBuild.sort(compareId)
+      getTotal(cartBuild)
       setCartItems(cartBuild)
-      // setCartItems(guestCart);
     }
   };
 
-  const getTotal = () => {
+  const getTotal = (array) => {
+    console.log('running total')
+    console.log(array)
     let cartTotal = 0;
-    for (const item of cartItems) {
+    for (const item of array) {
       let itemTotal = item.price * item.quantity;
       cartTotal += itemTotal;
     }
+    console.log(cartTotal)
     setTotal(cartTotal);
   };
-  useEffect(() => {
-    getTotal();
-  },[cartItems])
+  // useEffect(() => {
+  //   getTotal(cartItems);
+  // },[cartItems])
 
   useEffect(() => {
-    // console.log('triggered')
+    console.log('triggered')
     token ? getCartForUser() : getCartFromLocal();
   }, [trigger]);
 

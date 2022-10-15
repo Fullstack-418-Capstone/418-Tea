@@ -27,16 +27,23 @@ const ProductWindow = ({ product, token }) => {
   };
   const increaseQuantity = async() => {
     if (token){
-      await editCartQuantity(token, product.id, newQuantity())
+      await editCartQuantity(token, product.id, quantity+1)
+      setQuantity(quantity+1)
+      return
     } else{
       //fetch from local cart
+      const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
+      for(let i = 0; i< guestCart.length; i++){
+        if(guestCart[i].id === product.id){
+          guestCart[i].quantity = quantity+1;
+          setQuantity(quantity+1)
+          localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(guestCart));
+          return
+        }
+      }
     }
-    setQuantity(quantity+1)
   }
 
-  const newQuantity = () => {
-    return (quantity+1)
-  }
 
   const getCart = async() => {
     if(token){
@@ -50,6 +57,14 @@ const ProductWindow = ({ product, token }) => {
       }
     } else{
       //fetch from local cart
+      const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
+      for(let i = 0; i< guestCart.length; i++){
+        if(guestCart[i].id === product.id){
+          setQuantity(guestCart[i].quantity)
+          setInCart(true)
+          return
+        }
+      }
     }
   }
 
@@ -59,7 +74,6 @@ const ProductWindow = ({ product, token }) => {
 
   return (
     <div className="productWindow">
-      <button onClick={() =>{console.log(inCart)}}>Helper</button>
       <div id="productTitle" className="productDiv">
         {product.name}
       </div>
@@ -84,7 +98,7 @@ const ProductWindow = ({ product, token }) => {
           onClick={() => {
             increaseQuantity();
           }}
-        >In Cart</button>) :(
+        >{quantity} In Cart</button>) :(
           <button
           className="add"
           onClick={() => {

@@ -58,11 +58,13 @@ const ProductWindow = ({ product, token }) => {
     } else{
       //fetch from local cart
       const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
-      for(let i = 0; i< guestCart.length; i++){
-        if(guestCart[i].id === product.id){
-          setQuantity(guestCart[i].quantity)
-          setInCart(true)
-          return
+      if (guestCart){
+        for(let i = 0; i< guestCart.length; i++){
+          if(guestCart[i].id === product.id){
+            setQuantity(guestCart[i].quantity)
+            setInCart(true)
+            return
+          }
         }
       }
     }

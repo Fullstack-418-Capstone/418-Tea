@@ -56,3 +56,10 @@ body {
     justify-content: space-between;
     margin-top: auto;
 }
+
+
+.buttonBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  };

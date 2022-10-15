@@ -31,11 +31,6 @@ const TeaLeaf = ({token}) => {
         filterProducts(allActiveProducts)
     },[filterWord])
 
-    const buttonBar = {
-        display:'flex',
-        flexDirection:'row',
-        justifyContent:"center"
-    }
     const productsMap = {
         display:'flex',
         flexDirection:'row',
@@ -44,14 +39,14 @@ const TeaLeaf = ({token}) => {
     }
     return(
         <div>
-            <div id='filters' style={buttonBar}>
+            <div className="buttonBar">
                 <FilterButton filter='tea' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
                 <FilterButton filter='bagged' setFilterWord={setFilterWord} title = {"TEA BAGS"}></FilterButton>
                 <FilterButton filter='loose' setFilterWord={setFilterWord} title = {"LOOSE LEAF"}></FilterButton>
             </div>
             <div style={productsMap}>
                 {tea[0] ?
-                tea.map((product,index) => {
+                tea.map((product) => {
                     return (
                         <ProductWindow key = {product.id} product={product} token={token} ></ProductWindow>
                     )

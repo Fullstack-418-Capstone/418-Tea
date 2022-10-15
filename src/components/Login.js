@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/index";
 import "./login.css";
 
-const Login = (props) => {
-  const { setToken, setIsAdmin } = props;
+const Login = ({ setToken, setIsAdmin }) => {
   const [usernameString, setUsernameString] = useState("");
   const [passwordString, setPasswordString] = useState("");
   const navigate = useNavigate();
@@ -23,9 +22,7 @@ const Login = (props) => {
           setUsernameString("");
           setPasswordString("");
           navigate("/");
-        }
-
-        if (!success) {
+        } else {
           alert("Incorrect username or password.");
         }
       }}

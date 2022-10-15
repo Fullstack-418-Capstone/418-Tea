@@ -4,8 +4,6 @@ import AdminSingleUserView from "./AdminSingleUserView";
 const SingleUserViewHandler = ({user}) => {
     const [edit, setEdit] = useState(false);
 
-
-
     return (
         <div>
             {edit ? <>time to editUser</> : <AdminSingleUserView

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { addNewProduct } from "../../api/index";
 
 const AdminAddProductPage = () => {
-  //const [newProduct, setNewProduct] = useState([]);
   const [name, setName] = useState("");
   const [imgurl, setImgurl] = useState("");
   const [description, setDescription] = useState("");
@@ -14,8 +13,6 @@ const AdminAddProductPage = () => {
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
-    console.log("HELLOOOO");
-    console.log(name, imgurl, description, stock, price, unit, type, isActive);
     await addNewProduct(
       name,
       description,
@@ -104,16 +101,18 @@ const AdminAddProductPage = () => {
           required
         ></input>
         <div style={{display:'flex', justifyContent:'center'}}>
-        <label>Active
-        <input
-          
-          checked={isActive}
-          type="checkbox"
-          onChange={() => {
-            setIsActive(!isActive);
-          }}
-          required
-        ></input></label></div>
+          <label>Active
+            <input
+              
+              checked={isActive}
+              type="checkbox"
+              onChange={() => {
+                setIsActive(!isActive);
+              }}
+              required>
+            </input>
+          </label>
+        </div>
         <button className="submit">Add New Product</button>
       </form>
     </div>

@@ -5,13 +5,11 @@ import "./productwindow.css";
 const ProductWindow = ({ product, token }) => {
   product.imgurl ? null : (product.imgurl = "tealogo150.png");
   const [inCart, setInCart] = useState(false);
-  const [cartItem, setCartItem] = useState([]);
   const [quantity, setQuantity] = useState(0);
 
   const addItem = async () => {
     if (token) {
-      const cartList = await addToCart(product.id, 1, product.price, token);
-      // return cartList;
+      await addToCart(product.id, 1, product.price, token);
     } else {
       const cartList = [{id:product.id}];
       const currentCart = JSON.parse(
@@ -31,7 +29,6 @@ const ProductWindow = ({ product, token }) => {
       setQuantity(quantity+1)
       return
     } else{
-      //fetch from local cart
       const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
       for(let i = 0; i< guestCart.length; i++){
         if(guestCart[i].id === product.id){
@@ -43,8 +40,6 @@ const ProductWindow = ({ product, token }) => {
       }
     }
   }
-
-
   const getCart = async() => {
     if(token){
       const usercart = await getOpenCart(token);
@@ -56,7 +51,6 @@ const ProductWindow = ({ product, token }) => {
         }
       }
     } else{
-      //fetch from local cart
       const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"))
       if (guestCart){
         for(let i = 0; i< guestCart.length; i++){
@@ -100,7 +94,7 @@ const ProductWindow = ({ product, token }) => {
           onClick={() => {
             increaseQuantity();
           }}
-        >{quantity} In Cart</button>) :(
+        >{quantity} In Cart</button>) : (
           <button
           className="add"
           onClick={() => {

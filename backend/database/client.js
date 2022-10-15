@@ -4,8 +4,6 @@ const connectionString =
   process.env.DATABASE_URL || "https://localhost:5432/whats-tea";
 
 
-  // const client = new Pool ("postgres://localhost:5432/whats-tea");
-
 const client = new Pool({
   connectionString,
   ssl:
@@ -13,6 +11,5 @@ const client = new Pool({
       ? { rejectUnauthorized: false }
       : undefined ,
 });
-
 
 module.exports = client;

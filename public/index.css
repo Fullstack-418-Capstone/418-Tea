@@ -19,8 +19,6 @@ body {
     min-width: 1148;
 }
 
-
-
 .productWindow {
     display: flex;
     flex-direction: column;
@@ -56,7 +54,6 @@ body {
     justify-content: space-between;
     margin-top: auto;
 }
-
 
 .buttonBar {
     display: flex;

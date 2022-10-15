@@ -5,8 +5,6 @@ import AdminSingleProductView from "./AdminSingleProductView";
 const SingleProductViewHandler = ({token, product, edits, setEdits}) => {
     const [edit, setEdit] = useState(false);
 
-
-
     return (
         <div>
             {edit ? <AdminSingleProductEditView

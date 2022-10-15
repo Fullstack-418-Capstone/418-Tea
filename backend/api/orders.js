@@ -46,7 +46,7 @@ router.get("/cart/:userid", async (req, res, next) => {
 });
 
 //GET ORDERS by user id
-router.get("/order/:userId", async (req, res, next) => {
+router.get("/userOrder", async (req, res, next) => {
   const { id: userId } = req.user;
   try {
     const ordersToReturn = [];
@@ -66,8 +66,14 @@ router.get("/order/:userId", async (req, res, next) => {
 });
 
 //PATCH edit orders -- decided we did not need this
-router.patch("/placeorder/:userId", async (req, res, next) => {
-  const { userId } = req.params;
+router.patch("/placeorder", async (req, res, next) => {
+  let userId;
+  if(req.user){
+    const { id } = req.user
+    userId = id
+  } else {
+   userId = 3
+  }
   const { cartItems } = req.body;
   try {
     if(!req.user) {

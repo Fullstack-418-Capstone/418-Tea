@@ -18,7 +18,9 @@ const CartItem = ({
 }) => {
   const [product, setProduct] = useState({ imgurl: "tealeaf/blacktea.jpg" });
   const getProduct = async () => {
-    const productfetch = await getProductById(item.productId);
+    // console.log('running getproduct', item)
+    // item.productId ? null : item.productId = item.id
+    const productfetch = await getProductById(item.id);
     productfetch.imgurl ? null : (productfetch.imgurl = "tealeaf/blacktea.jpg");
     setProduct(productfetch);
   };
@@ -34,7 +36,7 @@ const CartItem = ({
       );
       currentCart.splice(index, 1);
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
-      ds(currentCart);
+      setCartItems(currentCart);
       setTrigger(!trigger);
     } else {
       // const removedItem = await removeFromCart(token, product.id);

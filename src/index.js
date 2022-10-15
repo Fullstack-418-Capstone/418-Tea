@@ -16,7 +16,6 @@ import {
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState("");
-  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (localStorage.getItem("418WhatsTeaToken") && !token) {
@@ -54,10 +53,10 @@ const App = () => {
                 <TeaWare token={token}></TeaWare>
               }></Route>
               <Route path='/cart' element = {
-                <Cart token={token} user={user} ></Cart>
+                <Cart token={token}></Cart>
               }></Route>
               <Route path='/profile' element = {
-                <Profile token={token} user={user} ></Profile>
+                <Profile token={token}></Profile>
               }></Route>
               <Route path='/admin' element = {
                 <AdminPage token={token} isAdmin={isAdmin}></AdminPage>

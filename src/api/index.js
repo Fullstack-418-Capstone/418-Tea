@@ -244,9 +244,9 @@ const editCartQuantity = async (token, productId, quantity) => {
   }
 };
 
-const placeOrder = async (cartItems, token, userId = 3) => {
+const placeOrder = async (cartItems, token) => {
   try {
-    const response = await fetch(`${BASE_URL}/orders/placeorder/${userId}`, {
+    const response = await fetch(`${BASE_URL}/orders/placeorder`, {
       method: "PATCH",
       headers: token
         ? {
@@ -262,6 +262,18 @@ const placeOrder = async (cartItems, token, userId = 3) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+const showOrders = async (token) => {
+  const response = await fetch(`${BASE_URL}/orders/userOrder`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
 };
 
 const editUserInformation = async (token, firstname, lastname, password) => {
@@ -378,4 +390,5 @@ export {
   placeOrder,
   updateProduct,
   addNewProduct,
+  showOrders
 };

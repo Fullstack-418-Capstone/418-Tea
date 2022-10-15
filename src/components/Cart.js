@@ -3,35 +3,10 @@ import CartItem from "./CartItem";
 import { getCartByUsername, getOpenCart, getProductById, placeOrder } from "../api";
 import "./cart.css";
 
-const Cart = ({ token, user }) => {
+const Cart = ({token}) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [trigger, setTrigger] = useState(false);
-
-
-  // const getCartForUser = async (username) => {
-  //   const userCart = await getCartByUsername(username);
-  //   console.log('user cart is', userCart)
-  //   if (userCart) {
-  //     const productList = [];
-  //     for (const item of userCart) {
-  //       const productInfo = await getProductById(item.productId);
-  //       productInfo.quantity = item.quantity;
-  //       productList.push(productInfo);
-  //     }
-  //     console.log('setting cart to', productList)
-  //     setCartItems(productList);
-  //   }
-  // };
-  const compareName = (a, b) => {
-    if (a.name < b.name) {
-      return -1;
-    } else if (a.name > b.name) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
 
   const compareId = (a, b) => {
     if (a.productId < b.productId) {
@@ -52,21 +27,14 @@ const Cart = ({ token, user }) => {
 
   const getCartFromLocal = async() => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
-    // console.log('guestCart is', guestCart)
     if (guestCart) {
       const cartBuild = []
       for (const item of guestCart) {
         const cartItem = await getProductById(item.id)
-        //  console.log('item is', item)
-        //  console.log('api call is', cartItem)
         !item.quantity ? (cartItem.quantity = 1) :(cartItem.quantity = item.quantity);
-        // cartItem.price = apiProduct.price
         cartItem.productId = item.id
         cartBuild.push(cartItem)
       }
-      // console.log(guestCart)
-      // console.log('cartbuild', cartBuild)
-      // cartBuild.sort(compareId)
       getTotal(cartBuild)
       setCartItems(cartBuild)
     }
@@ -80,9 +48,6 @@ const Cart = ({ token, user }) => {
     }
     setTotal(cartTotal);
   };
-  // useEffect(() => {
-  //   getTotal(cartItems);
-  // },[cartItems])
 
   useEffect(() => {
     token ? getCartForUser() : getCartFromLocal();
@@ -91,7 +56,7 @@ const Cart = ({ token, user }) => {
   const handlePlaceOrder = async (event) => {
     event.preventDefault();
     if (token) {
-      const submittedOrder = await placeOrder(cartItems, token, user.id);
+      const submittedOrder = await placeOrder(cartItems, token);
       if (submittedOrder) {
         setTrigger(!trigger);
         alert("Thank you for your purchase.");

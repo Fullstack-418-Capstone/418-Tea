@@ -34,7 +34,7 @@ const CartItem = ({
       );
       currentCart.splice(index, 1);
       localStorage.setItem("418WhatsTeaGuestCart", JSON.stringify(currentCart));
-      setCartItems(currentCart);
+      ds(currentCart);
       setTrigger(!trigger);
     } else {
       // const removedItem = await removeFromCart(token, product.id);
@@ -90,7 +90,6 @@ const CartItem = ({
   //   setTrigger(!trigger);
   // },[quantity])
   const effectQuant = async()=> {
-    console.log('firing4')
     if (quantity === "0") {
       await removeFromCartButton(index, product.id);
     } else {
@@ -104,7 +103,6 @@ const CartItem = ({
 
   return (
     <div className="productWindow">
-      <button onClick={() => {console.log(quantity, item.quantity)}}>help</button>
       <img
         src={require(`../assets/${product.imgurl}`)}
         style={{ height: "115px", width: "115px" }}

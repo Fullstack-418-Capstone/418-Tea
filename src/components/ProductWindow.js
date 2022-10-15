@@ -13,7 +13,7 @@ const ProductWindow = ({ product, token }) => {
       const cartList = await addToCart(product.id, 1, product.price, token);
       // return cartList;
     } else {
-      const cartList = [product];
+      const cartList = [{id:product.id}];
       const currentCart = JSON.parse(
         localStorage.getItem("418WhatsTeaGuestCart")
       );

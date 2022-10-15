@@ -50,34 +50,34 @@ const Cart = ({ token, user }) => {
     getTotal(userCart)
   }
 
-  const getCartFromLocal = () => {
+  const getCartFromLocal = async() => {
     const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
+    // console.log('guestCart is', guestCart)
     if (guestCart) {
       const cartBuild = []
       for (const item of guestCart) {
-        const cartItem = {}
-        // console.log('item is', item)
-        
+        const cartItem = await getProductById(item.id)
+        //  console.log('item is', item)
+        //  console.log('api call is', cartItem)
         !item.quantity ? (cartItem.quantity = 1) :(cartItem.quantity = item.quantity);
-        cartItem.price = item.price
+        // cartItem.price = apiProduct.price
         cartItem.productId = item.id
         cartBuild.push(cartItem)
       }
-      cartBuild.sort(compareId)
+      // console.log(guestCart)
+      // console.log('cartbuild', cartBuild)
+      // cartBuild.sort(compareId)
       getTotal(cartBuild)
       setCartItems(cartBuild)
     }
   };
 
   const getTotal = (array) => {
-    console.log('running total')
-    console.log(array)
     let cartTotal = 0;
     for (const item of array) {
       let itemTotal = item.price * item.quantity;
       cartTotal += itemTotal;
     }
-    console.log(cartTotal)
     setTotal(cartTotal);
   };
   // useEffect(() => {
@@ -85,7 +85,6 @@ const Cart = ({ token, user }) => {
   // },[cartItems])
 
   useEffect(() => {
-    console.log('triggered')
     token ? getCartForUser() : getCartFromLocal();
   }, [trigger]);
 
@@ -110,6 +109,7 @@ const Cart = ({ token, user }) => {
     }
     alert("There was an issue placing your order");
   };
+
 
   return (
     <div>

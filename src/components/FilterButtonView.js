@@ -18,7 +18,6 @@ const FilterButton = ({ filter, setFilterWord, title }) => {
     } else if (filter === "ware") {
       setFilterWord(["cup", "set", "pot"]);
     } else {
-      console.log("setting filter to", filter);
       setFilterWord(filter);
     }
   };

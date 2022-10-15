@@ -9,7 +9,6 @@ const AdminUsersPage = () => {
 
     const setGatheredUsers = async() =>{
         const gatheredUsers = await getAllUsers();
-        console.log('GATHERED USERS ', gatheredUsers )
         setAllUsers(gatheredUsers);
     }
 

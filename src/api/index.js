@@ -371,43 +371,6 @@ const addNewProduct = async (
   }
 };
 
-const addNewProduct = async (
-  name,
-  description,
-  stock,
-  price,
-  unit,
-  type,
-  isActive,
-  imgurl
-) => {
-  try {
-    console.log(name, imgurl, description, stock, price, unit, type, isActive);
-    const response = await fetch(`${BASE_URL}/products/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        //Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        name,
-        imgurl,
-        description,
-        stock,
-        price,
-        unit,
-        type,
-        isActive,
-      }),
-    });
-    const data = await response.json();
-    console.log("DATAAAAA", data);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
-
 export {
   getAllProducts,
   getAllActiveProducts,

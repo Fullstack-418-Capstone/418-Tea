@@ -106,7 +106,6 @@ const Cart = ({token}) => {
       ) : (
         <p>No items in cart</p>
       )}
-      <hr />
     </div>
   );
 };

@@ -1,36 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { editUserInformation } from "../api";
+import { editUserInformation, showOrders } from "../api";
 import PastOrderView from "./PastOrderView";
 import "./profileview.css";
 
-const Profile = ({ user, token }) => {
+const Profile = ({ token }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [orders, setOrders] = useState([]);
 
-  const BASE_URL = "http://localhost:3001/api";
-
   useEffect(() => {
     const fetchOrders = async () => {
-      const results = await showOrders(user.id);
+      const results = await showOrders(token);
       setOrders(results);
     };
     fetchOrders();
   }, [token]);
-
-  const showOrders = async (userid) => {
-    const response = await fetch(`${BASE_URL}/orders/order/${userid}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    return data;
-  };
 
   const HandleChanges = async (event) => {
     event.preventDefault();

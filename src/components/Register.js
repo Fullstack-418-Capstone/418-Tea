@@ -18,9 +18,6 @@ const Register = () => {
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
-
-    //console.log line 97 on src index to check address 2
-
     {
       password == confirmPassword
         ? await registerUser(

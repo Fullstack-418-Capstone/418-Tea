@@ -8,7 +8,6 @@ const TeaLeaf = ({token}) => {
     const [filterWord, setFilterWord] = useState(["loose", "bagged"])
     const [allActiveProducts, setAllActiveProducts] = useState([]);
 
-
     const getAll = async() => {
         const allproduct = await getAllActiveProducts();
         setAllActiveProducts(allproduct)
@@ -31,11 +30,6 @@ const TeaLeaf = ({token}) => {
         filterProducts(allActiveProducts)
     },[filterWord])
 
-    const buttonBar = {
-        display:'flex',
-        flexDirection:'row',
-        justifyContent:"center"
-    }
     const productsMap = {
         display:'flex',
         flexDirection:'row',
@@ -44,16 +38,16 @@ const TeaLeaf = ({token}) => {
     }
     return(
         <div>
-            <div id='filters' style={buttonBar}>
+            <div className="buttonBar">
                 <FilterButton filter='tea' setFilterWord={setFilterWord} title = {"ALL"}></FilterButton>
                 <FilterButton filter='bagged' setFilterWord={setFilterWord} title = {"TEA BAGS"}></FilterButton>
                 <FilterButton filter='loose' setFilterWord={setFilterWord} title = {"LOOSE LEAF"}></FilterButton>
             </div>
             <div style={productsMap}>
                 {tea[0] ?
-                tea.map((product,index) => {
+                tea.map((product) => {
                     return (
-                        <ProductWindow key = {index} product={product} token={token} ></ProductWindow>
+                        <ProductWindow key = {product.id} product={product} token={token} ></ProductWindow>
                     )
                 })
                 : <>Out of Stock!</>

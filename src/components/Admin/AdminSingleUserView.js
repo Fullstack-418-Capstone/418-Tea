@@ -2,9 +2,6 @@ import React from 'react';
 
 const AdminSingleUserView = ({user}) => {
 
-
-
-
     return(
     <>
         <>Username: {user.username}</>
@@ -18,7 +15,6 @@ const AdminSingleUserView = ({user}) => {
         <>Active User?: {user.isActive? 'Yes' : 'No'}</>
         <hr/>
     </>
-
     )
 }
 export default AdminSingleUserView

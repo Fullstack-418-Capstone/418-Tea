@@ -16,13 +16,11 @@ import {
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState("");
-  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (localStorage.getItem("418WhatsTeaToken") && !token) {
       const localUser = JSON.parse(localStorage.getItem("418WhatsTeaUser"));
       setToken(localStorage.getItem("418WhatsTeaToken"));
-      setUser(localUser);
       setIsAdmin(localUser.isAdmin);
     }
   }, []);
@@ -37,7 +35,6 @@ const App = () => {
             token={token}
             isAdmin={isAdmin}
             setToken={setToken}
-            setUser={setUser}
             setIsAdmin={setIsAdmin}
           />
         </header>
@@ -54,10 +51,10 @@ const App = () => {
                 <TeaWare token={token}></TeaWare>
               }></Route>
               <Route path='/cart' element = {
-                <Cart token={token} user={user} ></Cart>
+                <Cart token={token}></Cart>
               }></Route>
               <Route path='/profile' element = {
-                <Profile token={token} user={user} ></Profile>
+                <Profile token={token}></Profile>
               }></Route>
               <Route path='/admin' element = {
                 <AdminPage token={token} isAdmin={isAdmin}></AdminPage>

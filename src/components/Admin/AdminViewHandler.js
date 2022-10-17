@@ -7,14 +7,9 @@ import AdminAddProductPage from "./AdminAddProductPage";
 const AdminViewHandler = ({ token }) => {
   const [tab, setTab] = useState("products");
 
-  const buttonBar = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  };
   return (
     <div>
-      <div style={buttonBar}>
+      <div className="buttonBar">
         <FilterButton
           filter="products"
           setFilterWord={setTab}

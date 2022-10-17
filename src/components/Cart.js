@@ -1,75 +1,57 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
-import { getCartByUsername, getOpenCart, getProductById, placeOrder } from "../api";
+import { getOpenCart, getProductById, placeOrder } from "../api";
 import "./cart.css";
 
-const Cart = ({ token, user }) => {
+const Cart = ({token}) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [trigger, setTrigger] = useState(false);
 
+  useEffect(() => {
+     token ? getCartForUser() : getCartFromLocal();
+  }, [token, trigger]);
 
-  // const getCartForUser = async (username) => {
-  //   const userCart = await getCartByUsername(username);
-  //   console.log('user cart is', userCart)
-  //   if (userCart) {
-  //     const productList = [];
-  //     for (const item of userCart) {
-  //       const productInfo = await getProductById(item.productId);
-  //       productInfo.quantity = item.quantity;
-  //       productList.push(productInfo);
-  //     }
-  //     console.log('setting cart to', productList)
-  //     setCartItems(productList);
-  //   }
-  // };
-
-  const getCartForUser = async () => {
-    const userCart = await getOpenCart(token);
-    // console.log('setting user cart to', userCart)
-    setCartItems(userCart)
-  }
-
-  const getCartFromLocal = () => {
-    const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
-    if (guestCart) {
-      const cartBuild = []
-      for (const item of guestCart) {
-        const cartItem = {}
-        // console.log('item is', item)
-        
-        !item.quantity ? (cartItem.quantity = 1) :(cartItem.quantity = item.quantity);
-        cartItem.price = item.price
-        cartItem.productId = item.id
-        cartBuild.push(cartItem)
-      }
-      // console.log('guest cart is', cartBuild)
-      setCartItems(cartBuild)
-      // setCartItems(guestCart);
+  const compareId = (a, b) => {
+    if (a.productId < b.productId) {
+      return -1;
+    } else if (a.productId > b.productId) {
+      return 1;
+    } else {
+      return 0;
     }
   };
 
-  const getTotal = () => {
+  const getCartForUser = async () => {
+    const userCart = await getOpenCart(token);
+    userCart.sort(compareId);
+    getTotal(userCart);
+    setCartItems([]);
+    setCartItems(userCart);
+  }
+
+  const getCartFromLocal = async() => {
+    const guestCart = JSON.parse(localStorage.getItem("418WhatsTeaGuestCart"));
+    if (guestCart) {
+      getTotal(guestCart)
+      setCartItems(guestCart)
+    }
+  };
+
+  const getTotal = async(array) => {
     let cartTotal = 0;
-    for (const item of cartItems) {
-      let itemTotal = item.price * item.quantity;
+    for (const item of array) {
+      const {price} = await getProductById(item.productId)
+      let itemTotal = price * item.quantity;
       cartTotal += itemTotal;
     }
     setTotal(cartTotal);
   };
-  useEffect(() => {
-    getTotal();
-  },[cartItems])
-
-  useEffect(() => {
-    // console.log('triggered')
-    token ? getCartForUser() : getCartFromLocal();
-  }, [trigger]);
 
   const handlePlaceOrder = async (event) => {
     event.preventDefault();
     if (token) {
-      const submittedOrder = await placeOrder(cartItems, token, user.id);
+      const submittedOrder = await placeOrder(cartItems, token);
       if (submittedOrder) {
         setTrigger(!trigger);
         alert("Thank you for your purchase.");
@@ -106,9 +88,8 @@ const Cart = ({ token, user }) => {
           return (
             <CartItem
               item={item}
-              key={index}
+              key={item.productId}
               index={index}
-              setCartItems={setCartItems}
               token={token}
               setTrigger={setTrigger}
               trigger={trigger}
@@ -118,7 +99,6 @@ const Cart = ({ token, user }) => {
       ) : (
         <p>No items in cart</p>
       )}
-      <hr />
     </div>
   );
 };

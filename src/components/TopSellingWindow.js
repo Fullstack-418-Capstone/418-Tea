@@ -51,10 +51,10 @@ const TopSellingWindow = ({token}) => {
         <div>
             <div style={topSellingStyle}>
                 {topFive[0] ? 
-                topFive.map((product, i) => {
+                topFive.map((product) => {
                     return(
                         <ProductWindow
-                        key={i}
+                        key = {product.id}
                         token={token}
                         product={product}></ProductWindow>
                     )

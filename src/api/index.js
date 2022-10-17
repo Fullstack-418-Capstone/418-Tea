@@ -1,7 +1,7 @@
 // for all API call functions
 const BASE_URL = "http://localhost:3001/api";
 
-const loginUser = async (username, password, setToken, setUser, setIsAdmin) => {
+const loginUser = async (username, password, setToken, setIsAdmin) => {
   let success;
 
   try {
@@ -20,7 +20,6 @@ const loginUser = async (username, password, setToken, setUser, setIsAdmin) => {
     if (data.token) {
       delete data.user.password;
       setToken(data.token);
-      setUser(data.user);
       setIsAdmin(data.user.isAdmin);
       localStorage.setItem("418WhatsTeaToken", data.token);
       localStorage.setItem("418WhatsTeaUser", JSON.stringify(data.user));
@@ -244,9 +243,9 @@ const editCartQuantity = async (token, productId, quantity) => {
   }
 };
 
-const placeOrder = async (cartItems, token, userId = 3) => {
+const placeOrder = async (cartItems, token) => {
   try {
-    const response = await fetch(`${BASE_URL}/orders/placeorder/${userId}`, {
+    const response = await fetch(`${BASE_URL}/orders/placeorder`, {
       method: "PATCH",
       headers: token
         ? {
@@ -262,6 +261,18 @@ const placeOrder = async (cartItems, token, userId = 3) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+const showOrders = async (token) => {
+  const response = await fetch(`${BASE_URL}/orders/userOrder`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
 };
 
 const editUserInformation = async (token, firstname, lastname, password) => {
@@ -354,7 +365,6 @@ const addNewProduct = async (
       }),
     });
     const data = await response.json();
-    console.log("DATAAAAA", data);
     return data;
   } catch (error) {
     throw error;
@@ -378,4 +388,5 @@ export {
   placeOrder,
   updateProduct,
   addNewProduct,
+  showOrders
 };

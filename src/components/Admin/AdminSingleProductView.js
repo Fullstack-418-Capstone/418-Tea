@@ -2,15 +2,12 @@
 import React from 'react';
 import "./AdminSingleProductView.css"
 
-const AdminSingleProductView = ({setEdit, product}) => {
-    
+const AdminSingleProductView = ({setEdit, product}) => {  
     product.imgurl ? null : product.imgurl = 'tealogo150.png'
     
     const handleEditButton = () => {
         setEdit(true)
     }
-
-
 
     return(
         <div>

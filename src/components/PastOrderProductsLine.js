@@ -17,7 +17,7 @@ const PastOrderLine = ({ item }) => {
   return (
     <div className="design">
       <div>{product.name}</div>
-      <div>{item.price}</div>
+      <div>${item.price}</div>
       <img
         src={require(`../assets/${product.imgurl}`)}
         style={{ height: "100px", width: "100px" }}
